@@ -16,32 +16,31 @@
         }
 
         .adContainer {
-            width: 300px;
-            height: 250px;
+            width: 728px;
+            height: 90px;
             border: 1px solid #D0D0D0;
             background-color: #ffffff;
-            padding: 5px;
-            /* box-sizing: border-box; */
             position: relative;
-            cursor: pointer; 
-        }
-        .txtContainer{
+            cursor: pointer;
+            /* overflow: hidden; */
             display: flex;
-            height: 80%;
 
         }
+
 
         .adContainer:hover .btn {
-            background-color: rgb(238, 167, 35);
-            -moz-transform: scale(1);
-                -webkit-transform: scale(1);
-                transform: scale(1.1);
+            display: block;
+            bottom: 0;
+            opacity: 1;
+
+            /* transform: scale(1.1); */
+
         }
 
         .adContainer:hover .adImg {
             -moz-transform: scale(1);
-                -webkit-transform: scale(1);
-                transform: scale(1.08);
+            -webkit-transform: scale(1);
+            transform: scale(1.02);
         }
 
         .adDes {
@@ -52,36 +51,30 @@
             color: #555;
         }
 
-        .img{
-            width: 60%;
+        .img {
+            width: 20%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
+
         .adImg {
             width: 100%;
-            height: 80%;
-            /* height: auto; */
+            height: 100%;
             border: 0;
-            border-radius: 20%;
             transition: 0.2s ease-in;
         }
 
         .textContainer {
-            width: 40%;
+            width: 80%;
             padding: 0px 5px 0px 5px;
+
         }
 
         .sponsore {
-            /* width: 100%; */
-            /* height: 18px; */
-            /* float: left; */
-            /* text-align: left; */
             font-size: 13px;
-            /* line-height: 14px; */
             color: #555;
-            text-align: center;
-            margin-top: 10px;
 
         }
 
@@ -89,18 +82,16 @@
             width: 210px;
             font-size: 14px;
             line-height: 1.4em;
-            height:auto;
-            font-weight: bold;
+            height: auto;
             color: #000;
             margin-bottom: 3px;
-            min-height:38px;
+            min-height: 38px;
         }
 
         .oneLineEllipsis {
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            height: 150px;
         }
 
         .mutipleLineEllipsis {
@@ -112,40 +103,55 @@
         }
 
         .btn {
-            border-radius: 10px;
-            box-sizing: border-box;
-            padding: 4px 5px;
+            opacity: 0;
             position: absolute;
-            right: 8px;
-            bottom:5px;
-            font-size: 13px;
-            color: #fff;
-            letter-spacing: 1px;
-            background-color: #333;
-            transition-property: all;
-            transition-duration: 0.7s;
+            bottom: -20px;
+            left: 60%;
+            transform: translateX(-50%);
+            background-color: cadetblue;
+            width: 80%;
+            height: 45px;
+            clip-path: ellipse(50% 100% at 50% 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 5px;
+            overflow: hidden;
+            transition: opacity 1s, bottom 1s;
+
         }
 
+
+        .btn span {
+            font-size: 13px;
+            color: #fff;
+            display: block;
+            text-align: center;
+            bottom: 5px;
+            width: 100%;
+            position: absolute;
+
+        }
     </style>
 </head>
 
 <body>
     <a href="{{clickUrl}}" target="_blank">
         <div class="adContainer">
-            <div id="adTitle" class="adTitle mutipleLineEllipsis">{{title}}</div>
-            <div class="txtContainer">
-                <picture class="img">
-                    <img class="adImg" src="https://fakeimg.pl/1200x627"/>
-                    <div class="sponsore">{{sponsored}} {{贊助}}</div>
-                </picture>
-                <div class="textContainer">
-                    
-                    <div id="adDes" class="adDes oneLineEllipsis">{{description}}</div>
-                </div>
-                <div class="btn">{{瞭解詳情}}</div>
 
+            <picture class="img">
+                <img class="adImg" src="https://fakeimg.pl/1200x627" />
+            </picture>
+            <div class="textContainer">
+
+                <div id="adTitle" class="adTitle mutipleLineEllipsis">{{title}}</div>
+                <div id="adDes" class="adDes oneLineEllipsis">{{description}}</div>
+                <div class="sponsore">{{sponsored}} {{贊助}}</div>
             </div>
-            
+            <div class="btn"><span>{{瞭解詳情}}</span></div>
+
+
+
         </div>
     </a>
 </body>
