@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        .elementor-post__card .elementor-post__thumbnail__link:after {
+            display: block;
+            content: "";
+            background-image: linear-gradient(0deg, rgba(0, 0, 0, .35), transparent 75%);
+            background-repeat: no-repeat;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            opacity: 1;
+            transition: all .3s ease-out;
+        }
+
+
+        .elementor-post__card {
+            border-radius: 10px;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, .15);
+
+
+        }
+
+        .elementor-post .elementor-post__card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff;
+            width: 100%;
+            min-height: 100%;
+            border-radius: 3px;
+            border: 0 solid #69727d;
+            transition: all .25s;
+        }
+
+
+
+
+        .elementor *,
+        .elementor :after,
+        .elementor :before {
+            box-sizing: border-box;
+        }
+
+        .elementor-post__card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            background-color: #fff;
+            width: 100%;
+            min-height: 100%;
+            border-radius: 3px;
+            border: 0 solid #69727d;
+            transition: all .25s;
+        }
+
+        a {
+            box-shadow: none;
+            text-decoration: none;
+
+        }
+
+        .elementor-post__card .elementor-post__text {
+            padding: 0 30px;
+            margin-bottom: 0;
+            margin-top: 20px;
+
+        }
+
+        .elementor-post__text {
+            width: 100%;
+        }
+
+        .elementor-post__text {
+            display: var(--item-display, block);
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+
+        .elementor-post__title a {
+            color: #54595f;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.3em;
+
+        }
+
+        .elementor-post__excerpt p {
+            margin: 0;
+            line-height: 1.5em;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .elementor-post__card .elementor-post__meta-data {
+            padding: 15px 30px;
+            margin-bottom: 0;
+            border-top: 1px solid #eaeaea;
+
+        }
+
+        .elementor-post__meta-data {
+            line-height: 1.3em;
+            font-size: 12px;
+            margin-bottom: 13px;
+            color: #adadad;
+        }
+
+        .elementor-post__thumbnail__link {
+            position: relative;
+            display: block;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{clickUrl}}" target="_blank">
+        <article
+            class="elementor-post elementor-grid-item post-83330 post type-post status-publish format-standard has-post-thumbnail hentry category-insights">
+            <div class="elementor-post__card">
+                <a class="elementor-post__thumbnail__link" href="{{clickUrl}}" tabindex="-1">
+                    <div class="elementor-post__thumbnail elementor-fit-height"><img loading="lazy" decoding="async"
+                            width="768" height="503"
+                            src="{{lImgUrl}}"
+                            class="attachment-medium_large size-medium_large wp-image-83331" ></div>
+                </a>
+                <div class="elementor-post__text">
+                    <h3 class="elementor-post__title">
+                        <a href="{{clickUrl}}">
+                            {{title}} </a>
+                    </h3>
+                    <div class="elementor-post__excerpt">
+                        <p>{{description}}
+                        </p>
+                    </div>
+                </div>
+                <div class="elementor-post__meta-data">
+                    <span class="elementor-post-date">
+                        2024 年 9 月 13 日 </span>
+                </div>
+            </div>
+        </article>
+    </a>
+</body>
+
+</html>
