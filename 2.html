@@ -15,7 +15,6 @@
             display: block;
             cursor: pointer;
         }
-
         .adContainer {
             width: 320px;
             height: 100px;
@@ -57,6 +56,10 @@
             color: cadetblue;
             overflow: hidden;
             text-overflow: ellipsis;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
 
         }
         .adTitle{
@@ -67,10 +70,13 @@
         .oneLineEllipsis{
             text-overflow: ellipsis;
             font-size: 12px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .bottom{
             display: flex;
             justify-content: space-between;
+            align-items: ;
             width: 100%;
             font-size: 12px;
         }
