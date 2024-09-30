@@ -1,0 +1,251 @@
+
+
+             
+  
+   ㄈ<ins style="display: inline-block;text-decoration: none;">
+    <!DOCTYPE html>
+    <html lang="zh-TW">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Responsive Ad</title>
+
+    <body style="margin:0; padding:0; overflow:hidden;">
+
+        <!DOCTYPE html>
+        <html lang='zh-TW'>
+
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    font-family: PingFang TC, 'Microsoft JhengHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+
+                a {
+                    text-decoration: none;
+                 
+                    cursor: pointer;
+                }
+
+                .adContainer,
+                .adContainer-hp {
+                    border: 1px solid #D0D0D0;
+                    background-color: #ffffff;
+                    box-sizing: border-box;
+                    overflow: hidden;
+                    display: flex;
+                }
+
+                .img,
+                .img-hp {
+                    overflow: hidden;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    background: linear-gradient(to right, #5046B2 30%, #2f369f 100%);
+                }
+
+                .adImg,
+                .adImg-hp {
+                    object-fit: cover;
+                    transition: transform 0.2s ease-in;
+                }
+
+                .textContainer,
+                .textContainer-hp {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    padding: 0 5px;
+                    color: cadetblue;
+                }
+
+                .adTitle,
+                .adTitle-hp {
+                    font-size: 14px;
+                    color: rgb(48, 96, 98);
+                    line-height: 1.4em;
+                }
+
+                .oneLineEllipsis,
+                .oneLineEllipsis-hp {
+                    font-size: 12px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .sponsore,
+                .sponsore-hp {
+                    font-size: 12px;
+                    color: #555;
+                }
+
+                .btn,
+                .btn-hp {
+                    font-size: 13px;
+                    background-color: cadetblue;
+                    color: #f5f4f4;
+                    padding: 0 1.5px;
+                    text-align: center;
+                    white-space: nowrap;
+                    transition: background-color 0.3s ease;
+                }
+
+                .adContainer-hp:hover .btn-hp,
+                .adContainer:hover .btn {
+                    background-color: rgb(33, 79, 81);
+                }
+
+                .adContainer-hp:hover .adImg-hp,
+                .adContainer:hover .adImg {
+                    transform: scale(1.08);
+                }
+
+                @media (max-width: 768px) {
+                    iframe {
+                        width: 320px;
+                        height: 100px;
+                    }
+                }
+
+                @media (min-width: 769px) {
+                    iframe {
+                        width: 728px;
+                        height: 90px;
+                    }
+                }
+
+                /* 手機樣式 */
+                @media screen and (max-width: 768px) {
+                    .adContainer {
+                        display: none;
+                    }
+
+                    .adContainer-hp {
+                        width: 320px;
+                        height: 100px;
+                        justify-content: space-between;
+                    }
+
+                    .img-hp {
+                        width: 35%;
+                        height: 100px;
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+                        order: 2;
+                    }
+
+                    .textContainer-hp {
+                        width: 60%;
+                        padding: 0 3px;
+                    }
+
+                    .bottom-hp {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: flex-end;
+                    }
+                }
+
+                /* 桌機樣式 */
+                @media screen and (min-width: 769px) {
+                    .adContainer-hp {
+                        display: none;
+                    }
+
+                    .adContainer {
+                        width: 728px;
+                        height: 90px;
+                        position: relative;
+                        cursor: pointer;
+                        display: flex;
+                    }
+
+                    .img {
+                        width: 20%;
+                    }
+
+                    .textContainer {
+                        width: 80%;
+                    }
+
+                    .btn {
+                        opacity: 0;
+                        position: absolute;
+                        bottom: -20px;
+                        left: 59.5%;
+                        transform: translateX(-50%);
+                        background-color: cadetblue;
+                        width: 81%;
+                        height: 45px;
+                        clip-path: ellipse(50% 100% at 50% 100%);
+                        display: flex;
+                        justify-content: center;
+                        align-items: flex-end;
+                        padding-bottom: 5px;
+                        overflow: hidden;
+                        transition: opacity 1s, bottom 1s;
+                    }
+
+                    .adContainer:hover .btn {
+                        bottom: 0;
+                        opacity: 0.5;
+                    }
+
+                    .btn span {
+                        font-size: 13px;
+                        color: #fff;
+                        display: block;
+                        text-align: center;
+                        bottom: 5px;
+                        width: 100%;
+                        position: absolute;
+                    }
+                }
+            </style>
+        </head>
+
+        <body>
+            <!-- 手機版廣告 -->
+            <a href='{{clickUrl}}' target='_blank'>
+                <div class='adContainer-hp'>
+                    <div class='img-hp'>
+                        <img class='adImg-hp' src='{{iconUrl}}' alt='Ad Icon' />
+                    </div>
+                    <div class='textContainer-hp'>
+                        <div class='adTitle-hp'>{{title}}</div>
+                        <div class='oneLineEllipsis-hp'>{{description}}</div>
+                        <div class='bottom-hp'>
+                            <div class='sponsore-hp'>{{sponsored}} 贊助</div>
+                            <div class='btn-hp'>瞭解詳情</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 桌機版廣告 -->
+            <a href='{{clickUrl}}' target='_blank'>
+                <div class='adContainer'>
+                    <div class='img'>
+                        <img class='adImg' src='{{lImgUrl}}' alt='Ad Image' />
+                    </div>
+                    <div class='textContainer'>
+                        <div class='adTitle oneLineEllipsis'>{{title}}</div>
+                        <div class='oneLineEllipsis'>{{description}}</div>
+                        <div class='sponsore'>{{sponsored}} 贊助</div>
+                    </div>
+                    <div class='btn'><span>瞭解詳情</span></div>
+                </div>
+            </a>
+        </body>
+
+        </html>
+    </body>
+
+    </html>
+</ins>

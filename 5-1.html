@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: PingFang TC, "Microsoft JhengHei", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .adContainer {
+            width: 728px;
+            height: 90px;
+            border: 1px solid #D0D0D0;
+            background-color: #ffffff;
+            position: relative;
+            cursor: pointer;
+            /* overflow: hidden; */
+            display: flex;
+            box-sizing: border-box;
+        }
+
+
+        .adContainer:hover .btn {
+            display: block;
+            bottom: 0;
+            opacity: 0.5;
+
+            /* transform: scale(1.1); */
+
+        }
+
+        .adContainer:hover .adImg {
+            -moz-transform: scale(1);
+            -webkit-transform: scale(1);
+            transform: scale(1.02);
+        }
+
+        .adDes {
+            margin-bottom: 5px;
+            text-align: left;
+            font-size: 13px;
+            line-height: 1.3em;
+            color: #555;
+        }
+
+        .img {
+            width: 20%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .adImg {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            transition: 0.2s ease-in;
+        }
+
+        .textContainer {
+            width: 80%;
+            padding: 0px 5px 0px 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+        }
+
+        .sponsore {
+            font-size: 13px;
+            color: #555;
+            text-align: right;
+
+        }
+
+        .adTitle {
+            width: 210px;
+            font-size: 14px;
+            line-height: 1.4em;
+            height: auto;
+            color: #000;
+            margin-bottom: 3px;
+            min-height: 5px;
+        }
+
+        .oneLineEllipsis {
+            overflow: hidden;
+            height: 15px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .mutipleLineEllipsis {
+            margin-top: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: auto;
+            text-align: center;
+        }
+
+        .btn {
+            opacity: 0;
+            position: absolute;
+            bottom: -20px;
+            left: 59.5%;
+            transform: translateX(-50%);
+            background-color: cadetblue;
+            width: 81%;
+            height: 45px;
+            clip-path: ellipse(50% 100% at 50% 100%);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 5px;
+            overflow: hidden;
+            transition: opacity 1s, bottom 1s;
+
+        }
+
+
+        .btn span {
+            font-size: 13px;
+            color: #fff;
+            display: block;
+            text-align: center;
+            bottom: 5px;
+            width: 100%;
+            position: absolute;
+
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{clickUrl}}" target="_blank">
+        <div class="adContainer">
+
+            <picture class="img">
+                <img class="adImg" src="{{lImgUrl}}" />
+            </picture>
+            <div class="textContainer">
+
+                <div id="adTitle" class="adTitle mutipleLineEllipsis">{{title}}</div>
+                <div id="adDes" class="adDes oneLineEllipsis">{{description}}</div>
+                <div class="sponsore">{{sponsored}} {{贊助}}</div>
+            </div>
+            <div class="btn"><span>{{瞭解詳情}}</span></div>
+
+
+
+        </div>
+    </a>
+</body>
+
+</html>
