@@ -24,14 +24,14 @@
             cursor: pointer;
             /* overflow: hidden; */
             display: flex;
-
+            box-sizing: border-box;
         }
 
 
         .adContainer:hover .btn {
             display: block;
             bottom: 0;
-            opacity: 1;
+            opacity: 0.5;
 
             /* transform: scale(1.1); */
 
@@ -145,17 +145,13 @@
         <div class="adContainer">
 
             <picture class="img">
-                <img class="adImg" src="https://fakeimg.pl/1200x627" />
+                <img class="adImg" src="{{lImgUrl}}" />
             </picture>
             <div class="textContainer">
 
                 <div id="adTitle" class="adTitle mutipleLineEllipsis">{{title}}</div>
-                <div id="adDes" class="adDes oneLineEllipsis">{{description}}
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In consequuntur natus id. Facere, unde alias?aaaaaa
-                </div>
-                <div class="sponsore">{{sponsored}} {{贊助}}
-                    Lorem ipsum dolor sit amet.
-                </div>
+                <div id="adDes" class="adDes oneLineEllipsis">{{description}}</div>
+                <div class="sponsore">{{sponsored}} {{贊助}}</div>
             </div>
             <div class="btn"><span>{{瞭解詳情}}</span></div>
 

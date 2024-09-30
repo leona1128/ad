@@ -12,9 +12,10 @@
 
         a {
             text-decoration: none;
-            display: block;
-            cursor: pointer;
+            display: block; 
+            cursor: pointer; 
         }
+
         .adContainer {
             width: 320px;
             height: 100px;
@@ -25,15 +26,15 @@
             display: flex;
             align-content: space-between;
             justify-content: center;
-           
+            box-sizing: border-box;
 
         }
 
         .img {
-            width: 40%;
+            width: 35%;
             height: 100px;
             overflow: hidden;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 46% 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
             order: 2;
         }
 
@@ -47,8 +48,8 @@
             width: 60%;
             display: flex;
             flex-direction: column;
-            /* align-content: space-between; */
             justify-content: space-between;
+            padding:0 3px;
         }
         .textContainer{
             width: 100%;
@@ -59,24 +60,23 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-sizing: border-box;
-
+            
         }
+
         .adTitle{
             font-size: 14px;
             color: rgb(48, 96, 98);
-            margin-bottom: 10px;
         }
         .oneLineEllipsis{
             text-overflow: ellipsis;
             font-size: 12px;
-            text-overflow: ellipsis;
+            overflow: hidden; 
             white-space: nowrap;
         }
         .bottom{
             display: flex;
             justify-content: space-between;
-            align-items: ;
+            align-items: end;
             width: 100%;
             font-size: 12px;
         }
@@ -87,12 +87,13 @@
         .btn{
             font-size: 13px;
             position: relative;
-            left: 20px;
+            left: 15px;
             color: #f5f4f4;
             background-color: cadetblue;
             padding:0 1.5px;
             white-space: nowrap;
             text-align: center;
+            margin-bottom: 2px;
         }
         .adContainer:hover .btn {
             background-color: rgb(33, 79, 81);
@@ -113,12 +114,12 @@
     <a href="{{clickUrl}}" target="_blank">
         <div class="adContainer">
             <div class="img">
-                <img class="adImg" src="https://fakeimg.pl/250x250" />
+                <img class="adImg" src="{{iconUrl}}" />
             </div>
             <div class="into">
                 <div class="textContainer">
                     <div id="adTitle" class="adTitle mutipleLineEllipsis">{{title}}</div>
-                    <div id="adDes" class="adDes oneLineEllipsis">{{description}}Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus repudiandae ducimus ipsam? Provident, fugiat aliquid!</div>
+                    <div id="adDes" class="adDes oneLineEllipsis">{{description}}</div>
                 </div>
                 <div class="bottom">
                     <div class="sponsore">{{sponsored}} {{贊助}}</div>
