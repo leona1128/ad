@@ -15,6 +15,7 @@
             margin: 0;
             padding: 0;
             font-family: PingFang TC, "Microsoft JhengHei", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 12px;
         }
 
         a {
@@ -42,14 +43,17 @@
 
         h1 {
             color: #175089;
+            font-size: 1.5em;
         }
 
         h2 {
             color: #1f5081;
+            font-size: 1.2em;
         }
 
         p {
             color: #072645;
+            font-size: 0.9em;
         }
 
         section {
@@ -57,7 +61,8 @@
         }
 
         .container {
-            width: 85%;
+            max-width: 85%;
+            width: 100%;
             margin: 0 auto;
             padding: 13vh 0;
         }
@@ -78,8 +83,10 @@
             align-items: center;
         }
 
-        .logo img {
-            max-height: 8vh;
+
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
         .row {
@@ -189,7 +196,8 @@
         .foot-title {
             margin-top: 1rem;
         }
-        #adphone{
+
+        #adphone {
             display: none;
         }
 
@@ -197,7 +205,8 @@
             ul {
                 padding: 0;
             }
-            #adphone{
+
+            #adphone {
                 display: block;
             }
 
@@ -210,6 +219,28 @@
                 padding: 0;
 
             }
+
+            .footer {
+                flex-direction: column;
+                justify-content: end;
+                align-items: flex-start;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 10vh 0;
+            }
+
+            #adphone {
+                width: 100%;
+                overflow: hidden;
+            }
+
+           
+
         }
     </style>
 </head>

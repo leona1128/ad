@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+          body {
+            margin: 0;
+            padding: 0;
+            font-family: PingFang TC, "Microsoft JhengHei", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            display: block; 
+            cursor: pointer; 
+        }
+
+        .adContainer {
+            width: 320px;
+            height: 100px;
+            border: 1px solid #D0D0D0;
+            background-color: #ffffff;
+            box-sizing: border-box;
+            overflow: hidden;
+            display: flex;
+            align-content: space-between;
+            justify-content: center;
+            box-sizing: border-box;
+
+        }
+
+        
+       
+    </style>
+</head>
+
+<body>
+    <a href="{{clickUrl}}" target="_blank">
+        <div class="adContainer">
+            <div class="img">
+                <img class="adImg" src="{{iconUrl}}" />
+                <div class="sponsore">{{sponsored}} {{贊助}}</div>
+            </div>
+            <div class="into">
+                <div class="textContainer">
+                    <div id="adTitle" class="adTitle mutipleLineEllipsis">{{title}}</div>
+                    <div id="adDes" class="adDes oneLineEllipsis">{{description}}</div>
+                </div>
+               
+
+            </div>
+            <div class="bottom">
+                    
+                <div class="btn">{{瞭解詳情}}</div>
+            </div>
+
+
+
+        </div>
+    </a>
+</body>
+
+</html>
