@@ -1,0 +1,136 @@
+<script>
+  let parentDiv = window.frameElement.parentNode;
+  let topIns = parentDiv.closest('body > div');
+  (async function (a) {
+    let layoutID = { 'id': 'data-layout-id="mobile-interstitial-video-image-pd1-customize_with-transition-interstitial"' };
+
+    function buildStyle() {
+      return new Promise(resolve => {
+        let style = a.createElement('link');
+        style.setAttribute('type', 'text/css');
+        style.setAttribute('rel', 'stylesheet');
+        style.setAttribute('href', 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimationFarEasternII.css');
+        style.addEventListener("load", resolve, { once: true });
+        a.head.appendChild(style);
+      });
+    };
+    
+    function buildTemplate() {
+      let TMTemplate = a.createElement('div');
+      TMTemplate.setAttribute('id', 'effectsAnimationFarEasternII');
+      let button = a.createElement('button');
+      button.setAttribute('class', 'TenMaxCloseBtn interstitialClose');
+      TMTemplate.appendChild(button);
+      let close = a.createElement('img');
+      close.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/bt_close.png';
+      button.appendChild(close);
+      let TMInterstitial = a.createElement('a');
+      TMInterstitial.setAttribute('class', 'TenMaxInterstitial');
+      TMInterstitial.setAttribute('target', '_blank');
+      TMTemplate.appendChild(TMInterstitial);
+      let mom = a.createElement('img');
+      mom.setAttribute('class', 'mom');
+      mom.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-mom.png';
+      TMInterstitial.appendChild(mom);
+      let momGift = a.createElement('img');
+      momGift.setAttribute('class', 'momGift');
+      momGift.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-momGift.png';
+      TMInterstitial.appendChild(momGift);
+      let dad = a.createElement('img');
+      dad.setAttribute('class', 'dad');
+      dad.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-dad.png';
+      TMInterstitial.appendChild(dad);
+      let dadGift = a.createElement('img');
+      dadGift.setAttribute('class', 'dadGift');
+      dadGift.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-dadGift.png';
+      TMInterstitial.appendChild(dadGift);
+      let girl = a.createElement('img');
+      girl.setAttribute('class', 'girl');
+      girl.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-girl.png';
+      TMInterstitial.appendChild(girl);
+      let girlGift = a.createElement('img');
+      girlGift.setAttribute('class', 'girlGift');
+      girlGift.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-girlGift.png';
+      TMInterstitial.appendChild(girlGift);
+      let smoke = a.createElement('img');
+      smoke.setAttribute('class', 'smoke');
+      smoke.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-smoke.png';
+      TMInterstitial.appendChild(smoke);
+      let endPeople = a.createElement('img');
+      endPeople.setAttribute('class', 'endPeople');
+      endPeople.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-Interstitial-end-fg.png';
+      TMInterstitial.appendChild(endPeople);
+      let logo = a.createElement('img');
+      logo.setAttribute('class', 'logo');
+      logo.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-logo.png';
+      TMInterstitial.appendChild(logo);
+      let ribbon = a.createElement('img');
+      ribbon.setAttribute('class', 'ribbon LRibbon');
+      ribbon.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-end-Lribbon.png';
+      TMInterstitial.appendChild(ribbon);
+      let LRibbonII = a.createElement('img');
+      LRibbonII.setAttribute('class', 'ribbon LRibbonII');
+      LRibbonII.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-end-Lribbon2.png';
+      TMInterstitial.appendChild(LRibbonII);
+      let RRibbon = a.createElement('img');
+      RRibbon.setAttribute('class', 'ribbon RRibbon');
+      RRibbon.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-end-Rribbon.png';
+      TMInterstitial.appendChild(RRibbon);
+      let RRibbonII = a.createElement('img');
+      RRibbonII.setAttribute('class', 'ribbon RRibbonII');
+      RRibbonII.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-end-Rribbon2.png';
+      TMInterstitial.appendChild(RRibbonII);
+      let bloons = a.createElement('img');
+      bloons.setAttribute('class', 'bloons');
+      bloons.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-end-bloons.png';
+      TMInterstitial.appendChild(bloons);
+      let TenMaxBannerCloseBtn = a.createElement('button');
+      TenMaxBannerCloseBtn.setAttribute('class', 'TenMaxBannerCloseBtn TenMaxCloseBtn');
+      TMTemplate.appendChild(TenMaxBannerCloseBtn);
+      let BannerClose = a.createElement('img');
+      BannerClose.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/bt_close.png';
+      TenMaxBannerCloseBtn.appendChild(BannerClose);
+      let TMBB = a.createElement('a');
+      TMBB.setAttribute('class', 'TenMaxBannerBundle');
+      TMBB.setAttribute('target', '_blank');
+      TMTemplate.appendChild(TMBB);
+      let video = a.createElement('video');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('loop', '');
+      video.innerText = `Sorry, your browser doesn't support embedded videos.`;
+      TMBB.appendChild(video);
+
+      var source = a.createElement('source');
+      source.setAttribute('src', 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-Video.mp4');
+      source.setAttribute('type', 'video/mp4');
+      video.appendChild(source);
+      let effectsAnimation = a.createElement('img');
+      effectsAnimation.setAttribute('class', 'effectsAnimation');
+      effectsAnimation.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-fg.png';
+      TMBB.appendChild(effectsAnimation);
+      let TenMaxLogo = a.createElement('div');
+      TenMaxLogo.setAttribute('class', 'TenMaxLogo');
+      TMTemplate.appendChild(TenMaxLogo);
+      topIns.parentNode.insertBefore(TMTemplate, topIns);
+    }
+    function buildScript() {
+      let script = a.createElement('script');
+      script.setAttribute('id', 'effectsAnimationFarEasternIIJs');
+      script.setAttribute('data-click-url', '%%CLICK_URL_UNESC%%');
+      script.setAttribute('data-viewable-url', '%%VIEWABLE_IMPRESSION_URL_UNESC%%');
+      script.setAttribute('data-SSPviewable-url', '%%SSP_VIEWABLE_IMPRESSION_URL_UNESC%%');
+      script.setAttribute('data-ADXviewable-url', '%%ADX_VIEWABLE_IMPRESSION_URL_UNESC%%');
+      script.setAttribute('data-creative-id', '${CREATIVE_ID}');
+      script.setAttribute('data-campaign-id', '${CAMPAIGN_ID}');
+      script.src = 'https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimationFarEasternII.js';
+      script.async = 'async';
+      topIns.parentNode.appendChild(script);
+    }
+    await buildStyle();
+    buildTemplate();
+    buildScript();
+  })(parent.document);
+  topIns.style.display = 'none';
+</script>

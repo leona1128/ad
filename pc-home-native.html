@@ -1,131 +1,175 @@
+<!DOCTYPE html>
+<html>
 
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;>
-        <style>
-            body {
-                margin: 0;
-                padding: 0;
-                font-family: PingFang TC, 'Microsoft JhengHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<head>
+    <meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: PingFang TC, 'Microsoft JhengHei', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .adContainer {
+            width: 1400px;
+            height: 190px;
+            border: 1px solid #D0D0D0;
+            background-color: #ffffff;
+            box-sizing: border-box;
+            display: flex;
+        }
+
+        .main {
+            display: flex;
+            width: 85%;
+        }
+
+        .img {
+            width: 360px;
+
+            overflow: hidden;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: 0.2s ease-in;
+        }
+
+        .sponsore {
+
+            padding: 0.2rem;
+            color: #312f62;
+        }
+
+        .textContainer {
+            width: 65%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding: 5px 8px 2px 8px;
+        }
+
+        .mutipleLineEllipsis {
+            font-size: 1.5rem;
+            color: #322f62;
+        }
+
+        .oneLineEllipsis {
+            font-size: 1.3rem;
+            color: #5f59ad;
+            overflow: hidden;
+        }
+
+        .bottom {
+            width: 18%;
+            /* clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%, 0% 50%); */
+            /* background-image: linear-gradient(to right, #9890e3 0%, #b1c7f4 100%); */
+            transition: 0.2s ease-in;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn {
+            transform: translateX(35%);
+            font-size: 20px;
+            transition: 0.2s ease-in;
+            color: #322f62;
+            position: relative;
+            top: 90px;
+            left: 15px;
+
+        }
+
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background-image: linear-gradient(to right, #9890e352 0%, #b1c7f4 100%);
+            top: 60%;
+            left: 65%;
+        }
+
+        .circle1 {
+            width: 210px;
+            height: 210px;
+            animation: circle 6s linear infinite;
+        }
+
+        .circle2 {
+            width: 180px;
+            height: 180px;
+            animation: circle 8s linear infinite reverse;
+            background-image: linear-gradient(to right, #877ce852 0%, #5388f3b8 100%);
+        }
+
+        .circle3 {
+            width: 240px;
+            height: 240px;
+            animation: circle 10s linear infinite;
+        }
+
+        @keyframes circle {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) translate(20px) rotate(0deg);
             }
 
-            a {
-                text-decoration: none;
-                display: block;
-                cursor: pointer;
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) translate(20px) rotate(-360deg);
             }
+        }
 
-            .adContainer {
-                width: 1400px;
-                height: 190px;
-                border: 1px solid #D0D0D0;
-                background-color: #ffffff;
-                box-sizing: border-box;
-                display: flex;
-            }
+        .adContainer:hover .btn {
+            font-size: 24px;
+        }
 
-            .main {
-                display: flex;
-                width: 85%;
-            }
+        
 
-            .img {
-                width: 360px;
-       
-                overflow: hidden;
-            }
+        .adContainer:hover .circle {
+            background-image: linear-gradient(to right, #697dde80 0%, #86d4f1);
 
-            img {
-                width: 100%;
-                height: 190px;
-                object-fit: contain;
-                transition: 0.2s ease-in;
-            }
+        }
 
-            .sponsore {
-           
-         
-          
-                padding: 0.2rem;
-                color: #312f62;
-            }
-
-            .textContainer {
-                width: 65%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-evenly;
-                padding: 10px;
-            }
-
-            .mutipleLineEllipsis {
-                font-size: 1.7rem;
-                color: #322f62;
-            }
-
-            .oneLineEllipsis {
-                font-size: 1.3rem;
-                color: #5f59ad;
-            }
-
-            .bottom {
-                width: 18%;
-                clip-path: polygon(50% 0%, 100% 0, 100% 100%, 50% 100%, 0% 50%);
-                background-image: linear-gradient(to right, #9890e3 0%, #b1c7f4 100%);
-                transition: 0.2s ease-in;
-            }
-
-            .btn {
-                transform: translateX(35%);
-                font-size: 20px;
-                transition: 0.2s ease-in;
-                color: #322f62;
-                position: relative;
-                top: 80px;
-            }
-
-            .adContainer:hover .btn {
-                font-size: 24px;
-            }
-
-            .adContainer:hover .bottom {
-                width: 19%;
-                background-image: linear-gradient(to right, #697dde 0%, #86d4f1);
-            }
-
-            .adContainer:hover .adImg {
-                transform: scale(1.08);
-            }
-
-        </style>
-    </head>
-
-    <body>
-        <a href= "{{clickUrl}}" target="_blank">
-            <div class="adContainer">
-                <div class="main">
-                    <div class="img">
-                        <img class="adImg" src="{{lImgUrl}}">
-                        
-                    </div>
-
-                    <div class="textContainer">
-                        <div id="adTitle" class="adTitle mutipleLineEllipsis">{{title}} </div>
-                        <div id="adDes" class="adDes oneLineEllipsis">
-                            {{description}}
-                        </div>
-                        <div class="sponsore">{{sponsored}} {{贊助}}</div>
-                    </div>
+        .adContainer:hover .adImg {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+s
+<body>
+    <a href="{{clickUrl}}" target="_blank">
+        <div class="adContainer">
+            <div class="main">
+                <div class="img">
+                    <img class="adImg" src="{{lImgUrl}}">
 
                 </div>
-                <div class="bottom">
-                    <div class="btn">{{瞭解詳情}}</div>
+
+                <div class="textContainer">
+                    <div id="adTitle" class="adTitle mutipleLineEllipsis">TenMax 原生廣告，您的數位行銷新活力，提升品牌曝光度，吸引更多潛在客戶！ </div>
+                    <div id="adDes" class="adDes oneLineEllipsis">
+                        TenMax原生廣告完美融入網站環境，不干擾閱讀，讓潛在消費者自然接收品牌訊息，品牌好感度瞬增，歡迎與我們聯繫！TenMax原生廣告完美融入網站環境，不干擾閱讀，讓潛在消費者自然接收品牌訊息，品牌好感度瞬增，歡迎與我們聯繫！更多詳情請至我們的官方網站了解，我們期待與您合作，共創雙贏！
+                    </div>
+                    <div class="sponsore">{{sponsored}} {{贊助}}</div>
                 </div>
 
             </div>
-        </a>
-    </body>
+            <div class="bottom">
+                <div class="circle circle1"></div>
+                <div class="circle circle2"></div>
+                <div class="circle circle3"></div>
 
-    </html>
+                <div class="btn">{{瞭解詳情}}</div>
+            </div>
 
+        </div>
+    </a>
+</body>
+
+</html>

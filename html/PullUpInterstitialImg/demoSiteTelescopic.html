@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <!-- <link rel="stylesheet" type="text/css" href="./pullUpImg.css"> -->
+  <link rel="stylesheet" href="https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/demoSiteTelescopic.css">
+  <title>demoSiteTelescopic</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .hide {
+      display: none !important;
+    }
+
+    body {
+      font-family: 'Microsoft JhengHei', sans-serif, 'Noto Sans TC', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 90%;
+      margin: auto;
+    }
+
+    #header {
+      background: linear-gradient(to left, #00A0B4, #3075BE);
+    }
+
+    #header .logo {
+      display: flex;
+      align-items: center;
+      width: 7rem;
+      padding: 4px 0;
+    }
+
+    .logo img {
+      width: 100%;
+    }
+
+    #main {
+      margin-top: 18px;
+    }
+
+    #main h2 {
+      font-size: 1.4rem;
+      color: #002949;
+      font-weight: normal;
+      margin: 18px 0;
+    }
+
+    .content h1 {
+      font-size: 1.8rem;
+      font-weight: normal;
+      color: #002949;
+      line-height: 2rem;
+      margin-bottom: .5rem;
+    }
+
+    .content ul li {
+      display: inline-block;
+      color: #444;
+    }
+
+    .content img {
+      width: 100%;
+      margin: 18px 0;
+    }
+
+    .content p {
+      color: #444;
+      text-indent: 2rem;
+      line-height: 1.3rem;
+      margin-bottom: 18px;
+    }
+
+    .readmore {
+      margin: 18px 0;
+    }
+
+    .readmore li {
+      display: flex;
+      margin-bottom: .5rem;
+    }
+
+    .readmore img {
+      width: 20%;
+      height: 20%;
+      margin-right: .5rem;
+    }
+
+    .readmore .text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+      width: 80%;
+    }
+
+    .readmore h3 {
+      font-size: .9rem;
+      color: #3075BE;
+      font-weight: 500;
+      line-height: 1.2rem;
+    }
+
+    .readmore span {
+      font-size: .5rem;
+      color: #aaa;
+      line-height: 1.2;
+      align-self: flex-end;
+    }
+
+    .discuss h2 {
+      position: relative;
+      padding-bottom: 18px;
+    }
+
+    .discuss h2::before {
+      content: '';
+      width: 100%;
+      height: 1px;
+      background-color: #aaa;
+      position: absolute;
+      left: 0;
+      bottom: .5rem;
+    }
+
+    .discuss textarea {
+      width: 100%;
+      font-size: 1.2rem;
+      border-radius: 5px;
+      resize: none;
+      padding: .5rem;
+      margin-bottom: .5rem;
+      box-sizing: border-box;
+    }
+
+    .discuss textarea::placeholder {
+      color: #aaa;
+    }
+
+    .message {
+      display: flex;
+    }
+
+    .message img {
+      width: 50px;
+      height: 50px;
+      margin-right: .5rem;
+    }
+
+    .message .text {
+      font-size: .75rem;
+    }
+
+    .message .name {
+      color: #3075BE;
+      font-weight: 500;
+      margin-bottom: .2rem;
+    }
+
+    .message p {
+      line-height: 1.2;
+      margin-bottom: .5rem;
+    }
+
+    #footer {
+      display: flex;
+      justify-content: center;
+      color: white;
+      line-height: 2;
+      background: linear-gradient(to right, #00A0B4, #3075BE);
+    }
+
+    .isPC {
+      height: 120vh;
+      background-color: #eee;
+    }
+
+    .iPhone {
+      background-color: white;
+      position: absolute;
+      top: calc(50% - 238px);
+      left: calc(50% - 207.5px);
+    }
+
+    .phone {
+      height: 800px;
+      pointer-events: none;
+      position: absolute;
+      top: calc(50% - 350px);
+      left: calc(50% - 218.5px);
+      z-index: 10;
+    }
+
+    .qrCode {
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      font-size: 16px;
+      padding: 5px;
+      background-color: white;
+      position: fixed;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="isMobile">
+    <div id='header'>
+      <div class='container'>
+        <div class='logo'>
+          <img src="https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/LOGO-TenMax.png" />
+        </div>
+      </div>
+    </div>
+    <div id='main'>
+      <div class='container'>
+        <div class='content'>
+          <h1>
+            智慧廣告平台 數據驅動創意的無限可能
+          </h1>
+          <ul>
+            <li>2020/10/26</li>
+            <li>TenMax</li>
+          </ul>
+          <img
+            src="https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/inappmobilevideo.png" />
+          <a href="https://www.facebook.com/" target="_blank">測試點擊</a>
+          <p>
+            我想，把智慧廣告平台的意義想清楚，對各位來說並不是一件壞事、雨果告訴我們，唯有人的心靈才是真實的。嚴格來說，像貌不過是一種面具，真正的人在人的內部。這段話可說是震撼了我。智慧廣告平台改變了我的命運。如果此時我們選擇忽略智慧廣告平台，那後果可想而知。
+          </p>
+          <p>廣告究竟是怎麼樣的存在，始終是個謎題。問題的核心究竟是什麼?
+            若沒有廣告的存在，那麼後果可想而知。姆霍講過一句值得人反覆尋思的話，為朋友死不難，難的是找一個值得為他死的朋友。這段話讓我的心境提高了一個層次。所謂廣告，關鍵是廣告需要如何解讀。愛默生說過一句很有意思的話，怎樣思想，就有怎樣的生活。這段話令我陷入了沈思。一般來講，我們都必須務必慎重的考慮考慮。
+          </p>
+          <p>薩克雷曾講過，金錢可以買'食物';
+            但不能買'食慾'。希望大家能發現話中之話。智慧廣告平台，到底應該如何實現。智慧廣告平台的出現，重寫了人生的意義。不要先入為主覺得智慧廣告平台很複雜，實際上，智慧廣告平台可能比你想的還要更複雜。榮格曾經提過，思想的動搖並非正確與錯誤之間左右不定，而是一種理智與非理智之間徘徊。強烈建議大家把這段話牢牢記住。
+          </p>
+          <p>
+            一般來講，我們都必須務必慎重的考慮考慮。探討智慧廣告平台時，如果發現非常複雜，那麼想必不簡單。智慧廣告平台的發生，到底需要如何實現，不智慧廣告平台的發生，又會如何產生。斯梯爾講過一句值得人反覆尋思的話，謹慎的人才能穩操勝券。這句話把我們帶到了一個新的維度去思考這個問題。雪萊說過，由於軟弱才能做的事情，倘若在做了之後還感到懊悔，那便是更加軟弱。我希望諸位也能好好地體會這句話。我們不得不面對一個非常尷尬的事實，那就是，誇美紐斯說過一句富有哲理的話，用語言、事物表揚，用警告、訓斥、懲罰及對特殊的個別的過錯採用體罰，以有教益的懲罰制度，即'持以坦白的態度，出以誠懇的目的'，使兒童理解這樣做是對他有好處的，正如吃苦藥治病一樣。這讓我的思緒清晰了。
+          </p>
+          <p>
+            世界需要改革，需要對智慧廣告平台有新的認知。我們需要淘汰舊有的觀念，希特勒說過一句富有哲理的話，如果我的民族在這場實驗中失敗了，我將不會為之哭泣，是他們自找了這樣的結局。他會這麼說是有理由的。奧維德曾提出，春天百花盛開，夏天收割大忙，秋天果實累累，冬天舒適地坐在火爐旁。這是撼動人心的。
+          </p>
+        </div>
+        <div class='readmore'>
+          <h2>
+            延伸閱讀
+          </h2>
+          <ul>
+            <li>
+              <img src='https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/300x250-Full.jpg'>
+              <div class='text'>
+                <h3>
+                  說到廣告，你會想到什麼呢?
+                </h3>
+                <span>
+                  2020/10/26
+                </span>
+              </div>
+            </li>
+            <li>
+              <img src='https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/300x250-Full.jpg'>
+              <div class='text'>
+                <h3>
+                  當前最急迫的事，想必就是釐清疑惑了。
+                </h3>
+                <span>
+                  2020/10/26
+                </span>
+              </div>
+            </li>
+            <li>
+              <img src='https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/300x250-Full.jpg'>
+              <div class='text'>
+                <h3>
+                  我們要從本質思考，從根本解決問題。
+                </h3>
+                <span>
+                  2020/10/26
+                </span>
+              </div>
+            </li>
+            <li>
+              <img src='https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/300x250-Full.jpg'>
+              <div class='text'>
+                <h3>
+                  問題的關鍵看似不明確，但想必在諸位心中已有了明確的答案。
+                </h3>
+                <span>
+                  2020/10/26
+                </span>
+              </div>
+            </li>
+            <li>
+              <img src='https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/300x250-Full.jpg'>
+              <div class='text'>
+                <h3>
+                  廣告的出現，重寫了人生的意義。
+                </h3>
+                <span>
+                  2020/10/26
+                </span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class='discuss'>
+          <h2>留言</h2>
+          <textarea placeholder='新增回應⋯⋯' rows='2'></textarea>
+          <div class='message'>
+            <img src='https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/51877347.png'>
+            <div class='text'>
+              <div class='name'>
+                設計系學生
+              </div>
+              <p>
+                我們一般認為，抓住了問題的關鍵，其他一切則會迎刃而解。既然如此，伏爾泰曾經提過，天賦的力量大於教育的力量。這似乎解答了我的疑惑。
+              </p>
+            </div>
+          </div>
+          <div class='message'>
+            <img
+              src='https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/14810058568325102_460_
+              380.jpg'>
+            <div class='text'>
+              <div class='name'>
+                廣告業OL
+              </div>
+              <p>
+                如果別人做得到，那我也可以做到。我們不妨可以這樣來想: 貝多芬曾經認為，卓越的人一大優點是：在不利與艱難的遭遇裡百折不饒。希望大家能發現話中之話。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id='footer'>
+      <p>Copyright © 2020 TenMax</p>
+    </div>
+    <!--   廣告 -->
+    <div id="pullUpImg">
+      <a class="TenMaxBannerBundle" target="_blank">
+        <div class="TenMaxBanner">
+          <button class="TenMaxCloseBtn"><img
+              src="https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/bt_close.png"></button>
+          <div class="TenMaxLogo"></div>
+          <div class="hand"></div>
+          <div class="bar"></div>
+        </div>
+        <div class="TenMaxInterstitial ">
+          <div class="pic2">
+            <div class="bar"></div>
+            <button class="TenMaxCloseBtn"><img
+                src="https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/bt_close.png"></button>
+          </div>
+        </div>
+      </a>
+      <div class="firstInterstitial">
+        <div class="pic1">
+          <div class="bar"></div>
+        </div> 
+      </div>
+    </div>
+
+ 
+  <!-- 廣告 -->
+  </div>
+  <div class="isPC" style="display: none;">
+    <div class="qrCode">
+      <p>使用手機掃描以體驗最佳互動效果。</p>
+      <img
+        src="https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/pullUp/demo/pullUpImgQRCode.jpg">
+    </div>
+    <img src="https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/iPhone.png" class="phone">
+    <iframe class="iPhone" width="375" height="585" src='https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic.html' frameborder="0"></iframe>
+  </div>
+  <script>
+    let mobilePage = document.querySelector(".isMobile");
+    let PCPage = document.querySelector(".isPC");
+    if (window.innerWidth < 480) {
+      mobilePage.setAttribute("style", "display: block;");
+      PCPage.setAttribute("style", "display: none;");
+    } else {
+      PCPage.setAttribute("style", "display: block;");
+      mobilePage.setAttribute("style", "display: none;");
+    }
+  </script>
+  <script id="PullUpKnockoutImgJs" src="https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/demoSiteTelescopic.js" data-click-url="%%CLICK_URL_UNESC%%"
+    data-viewable-url="%%VIEWABLE_IMPRESSION_URL_UNESC%%" data-SSPviewable-url="%%SSP_VIEWABLE_IMPRESSION_URL_UNESC%%"
+    data-ADXviewable-url="%%ADX_VIEWABLE_IMPRESSION_URL_UNESC%%"></script>
+
+</body>
+
+</html>

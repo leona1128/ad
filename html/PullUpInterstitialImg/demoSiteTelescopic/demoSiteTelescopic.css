@@ -1,0 +1,287 @@
+#pullUpImg {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    width: 100%;
+    transform: translateY(100%);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 2147483;
+    --vh: 1vh;
+  }
+  #pullUpImg * {
+    padding: 0;
+    margin: 0;
+  }
+  #pullUpImg a {
+    display: block;
+    text-decoration: none;
+  }
+    /* start */
+  #pullUpImg .firstInterstitial {
+    display: none;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  position: absolute;
+  transform: translateY(0);
+  }
+  #pullUpImg.play .firstInterstitial {
+    animation: slideOut 3s ease-in-out 0s 1 normal forwards;
+  }
+  
+  @keyframes slideOut {
+    70% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(200%);
+    }
+  }
+  
+  
+  
+  #pullUpImg .firstInterstitial .pic1 {
+    display: block;
+    width: 100%;
+    height:calc(var(--vh, 1vh) * 100);;
+    background: rgba(0, 0, 0, 0.5)  url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/Interstitial.png) center/contain no-repeat;
+    /* top:21.5vh; */
+    left: 0;
+    bottom: 100%; 
+    transform: translateY(100%);
+    animation: on 1s ease-in-out 0s 1 normal forwards;
+    position: relative;
+  }
+  
+ 
+  
+  @keyframes on {
+    0% {
+        transform: translateY(100%);
+      }
+    
+      100% {
+        transform: translateY(0%);
+      }
+  }
+  #pullUpImg .firstInterstitial .bar{
+    width: 100%;
+    height:10vh;
+    position: fixed;
+    right: 0;
+    top: -6vh;
+    bottom: 100%; 
+    background:  url(Img/bar.png) center/contain no-repeat;
+  }
+  
+  #pullUpImg .shake .pic2 {
+    display: none;
+    width: 100%;
+    height: calc(var(--vh, 1vh) * 100);
+    position: absolute;
+    right: 0;
+    bottom: 100%; 
+    animation: slowIn 1.5s ease-in-out forwards;
+    background: rgba(0, 0, 0, 0.5)  url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/Interstitial.png) center/contain no-repeat;
+   
+  }
+  #pullUpImg .down .pic2 {
+    
+animation: down 2s ease-in-out forwards;
+  }
+  #pullUpImg .down .TenMaxCloseBtn {
+display: none;
+  }
+  
+  #pullUpImg .shake .pic2 img{
+    width: 100%;
+    height: 100%;
+  }
+  @keyframes slowIn {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+@keyframes down {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+#pullUpImg .shake .pic2 .bar{
+    width: 100%;
+    height:10vh;
+    position: fixed;
+    right: 0;
+    top: -6vh;
+    bottom: 100%; 
+    background:  url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/bar.png) center/contain no-repeat;
+  }
+  #pullUpImg.show {
+    transform: translateY(calc(var(--vh, 1vh) * 100));
+    transition: transform 1s ease-in-out;
+  }
+  #pullUpImg.shake {
+    transform: translateY(0);
+    transition: transform 1s ease-in-out;
+  }
+  #pullUpImg .TenMaxBanner .bar{
+    width: 100%;
+    height:10vh;
+    position: absolute;
+    right: 0;
+    top: -5vh;
+    bottom: 100%; 
+    background:  url(Img/bar.png) center/contain no-repeat;
+    display: none;
+
+
+  }
+  #pullUpImg .TenMaxBanner .hand{
+    position: absolute;
+    background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/icon_finger.png) center/cover no-repeat;
+    top:-10%;
+    left: 40%; 
+    width: 50px;
+    height: 50px ;
+    background-color: #4d4d647a;
+    border-radius: 50%;
+    z-index: 120;
+    transform: translate(50%, 50%);
+    border: 1px solid #fff;
+    opacity: 0; /* 初始設置為透明 */
+    animation: hand .5s ease-in 4s 1 normal forwards,finger 3s infinite linear;
+  }
+  @keyframes finger {
+    0%{
+        transform: rotate(0deg);
+      }
+      50%{
+        transform: rotate(45deg);
+      }
+      100%{
+        transform: rotate(0deg);
+      }
+  }
+  @keyframes hand {
+    0% {
+        opacity: 0;
+    }
+    100%{
+        
+        opacity: 1;
+    }
+  }
+  #pullUpImg .TenMaxBanner {
+    display: block;
+    width: 100%;
+    height: 46.7vw;
+    background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/pullUp/demo/%E7%BD%AE%E5%BA%95%E4%B8%8A%E6%8B%89-%E7%B4%94%E5%9C%96%2B%E5%8B%95%E7%95%AB%E8%93%8B%E7%89%88/%E8%A1%8C%E5%8B%95%E7%BD%AE%E5%BA%95%E4%B8%8A%E6%8B%89-%E7%B4%94%E5%9C%96-%E6%A9%AB%E5%B9%85.png) center/contain no-repeat;
+    position: relative;
+    z-index: 100;
+  }
+  
+  /* #pullUpImg .shake .TenMaxBanner {
+    display: none;
+  }
+  
+  #pullUpImg .shake .TenMaxBannerBundle {
+    background: rgba(0, 0, 0, 0.5);
+  } */
+
+ 
+  
+ #pullUpImg .TenMaxInterstitial {
+    display: flex;
+    height:100vh;
+    position: relative;
+    margin: auto;
+    width: 100%;
+  
+
+  } 
+  
+  #pullUpImg.show .TenMaxInterstitial {
+    opacity: 0;
+
+  }
+  
+  #pullUpImg .TenMaxInterstitial.shake {
+    opacity: 1;
+  }
+  /* end */
+  #pullUpImg .TenMaxCloseBtn {
+    display: block;
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0;
+
+    z-index: 2147483647;
+    transform: translate(50%, 50%);
+  }
+
+  
+  #pullUpImg .TenMaxCloseBtn img {
+    width: 100%;
+  }
+  
+  #pullUpImg.show .TenMaxBanner .TenMaxCloseBtn {
+    display: none;
+    left: 20px;
+    transform: translate(-50%, -50%);
+  }
+  
+  #pullUpImg .TenMaxInterstitial.shake>.TenMaxCloseBtn {
+    display: block;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    top: 0;
+  right: 10px;
+  }
+
+  
+  @media (max-aspect-ratio: 600/1198) {
+    #pullUpImg .TenMaxInterstitial {
+      justify-content: center;
+      width: calc(600 / 11.975 * var(--vh));
+    }
+    #pullUpImg .firstInterstitial {
+        justify-content: center;
+        width: calc(600 / 11.975 * var(--vh));
+      }
+    #pullUpImg .TenMaxInterstitial.shake>.TenMaxCloseBtn {
+      transform: translate(-50%, 50%);
+    }
+  }
+  @media (min-aspect-ratio: 600/1198) {
+    #pullUpImg .TenMaxInterstitial.shake>.TenMaxCloseBtn {
+      transform: translate(50%, 50%);
+    }
+  }
+  #pullUpImg .TenMaxLogo {
+    width: 28px;
+    height: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #ddd;
+    background: url(https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/DFP-Test/img/small.png) right center/contain no-repeat;
+    position: absolute;
+ 
+    right: 0;
+    z-index: 2147483647;
+  }
+  #pullUpImg .TenMaxLogo img {
+    width: 30px;
+  }

@@ -1,0 +1,30 @@
+<!-- TenMax [adCodeJs] [95502905a60f446a] for [gam] -->
+<script>
+    var t = window.frameElement.parentNode.parentNode;
+    (function (a, e) {
+        var d = a.createElement("ins");
+        d.className = "rmax";
+        for (var r in e) { d.setAttribute(r, e[r]); } t.parentNode.insertBefore(d, t);
+        var s = a.createElement("script");
+        s.src = "https://tenmax-static.cacafly.net/ssp/adsbytenmax.js";
+        s.async = "async"; a.body.appendChild(s);
+    })(parent.document, { "data-rmax-space-id": "95502905a60f446a" });
+    t.style.display = "none";
+</script>
+<script>
+    var t = window.frameElement.parentNode.parentNode;
+    (function (a, e) {
+        var d = a.createElement("ins");
+        d.className = "rmax";
+        for (var r in e) { d.setAttribute(r, e[r]); } t.parentNode.insertBefore(d, t);
+        var s = a.createElement("script");
+        s.src = "https://tenmax-static.cacafly.net/ssp/adsbytenmax.js";
+        s.async = "async"; a.body.appendChild(s);
+    })(parent.document, { "data-rmax-space-id": "95502905a60f446a" });
+    t.style.display = "none";
+</script>
+
+<!-- 先找到iframe的最外層設成Ｔ這個變數<div>
+並且接收data-rmax-space-id
+創建一個ins標籤取一個className rmax
+創一個script接收js檔案,加上async異步載入，把這個加入到body並且Ｔ這個變數Style;display:none -->

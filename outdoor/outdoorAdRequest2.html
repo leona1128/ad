@@ -1,0 +1,212 @@
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .deviceContent {
+            margin-bottom: 100px;
+
+            & h4>* {
+                margin-right: 40px;
+            }
+
+        }
+
+        .deviceRow {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            /* 每列5欄，欄寬相等 */
+            gap: 10px;
+            /* 設置欄之間的間距（可選） */
+            border-bottom: 1px solid black;
+
+            &:nth-child(even) {
+                background-color: #DDDDDD;
+            }
+        }
+
+        .deviceRowHead {
+            background: #949494;
+            color: white;
+        }
+
+
+        .content {
+            width: 1024px;
+            margin: auto;
+        }
+
+        .h2 {
+            border: 0;
+            border-bottom: 4px solid #b0b0b0;
+            padding-bottom: 10px;
+            border-style: ridge;
+        }
+
+        label {
+            width: 100px;
+
+            &.required::before {
+                content: '* ';
+                color: red;
+            }
+        }
+
+        .resultContent {
+            margin-top: 15px;
+        }
+
+        .resultContent pre {
+            background-color: #545454;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .supportText {
+            color: #ae8100;
+            font-size: 14px;
+        }
+    </style>
+
+    <script>
+       var sspHost = '';
+        var _finalData = {};
+        var hosts = ['10.10.128.19', '10.10.128.22', '10.2.71.4', '10.2.71.5', '10.2.71.10', '10.2.71.11'];
+        var _checkApiHostAllDone = [];
+        var checkPrinted = false;
+
+        // 主要請求函數
+        function sendRpcApi() {
+            showLoading(true);
+            
+            hosts.forEach(host => {
+                var url = `http://${host}:58070/supply/outdoor/adrequest`;
+
+                $.get(url)
+                    .done(function (data) {
+                        processData(data, host);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.error(`Request failed for ${host}:`, textStatus, errorThrown);
+                        // 即使失敗也標記為完成
+                        if (markHostAsCompleted(host)) {
+                            checkprintFinalDataDone();
+                        }
+                    });
+            });
+        }
+
+        // 處理接收到的數據
+        function processData(data, host) {
+            Object.keys(data).forEach(key => {
+                var keyObject = _finalData[key] = _finalData[key] || {};
+                var timeObject = data[key];
+                
+                Object.keys(timeObject).forEach(hour => {
+                    keyObject[hour] = keyObject[hour] || {};
+                    keyObject[hour][host] = timeObject[hour];
+                });
+            });
+
+            if (markHostAsCompleted(host)) {
+                checkprintFinalDataDone();
+            }
+        }
+
+        // 標記主機完成狀態
+        function markHostAsCompleted(host) {
+            if (_checkApiHostAllDone.indexOf(host) === -1) {
+                _checkApiHostAllDone.push(host);
+                console.log('Completed hosts:', _checkApiHostAllDone);
+            }
+            return _checkApiHostAllDone.length === hosts.length;
+        }
+
+        // 檢查是否可以打印數據
+        function checkprintFinalDataDone() {
+            if (!checkPrinted) {
+                printFinalData(_finalData);
+                showLoading(false);
+                checkPrinted = true;
+            }
+        }
+        function printFinalData(finalData) {
+                    var content = $('.resultContent');
+                    Object.keys(finalData).forEach(key => {
+                        setTimeout(() => {
+                            var timeObject = finalData[key];
+                            let sortedData = Object.entries(timeObject).sort((a, b) => new Date(a[0]) - new Date(b[0])).reverse().slice(0, 10);
+                            timeObject = Object.fromEntries(sortedData);
+
+                            console.log('timeObject', timeObject)
+
+                            var keyArr = key.split(':');
+                            var keyDisplay = `<span>發佈商 : ${keyArr[0]}</span><span>裝置 : ${keyArr[1]}</span>`
+                            keyElement = $(`<div id="${key}" class="deviceContent">
+                          <h4>${keyDisplay}</h4>
+                          <div class="">
+                            <div class="deviceRowHead">
+                              <div class="deviceRow"></div>
+                            </div>
+                            <div class="deviceRowBody"></div>
+                          </div>
+                        </div>`);
+                            content.append(keyElement)
+
+                            keyElement.find('.deviceRowHead .deviceRow').append('<div></div>')
+                            hosts.forEach(host => {
+                                keyElement.find('.deviceRowHead .deviceRow').append(`<div>${host}</div>`);
+                            });
+
+                            var deviceRowBody = keyElement.find('.deviceRowBody');
+                            Object.keys(timeObject).forEach(hour => {
+                                var deviceRow = $(`<div id="${hour}"class="deviceRow"></div>`);
+                                deviceRowBody.append(deviceRow);
+                                deviceRow.append(`<div>${hour.replace('T', ' ')}</div>`);
+
+                                hosts.forEach(host => {
+                                    var hourData = timeObject[hour];
+                                    var requestCount = hourData[host] ? hourData[host] : '-';
+                                    deviceRow.append(`<div>${requestCount}</div>`);
+                                });
+                            })
+                        }, 1)
+                    });
+                }
+    </script>
+</head>
+
+<body>
+
+    <div class="content">
+        <div>
+            <h2>看 Outdoor ad requset</h2>
+            <p id="all">總台數:</p>
+
+            <hr>
+            <div class="resultContent">
+
+            </div>
+        </div>
+
+
+</body>
+
+</html>

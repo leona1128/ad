@@ -1,0 +1,201 @@
+<div class="story-list__news udnNews" style="margin: 0; display: none;">
+    <div class="story-list__image" style="display: flex; align-items: center; height: 66.6667%; min-height: 90px; background-color: #eee; ">
+      <a href="{{clickUrl}}" target="_blank" title="{{title}}" class="story-list__image--holder" style="height: 66px">
+        <picture>
+          <img class="lazyloaded" data-src="{{imgUrl}}" src="{{imgUrl}}" style="height: auto"/>
+        </picture>
+      </a>
+    </div>
+    <div class="story-list__text" style="position: relative">
+      <h2 style="text-align: left">
+        <a href="{{clickUrl}}" title="{{title}}">{{title}}</a>
+      </h2>
+      <div class="sponsored" style="color: #777; font-size: 10px; position: absolute; bottom: 3px; right: 3px;">
+        贊助 {{sponsored}}
+      </div>
+    </div>
+  </div>
+  
+  <div class="story-list__news udnAutos" style="margin: 0; display: none;">
+    <div class="story-list__image" style="display: flex; align-items: center; min-height: 83.33px; background-color: #eee; margin-right: 10px;">
+      <a href="{{clickUrl}}" target="_blank" title="{{title}}" class="story-list__image--holder" style="height: 66px">
+        <picture style="background-color: #eee;">
+          <img class="lazyloaded" data-src="{{imgUrl}}" src="{{imgUrl}}" style="height: auto"/>
+        </picture>
+      </a>
+    </div>
+    <div class="story-list__text" style="position: relative">
+      <h3 style="text-align: left">
+        <a href="{{clickUrl}}" title="{{title}}">{{title}}</a>
+      </h3>
+      <div class="sponsored" style="color: #777; font-size: 12px; position: absolute; bottom: 3px; right: 3px;">
+        贊助 {{sponsored}}
+      </div>
+    </div>
+  </div>
+  
+  <dd style="margin-inline-start: auto; position: relative; display: none;" class="udnStyle">
+    <figure>
+      <a href="{{clickUrl}}" target="_blank" title="{{title}}" data-slotname="list_你可能會喜歡" data-content_level="開放閱讀">
+        <div class="imgbox zoom" style="background-color: #ddd">
+          <img src="{{imgUrl}}" title="{{title}}" alt="{{title}}" style="margin-top: 9px"/>
+        </div>
+        <figcaption>{{title}}</figcaption>
+        <div class="sponsor" style="font-size: 14px; color: #aaa; position: absolute; right: 0">
+          {{sponsored}} 贊助
+        </div>
+      </a>
+    </figure>
+  </dd>
+  
+  <a style="width: 100%; display: none; margin: 0;" target="_blank" href="{{clickUrl}}" class="content-list__link udnStars" title="{{title}}" data-slotname="list_最新文章" data-content_level="開放閱讀">
+    <figure>
+      <div class="content-list__image">
+        <picture style="display: flex; align-items: center; background-color: #ddd;">
+          <img style="height: auto;" class=" lazyloaded" data-src="{{imgUrl}}" alt="{{title}}" src="{{imgUrl}}">
+        </picture>
+      </div>
+      <figcaption style="display: flex; justify-content: space-around; flex-direction: column;">
+        <h3 class="content-list__text">{{title}}</h3>
+        <div class="sponsor" style="align-self: flex-end; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+      </figcaption>
+    </figure>
+  </a>
+  
+  <li class="card__style--photo-on-top udnHealth">
+    <a href="{{clickUrl}}" target="_blank" style="position: relative;" title="{{title}}" data-content_level="開放閱讀" data-slotname="list_延伸閱讀">
+      <picture class="" style="display: flex; align-items: center; background-color: #ddd;">
+        <img class="lazyloaded" style="height: 63px;" loading="lazy" data-src="{{imgUrl}}" alt="{{title}}" src="{{imgUrl}}"/>
+      </picture>
+      <figcaption>
+        <h3>{{title}}</h3>
+        <div class="sponsor" style="position: absolute; bottom: 4px; right: 4px; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+      </figcaption>
+    </a>
+  </li>
+  
+  <a href="{{clickUrl}}" target="_blank" class="story-list__link udnPets" title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀">
+    <picture style="display: flex; align-items: center; background-color: #ddd;">
+      <img class="lazyloaded" style="height: 63px;" data-src="{{imgUrl}}" src="{{imgUrl}}" alt="{{title}}"/>
+    </picture>
+    <div class="story-list__text" style="position: relative; margin: 0;">
+      <h3>{{title}}</h3>
+      <div class="sponsor" style="position: absolute; bottom: 4px; right: 4px; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+    </div>
+  </a>
+  
+  <a href="{{clickUrl}}" target="_blank" class="story-list__link udnHouse" title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀">
+    <picture style="display: flex; align-items: center; background-color: #ddd;">
+      <img class="lazyloaded" style="height: 63px;" data-src="{{imgUrl}}" src="{{imgUrl}}" alt="{{title}}"/>
+    </picture>
+    <div class="story-list__text" style="position: relative;">
+      <h2>{{title}}</h2>
+      <div class="sponsor" style="position: absolute; bottom: 4px; right: 4px; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+    </div>
+  </a>
+  
+  <figure class="cover_list-item udnOrange" style="margin: 0;">
+    <a href="{{clickUrl}}" target="_blank" title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀">
+      <div class="cover_list-img" style="background-color: #ddd;">
+        <img src="{{imgUrl}}" style="object-fit: contain;"/>
+      </div>
+      <figcaption class="cover_list-main">
+        <h3 class="cover_list-title">{{title}}</h3>
+        <div class="sponsor" style="position: absolute; bottom: 4px; right: 4px; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+      </figcaption>
+    </a>
+  </figure>
+
+  <!-- leona-start -->
+  <figure class="arrange_item orange">
+    <div class="arrange_image">
+        <a title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀" href="{{clickUrl}}">
+        <picture>
+            <source media="(min-width:1023px)" srcset="{{imgUrl}}" type="image/webp">
+            <source srcset="{{imgUrl}}" type="image/webp">
+            <img src="{{imgUrl}}" width="360" height="240" loading="lazy">
+        </picture>
+        </a>
+    </div>
+    <figcaption>
+        <h3 class="arrange_title">
+            <a title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀" href="{{clickUrl}}">{{title}}</a>
+        </h3>
+                    <div class="arrange_footer">
+                        <div class="sponsor" style="position: absolute; bottom: 4px; right: 4px; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+     </div>
+    </figcaption>
+</figure>
+  <!-- leona-end -->
+  
+  <div class="story-list__news udnReading" style="position: relative;">
+    <div class="story-list__image" style="">
+      <a href="{{clickUrl}}" target="_blank" title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀">
+        <picture style="display: flex; align-items: center; background-color: #ddd;">
+          <img class="lazyloaded" style="height: 65px; margin: 9.1px 0;" data-src="{{imgUrl}}" loading="lazy" alt="" src="{{imgUrl}}"/>
+        </picture>
+      </a>
+    </div>
+    <h2 class="story-list__title" style="text-align: left;">
+      <a href="{{clickUrl}}" target="_blank" title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀" >{{title}}</a>
+      <div class="sponsor" style="position: absolute; bottom: 4px; right: 14px; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+    </h2>
+  </div>
+  
+  <figure class="wrapper-body-list__item udnTech" style="position: relative;">
+    <a class="wrapper-body-list__cover" target="_blank" href="{{clickUrl}}" title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀" data-type="news">
+        <picture style="display: flex; align-items: center; background-color: #ddd;">
+            <img class=" lazyloaded" style="height: 79px;" data-src="{{imgUrl}}" width="600" height="400" src="{{imgUrl}}">
+        </picture>
+    </a>
+    <figcaption>
+        <h2><a href="{{clickUrl}}" target="_blank" title="{{title}}" data-slotname="list_延伸閱讀" data-content_level="開放閱讀">{{title}}</a></h2>
+        <div class="sponsor" style="position: absolute; bottom: 4px; right: 14px; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+    </figcaption>
+  </figure>
+  
+  <div class="story-list__wrapper udnWoman" data-type="image">
+    <a href="{{clickUrl}}" target="_blank" class="list-img-box" data-slotname="list_最新文章" data-content_level="開放閱讀" title="{{title}}">
+      <picture class="story-list__img" style="display: flex; align-items: center; background-color: #ddd;">
+        <img src="{{imgUrl}}" style="height: 63px;" alt="{{title}}" loading="lazy">
+      </picture>
+      <div class="card-video-play-icon"><i class="i-play2"></i></div>
+    </a>
+    <div class="story-list__text">
+      <a href="{{clickUrl}}" target="_blank" class="story-list__title" data-slotname="list_最新文章" data-content_level="開放閱讀" title="{{title}}">
+        <h2>{{title}}</h2>
+        <div class="sponsor" style="position: absolute; bottom: 4px; right: 14px; color: #777; font-size: 12px;">{{sponsored}} 贊助</div>
+      </a>
+      </div>
+    </div>
+  </div>
+  
+  <iframe width="1" height="1" srcdoc="
+  <script>
+    let parentBody = window.frameElement.closest('body');
+    let urlOrigin = window.frames.origin;
+  
+    let urlList = [['https://style.udn.com', 'udnStyle'], ['https://stars.udn.com', 'udnStars'], ['https://udn.com', 'udnNews'], ['https://autos.udn.com', 'udnAutos'], ['https://health.udn.com', 'udnHealth'], ['https://pets.udn.com', 'udnPets'], ['https://house.udn.com', 'udnHouse'], ['https://orange.udn.com', 'udnOrange'], ['https://orange.udn.com', 'orange'],['https://reading.udn.com', 'udnReading'], ['https://tech.udn.com', 'udnTech'], ['https://woman.udn.com', 'udnWoman']];
+    let itemMap = new Map(urlList);
+    let udnTarget = itemMap.get(urlOrigin);
+
+    if (udnTarget === 'orange') {
+        let orangeElement = parentBody.querySelector('.orange');
+        if (orangeElement) {
+            orangeElement.style.display = 'grid';
+        }
+    } else {
+        let targetElement = parentBody.querySelector(`.${udnTarget}`);
+        if (targetElement) {
+            targetElement.style.display = 'flex';
+        }
+    }
+    
+    for (let item of urlList) {
+        if (item[1] != udnTarget) {
+            parentBody.querySelector(`.${item[1]}`).remove();
+          
+        }
+    }
+  </script>
+  " style="display: none;" frameborder="0"></iframe>
