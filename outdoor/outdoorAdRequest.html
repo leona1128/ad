@@ -1,5 +1,4 @@
 <html>
-
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,14 +86,9 @@
 
   <script>
     var sspHost = '';
-
-
     $(document).ready(function () {
       sendRpcApi();
     });
-    //'10.2.71.10','10.2.71.11'
-
-
     var _finalData = {};
     var hosts = ['10.10.128.19', '10.10.128.22', '10.2.71.4', '10.2.71.5', '10.2.71.10', '10.2.71.11'];
 
@@ -102,40 +96,27 @@
       hosts.forEach(host => {
         var url = `http://${host}:58070/supply/outdoor/adrequest`;
 
-
         $.get(url, function (data, status) {
-          console.log(data, '這是data');
-          console.log(typeof data);
-          var checkPrinted = false;
           Object.keys(data).forEach(key => {
-
             var keyObject = _finalData[key] = _finalData[key] || {};
             var timeObject = data[key];
             Object.keys(timeObject).forEach(hour => {
               keyObject[hour] = keyObject[hour] = keyObject[hour] || {};
               keyObject[hour][host] = timeObject[hour];
-
             });
-
-            console.log( checkPrinted);
-            if (checkApiAllDone(host) && !checkPrinted) {
-              printFinalData(_finalData);
-              console.log(_finalData);
-              checkPrinted = true;
-              console.log( checkPrinted);
-            };
           })
+          if (checkApiAllDone(host)) {
+            printFinalData(_finalData);
+          };
         });
 
       })
     }
 
     var _checkApiHostAllDone = [];
-    var checkDone=false;
     function checkApiAllDone(h) {
-      if (_checkApiHostAllDone.indexOf(h) === -1  ) {
+      if (_checkApiHostAllDone.indexOf(h) === -1) {
         _checkApiHostAllDone.push(h);
-        console.log(_checkApiHostAllDone);
       }
       if (_checkApiHostAllDone.length === 6) {
         return true;
@@ -144,9 +125,11 @@
       }
     }
 
-
-    // 只顯示 last 24 小時
     function printFinalData(finalData) {
+      var total = Object.keys(_finalData).length;
+      $('#all').html(total);
+
+
       var content = $('.resultContent');
       Object.keys(finalData).forEach(key => {
         setTimeout(() => {
@@ -168,7 +151,6 @@
                           </div>
                         </div>`);
           content.append(keyElement)
-
           keyElement.find('.deviceRowHead .deviceRow').append('<div></div>')
           hosts.forEach(host => {
             keyElement.find('.deviceRowHead .deviceRow').append(`<div>${host}</div>`);
@@ -197,7 +179,7 @@
   <div class="content">
     <div>
       <h2>看 Outdoor ad requset</h2>
-      <p id="all">總台數:</p>
+      <p>總台數: <span id="all"> </span></p>
 
       <hr>
       <div class="resultContent">

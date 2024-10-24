@@ -4,12 +4,13 @@
     flex-direction: column-reverse;
     -webkit-flex-direction: column-reverse;
     width: 100%;
-    transform: translateY(100%);
+    transform: translateY(0%);
     position: fixed;
     left: 0;
     bottom: 0;
     z-index: 2147483;
     --vh: 1vh;
+    background-color: black;
   }
   #pullUpImg * {
     padding: 0;
@@ -45,13 +46,13 @@
   #pullUpImg .firstInterstitial .pic1 {
     display: block;
     width: 100%;
-    height:calc(var(--vh, 1vh) * 100);;
+    height:calc(var(--vh, 1vh) * 100);
     background: rgba(0, 0, 0, 0.5)  url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/koutImg.png) center/contain no-repeat;
     /* top:21.5vh; */
     left: 0;
     bottom: 100%; 
     transform: translateY(100%);
-    animation: on 1s ease-in-out 0s 1 normal forwards;
+    animation: on 2s ease-in-out 0s 1 normal forwards;
     position: relative;
   }
   
@@ -126,11 +127,11 @@ display: none;
   }
   #pullUpImg.show {
     transform: translateY(calc(var(--vh, 1vh) * 100));
-    transition: transform 1s ease-in-out;
+    /* transition: transform s ease-in-out; */
   }
   #pullUpImg.shake {
     transform: translateY(0);
-    transition: transform 1s ease-in-out;
+    /* transition: transform 1s ease-in-out; */
   }
   #pullUpImg .TenMaxBanner .bar{
     width: 100%;
@@ -184,8 +185,10 @@ display: none;
     width: 100%;
     height: 46.7vw;
     background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/pullUp/demo/%E7%BD%AE%E5%BA%95%E4%B8%8A%E6%8B%89-%E7%B4%94%E5%9C%96%2B%E5%8B%95%E7%95%AB%E8%93%8B%E7%89%88/%E8%A1%8C%E5%8B%95%E7%BD%AE%E5%BA%95%E4%B8%8A%E6%8B%89-%E7%B4%94%E5%9C%96-%E6%A9%AB%E5%B9%85.png) center/contain no-repeat;
-    position: relative;
+    position: fixed;
     z-index: 100;
+    bottom: 0;
+    top:-46.7vw;
   }
   
   /* #pullUpImg .shake .TenMaxBanner {
@@ -278,6 +281,7 @@ display: none;
     background-color: #ddd;
     background: url(https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/DFP-Test/img/small.png) right center/contain no-repeat;
     position: absolute;
+    top:10px;
  
     right: 0;
     z-index: 2147483647;

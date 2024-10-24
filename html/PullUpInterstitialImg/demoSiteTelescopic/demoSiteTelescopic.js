@@ -161,7 +161,7 @@ function closePicContainer(){
     console.log('移除shake');
     setTimeout(function() {
         bannerBar.style.display = 'block';
-    },1255);
+    },1350);
   
   
 }

@@ -65,6 +65,7 @@ TMRRibbon.addEventListener('animationend', () => {
 
 TenMaxInterstitial.addEventListener('transitionend', function(event) {
   if (TenMaxInterstitial != event.target) {
+    console.log(event,'動畫沒結束');
     return;
   }
   showContainer();
@@ -72,6 +73,7 @@ TenMaxInterstitial.addEventListener('transitionend', function(event) {
 
 function showContainer() {
   TenMaxTemplate.classList.add('show');
+  console.log('動畫結束了！');
   setTracker(TenMaxTemplate);
 }
 
