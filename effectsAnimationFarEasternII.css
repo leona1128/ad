@@ -1,0 +1,353 @@
+#effectsAnimationFarEasternII {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2147483647;
+  transform: translateY(100%);
+  --vh: 1vh;
+}
+
+#effectsAnimationFarEasternII.show {
+  transform: translateY(0);
+  transition: transform 1s;
+}
+
+#effectsAnimationFarEasternII.remove {
+  display: none !important;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial {
+  display: block;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-Interstitial-bg.png) rgba(0, 0, 0, 0.8) center / contain no-repeat;
+  position: absolute;
+  bottom: 100%;
+  transform: translateX(0);
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial.out {
+  animation: slideOut 1s ease-in-out forwards;
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial img {
+  width: 100%;
+  position: absolute;
+  bottom: calc(50% - 100vw);
+  left: 0;
+  opacity: 0;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .smoke {
+  bottom: calc(50% - 40vw);
+}
+
+@media (min-aspect-ratio: 600/1198) {
+  #effectsAnimationFarEasternII .TenMaxInterstitial img {
+    width: calc(600 / 11.975 * var(--vh));
+    bottom: calc(50% - ((600 / 11.975 * var(--vh))));
+    left: calc(50% - ((600 / 11.975 * var(--vh)) / 2));
+  }
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .mom {
+  opacity: 1;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .mom.momFadeOut {
+  animation: TMMomFadeOut 1s ease-in-out 0s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .momGift.fadeIn {
+  animation: TMFadeIn 1.5s ease-in-out .7s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .dad.fadeOut {
+  animation: TMFadeOut 1s ease-in-out 0s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .dadGift.fadeIn {
+  animation: TMFadeIn 1.5s ease-in-out .7s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .girl.fadeOut {
+  animation: TMFadeOut 1s ease-in-out 0s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .girlGift.fadeIn {
+  animation: TMFadeIn 1.5s ease-in-out .7s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .smoke.fadeInNOut {
+  animation: TMFadeInNOut 1s ease-in-out .4s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .smoke.girlFadeInNOut {
+  animation: TMGirlFadeInNOut 1s ease-in-out .4s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .logo.popIn {
+  animation: TMPopIn 1s ease-in-out 0s 1 normal forwards;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .endPeople.show {
+  opacity: 1;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .LRibbon.fall {
+  animation: TMFall 1.5s ease-in-out 0s 1 normal forwards;
+  z-index: -1;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .RRibbon.fall {
+  animation: TMFall 1.5s ease-in-out .5s 1 normal forwards;
+  z-index: -1;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .LRibbonII.fall {
+  animation: TMFall 1.5s ease-in-out 1s 1 normal forwards;
+  z-index: -1;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .RRibbonII.fall {
+  animation: TMFall 1.5s ease-in-out 1.5s 1 normal forwards;
+  z-index: -1;
+}
+
+#effectsAnimationFarEasternII .TenMaxInterstitial .bloons.float {
+  animation: TMFloat 4s ease-in-out normal infinite;
+  z-index: -1;
+}
+
+@keyframes TMFadeIn {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.2);
+  }
+  25% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes TMMomFadeOut {
+  0% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes TMFadeOut {
+  0% {
+    opacity: 1;
+    transform: translateX(150%);
+    filter: blur(50px);
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+}
+
+@keyframes TMFadeInNOut {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.5) translateX(-30%);
+    transform-origin: center left;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(3) translateX(-35%);
+    transform-origin: center left;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3) translateX(-35%);
+    transform-origin: center left;
+  }
+}
+
+@keyframes TMGirlFadeInNOut {
+  0% {
+    opacity: 0.4;
+    transform: scale(0.5) translate(-10%, 25%);
+    transform-origin: bottom left;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(3) translate(-35%, 30%);
+    transform-origin: bottom left;
+  }
+ 100% {
+    opacity: 0;
+    transform: scale(3) translate(-35%, 30%);
+    transform-origin: bottom left;
+  }
+}
+
+@keyframes TMPopIn {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: bottom center;
+  }
+  33% {
+    transform: scale(1.25);
+    transform-origin: bottom center;
+  }
+  66% {
+    transform: scale(.9);
+    transform-origin: bottom center;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    transform-origin: bottom center;
+  }
+}
+
+@keyframes TMFall {
+  0% {
+    opacity: 1;
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(70%);
+  }
+}
+
+@keyframes TMFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(10%);
+  }
+  50% {
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(10%);
+  }
+}
+
+#effectsAnimationFarEasternII .TenMaxBannerBundle {
+  display: block;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/EffectsAnimation/FarEastern/effectsAnimation-bg.png) rgba(0, 0, 0, 0.8) center / contain no-repeat;
+  position: relative;
+  bottom: 0;
+}
+
+#effectsAnimationFarEasternII .TenMaxBannerBundle img {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#effectsAnimationFarEasternII .TenMaxBannerBundle video {
+  width: 100%;
+  position: absolute;
+  top: calc(50% - (51vw));
+  left: 0;
+}
+
+@media (min-aspect-ratio: 600/1198) {
+  #effectsAnimationFarEasternII .TenMaxBannerBundle img {
+    width: calc(600 / 11.975 * var(--vh));
+    left: calc(50% - ((600 / 11.975 * var(--vh)) / 2));
+  }
+  #effectsAnimationFarEasternII .TenMaxBannerBundle video {
+    width: calc(600 / 11.975 * var(--vh));
+    left: calc(50% - ((600 / 11.975 * var(--vh)) / 2));
+  }
+}
+
+#effectsAnimationFarEasternII .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2147483647;
+  transform: translate(-50%, 200%);
+  opacity: 0;
+}
+
+#effectsAnimationFarEasternII.show .TenMaxBannerCloseBtn {
+  opacity: 1;
+}
+
+#effectsAnimationFarEasternII .interstitialClose.show {
+  display: block;
+  top: -100%;
+  opacity: 1;
+}
+
+#effectsAnimationFarEasternII .interstitialClose.out {
+  right: 200%;
+  transition: right 1s ease-in-out;
+}
+
+@media screen and (max-width: 375px) {
+  #effectsAnimationFarEasternII .interstitialClose.show {
+    top: -90%;
+    transform: translateX(-50%);
+  }
+}
+
+#effectsAnimationFarEasternII .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#effectsAnimationFarEasternII .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  position: fixed;
+  bottom: 5px;
+  right: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/small.png) right center/contain no-repeat;
+}
+
+#effectsAnimationFarEasternII .TenMaxLogo img {
+  width: 30px;
+}
