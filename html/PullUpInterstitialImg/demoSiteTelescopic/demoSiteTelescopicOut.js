@@ -11,34 +11,48 @@ let TenMaxTemplate = document.querySelector('#pullUpImg');
 let firstInterstitial = TenMaxTemplate.querySelector('.firstInterstitial');
 let TenMaxBannerBundle = TenMaxTemplate.querySelector('.TenMaxBannerBundle');
 let TenMaxBanner = TenMaxBannerBundle.querySelector('.TenMaxBanner');
-let bannerBar = TenMaxBanner.querySelector('.bar');
+let bannerBar = TenMaxTemplate.querySelector('.bar');
 let TenMaxInterstitial = TenMaxBannerBundle.querySelector('.TenMaxInterstitial');
 let TenMaxBannerCloseBtn = TenMaxBanner.querySelector('.TenMaxCloseBtn');
-let TenMaxInterstitialCloseBtn = TenMaxInterstitial.querySelector('.TenMaxCloseBtn');
+let TenMaxInterstitialCloseBtn = firstInterstitial.querySelector('.TenMaxCloseBtn');
+let pic1Element = document.querySelector('.pic1');
 
-// 添加動畫結束事件監聽
-TenMaxTemplate.addEventListener('animationend', function(event) {
-  if (isPullUp) {
-    return;
-  }
-  let interval = 200;
-  if (event.timeStamp - lastScroll < interval) {
-    playBouncingAnimation();
+// 追蹤動畫狀態的變數
+let animationInProgress = false;
+let animationComplete = false;
+
+// Add click handler for pic1
+pic1Element.addEventListener('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  
+  // Get the current href from TenMaxBannerBundle
+  let href = window.location.href;
+  let targetUrl;
+  
+  let blob = 'tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising';
+  let cdn = 'tenmax-static.cacafly.net/ssp/H5_Creative_Advertising';
+  
+  if (href.indexOf(blob) != -1 || href.indexOf(cdn) != -1) {
+    targetUrl = TenMaxLink;
   } else {
-    isPlaying = false;
-    TenMaxTemplate.setAttribute('style','animation: none;');
+    targetUrl = clickUrl + encodeURIComponent(TenMaxLink);
   }
+  
+  // Redirect to the target URL
+  window.open(targetUrl, '_blank');
 });
 
-// TenMaxBanner.addEventListener('touchstart', handleTouchStart);
-// TenMaxBanner.addEventListener('touchmove', handleTouchMove);
+document.addEventListener('DOMContentLoaded', () => {
+  const banner = document.querySelector('.TenMaxBanner');
+  banner.style.bottom = '0';
+});
 
 TenMaxInterstitialCloseBtn.addEventListener('click', function(e) {
   e.preventDefault();
-  closePicContainer();
-  setTimeout(function() {
-    TenMaxBannerCloseBtn.style.display = 'block';
-  }, 1000);
+  if (!animationInProgress) {
+    closePicContainer();
+  }
 });
 
 TenMaxBannerCloseBtn.addEventListener('click', function(e) {
@@ -46,27 +60,6 @@ TenMaxBannerCloseBtn.addEventListener('click', function(e) {
   closeContainer();
   bannerBar.style.display = 'none';
 });
-
-let start = null;
-function handleTouchStart(e) {
-  if (TenMaxInterstitial.style.display == 'block') {
-    start = null;
-  } else {
-    start = e.touches[0].clientY;
-  }
-}
-
-function handleTouchMove(e) {
-  if (!start) {
-    return;
-  }
-  let move = e.touches[0].clientY;
-  let diff = start - move;
-  if (diff > 50) {
-    pullUpContainer();
-    start = null;
-  }
-}
 
 let isPullUp = false;
 function pullUpContainer() {
@@ -79,16 +72,9 @@ function pullUpContainer() {
 let lastScroll = 0;
 let isPlaying = false;
 
-function playBouncingAnimation() {
-  TenMaxTemplate.setAttribute('style', '');
-  TenMaxTemplate.offsetHeight;
-  TenMaxTemplate.setAttribute('style', 'animation:none');
-}
-
 function showContainer() {
   TenMaxTemplate.classList.add('show');
   setTracker(TenMaxTemplate);
-  TenMaxBanner.style.display = 'block';
 }
 
 function setTracker(TenMaxTemplate) {
@@ -102,12 +88,21 @@ function setTracker(TenMaxTemplate) {
   }
 }
 
+// Rest of the original code remains the same...
 function safariHacks() {
-  let windowsVH = window.innerHeight / 100;
-  TenMaxTemplate.style.setProperty('--vh', windowsVH + 'px');
-  window.addEventListener('resize', function() {
-    TenMaxTemplate.style.setProperty("--vh", windowsVH + "px");
+  setTimeout(function() {
+    let windowsVH = window.innerHeight / 100;
+    console.log("Corrected VH after load:", windowsVH + 'px'); 
+    TenMaxTemplate.style.setProperty('--vh', windowsVH + 'px');
+  }, 300);  
+  
+  window.addEventListener('resize', function () {
+    let windowsVH = window.innerHeight / 100;
+    console.log("VH on resize:", windowsVH + 'px');
+    TenMaxTemplate.style.setProperty('--vh', windowsVH + 'px');
   });
+  
+  TenMaxInterstitial.classList.add('show');
 }
 
 let resizeTimeout;
@@ -115,25 +110,13 @@ window.addEventListener('resize', function() {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(function() {
     let windowsVH = window.innerHeight / 100;
+    console.log(" delayed resize:", windowsVH + 'px');
     TenMaxTemplate.style.setProperty('--vh', windowsVH + 'px');
-  }, 0);
-});
-
-// 滾動事件處理
-window.addEventListener('scroll', function(event) {
-  if (isPullUp) {
-    return;
-  }
-  lastScroll = event.timeStamp;
-  if (!isPlaying) {
-    playBouncingAnimation();
-    isPlaying = true;
-  }
+  }, 300); 
 });
 
 let shakeAdded = false;
 let adElement = document.querySelector('.TenMaxInterstitial');
-let pic2Element = document.querySelector('.pic2');
 let handElement = document.querySelector('.hand');
 
 window.addEventListener('load', function() {
@@ -142,53 +125,80 @@ window.addEventListener('load', function() {
       adElement.classList.add('shake');
       shakeAdded = true;
       bannerBar.style.display = 'block';
+      handElement.style.display = 'block';
+      bannerBar.addEventListener('touchstart', handleBarTouch);
+      bannerBar.addEventListener('mousedown', handleBarTouch);
     }
-  }, 4000);
+  }, 3500);
 });
 
-function handleScroll() {
-  if (shakeAdded) {
-    if (pic2Element) {
-      pic2Element.style.display = 'block';
-      bannerBar.style.display = 'none';
-    }
-    if (handElement) {
-      handElement.style.display = 'none';
-    }
-    window.removeEventListener('scroll', handleScroll);
+function handleBarTouch(e) {
+  if (!animationInProgress && shakeAdded && pic1Element) {
+    animationInProgress = true;
+    animationComplete = false;
+    
+    firstInterstitial.classList.add('toch');
+    bannerBar.style.display = 'none';
+    TenMaxBannerCloseBtn.style.display = 'none';
+    TenMaxInterstitialCloseBtn.style.display = 'none';
+    pic1Element.addEventListener('animationend', function onAnimationEnd() {
+      animationComplete = true;
+      animationInProgress = false;
+      TenMaxInterstitialCloseBtn.style.display = 'block';
+   
+      pic1Element.removeEventListener('animationend', onAnimationEnd);
+    });
+  }
+  
+  if (handElement) {
+    handElement.style.display = 'none';
   }
 }
 
-window.addEventListener('scroll', handleScroll);
-
 function closeContainer() {
   isPullUp = true;
-  TenMaxBanner.style .display = 'none';
+  TenMaxBanner.style.display = 'none';
   TenMaxBanner.offsetHeight;
   TenMaxTemplate.classList.remove('play', 'show');
   TenMaxInterstitial.style.display = 'none';
-  firstInterstitial.style.display = 'none';
-
 }
 
 function closePicContainer() {
-  TenMaxInterstitial.classList.add('down');
-  console.log('移除shake');
-  setTimeout(function() {
-    bannerBar.style.display = 'block';
-  }, 1255);
+  if (!animationInProgress) {
+    animationInProgress = true;
+
+    TenMaxInterstitialCloseBtn.style.display = 'none';
+    firstInterstitial.classList.add('down');
+    firstInterstitial.classList.remove('toch');
+    
+    pic1Element.addEventListener('animationend', function onAnimationEnd() {
+      animationComplete = true;
+      animationInProgress = false;
+      firstInterstitial.classList.remove('down');
+      pic1Element.removeEventListener('animationend', onAnimationEnd);
+    });
+    setTimeout(function() {
+      if (animationComplete) {
+        bannerBar.style.display = 'block';
+        TenMaxBannerCloseBtn.style.display = 'block';
+        TenMaxBannerCloseBtn.style.position = 'relative';
+      }
+    }, 2700);
+  }
 }
 
 let isLoaded = performance.getEntriesByType('navigation').every((e) => e.loadEventEnd);
 
 let Init = function() {
-  bannerBar.style.display = 'none';
   TenMaxTemplate.classList.add('play');
   safariHacks();
+  showContainer(); 
+  bannerBar.style.display = 'none';
+ 
+  firstInterstitial.classList.add('start');
   setTimeout(function() {
-    showContainer();
-    firstInterstitial.style.display = 'block';
-  }, 1500);
+    firstInterstitial.classList.remove('start');
+  }, 4000);
 };
 
 if (isLoaded) {
