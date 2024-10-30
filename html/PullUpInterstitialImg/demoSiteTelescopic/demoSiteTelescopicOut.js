@@ -12,6 +12,7 @@ let firstInterstitial = TenMaxTemplate.querySelector('.firstInterstitial');
 let TenMaxBannerBundle = TenMaxTemplate.querySelector('.TenMaxBannerBundle');
 let TenMaxBanner = TenMaxBannerBundle.querySelector('.TenMaxBanner');
 let bannerBar = TenMaxTemplate.querySelector('.bar');
+
 let TenMaxInterstitial = TenMaxBannerBundle.querySelector('.TenMaxInterstitial');
 let TenMaxBannerCloseBtn = TenMaxBanner.querySelector('.TenMaxCloseBtn');
 let TenMaxInterstitialCloseBtn = firstInterstitial.querySelector('.TenMaxCloseBtn');
@@ -88,7 +89,6 @@ function setTracker(TenMaxTemplate) {
   }
 }
 
-// Rest of the original code remains the same...
 function safariHacks() {
   setTimeout(function() {
     let windowsVH = window.innerHeight / 100;
@@ -126,6 +126,14 @@ window.addEventListener('load', function() {
       shakeAdded = true;
       bannerBar.style.display = 'block';
       handElement.style.display = 'block';
+
+      TenMaxBannerCloseBtn.style.display = 'block';
+      TenMaxBannerCloseBtn.style.position = 'relative';
+      // 為 hand 元素添加事件監聽器
+      handElement.addEventListener('touchstart', handleBarTouch);
+      handElement.addEventListener('mousedown', handleBarTouch);
+      
+      // 原有的 bar 事件監聽器
       bannerBar.addEventListener('touchstart', handleBarTouch);
       bannerBar.addEventListener('mousedown', handleBarTouch);
     }
@@ -133,11 +141,13 @@ window.addEventListener('load', function() {
 });
 
 function handleBarTouch(e) {
+  e.preventDefault(); // 防止事件冒泡
+  
   if (!animationInProgress && shakeAdded && pic1Element) {
     animationInProgress = true;
     animationComplete = false;
     
-    firstInterstitial.classList.add('toch');
+    firstInterstitial.classList.add('touch');
     bannerBar.style.display = 'none';
     TenMaxBannerCloseBtn.style.display = 'none';
     TenMaxInterstitialCloseBtn.style.display = 'none';
@@ -169,7 +179,7 @@ function closePicContainer() {
 
     TenMaxInterstitialCloseBtn.style.display = 'none';
     firstInterstitial.classList.add('down');
-    firstInterstitial.classList.remove('toch');
+    firstInterstitial.classList.remove('touch');
     
     pic1Element.addEventListener('animationend', function onAnimationEnd() {
       animationComplete = true;
@@ -183,7 +193,7 @@ function closePicContainer() {
         TenMaxBannerCloseBtn.style.display = 'block';
         TenMaxBannerCloseBtn.style.position = 'relative';
       }
-    }, 2700);
+    }, 700);
   }
 }
 
@@ -194,6 +204,7 @@ let Init = function() {
   safariHacks();
   showContainer(); 
   bannerBar.style.display = 'none';
+ 
  
   firstInterstitial.classList.add('start');
   setTimeout(function() {

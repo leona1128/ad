@@ -1,90 +1,83 @@
-// 選擇載入廣告腳本的標籤
 var TenMaxScript = document.querySelector('#PullUpKnockoutImgJs');
-// 定義廣告的目標鏈接
 var TenMaxLink = 'http://tenmax.io/';
-// 從'pullUpImgJs'元素的data屬性中獲取點擊URL
 var clickUrl = TenMaxScript.dataset.clickUrl;
-// 從'pullUpImgJs'元素的data屬性中獲取可視化URL
 var viewableUrl = TenMaxScript.dataset.viewableUrl;
-// 從'pullUpImgJs'元素的data屬性中獲取SSP（供應方平台）可視化URL
 var SSPviewableUrl = TenMaxScript.dataset.sspviewableUrl;
-// 從'pullUpImgJs'元素的data屬性中獲取ADX（廣告交易平台）可視化URL
 var ADXviewableUrl = TenMaxScript.dataset.adxviewableUrl;
-// 從'pullUpImgJs'元素的data屬性中獲取橫幅廣告ID
 var TenMaxBannerId = TenMaxScript.dataset.bannerId;
-// 從'pullUpImgJs'元素的data屬性中獲取廣告活動ID
 var TenMaxCampaignId = TenMaxScript.dataset.campaignId;
-// 選擇ID為'pullUpImg'的元素，這是主廣告容器
+
 let TenMaxTemplate = document.querySelector('#pullUpImg');
-//--開始
-// 在主廣告容器中選擇class為'firstInterstitial'的元素
 let firstInterstitial = TenMaxTemplate.querySelector('.firstInterstitial');
-// 在主廣告容器中選擇class為'TenMaxBannerBundle'的元素
 let TenMaxBannerBundle = TenMaxTemplate.querySelector('.TenMaxBannerBundle');
-// 在TenMaxBannerBundle中選擇class為'TenMaxBanner'的元素
 let TenMaxBanner = TenMaxBannerBundle.querySelector('.TenMaxBanner');
-// 在TenMaxBannerBundle中選擇class為'TenMaxInterstitial'的元素
-let bannerBar = TenMaxBanner.querySelector('.bar');
+let bannerBar = TenMaxTemplate.querySelector('.bar');
 
 let TenMaxInterstitial = TenMaxBannerBundle.querySelector('.TenMaxInterstitial');
-// 在TenMaxBanner中選擇class為'TenMaxCloseBtn'的元素，這是關閉按鈕
 let TenMaxBannerCloseBtn = TenMaxBanner.querySelector('.TenMaxCloseBtn');
-// 在TenMaxInterstitial中選擇class為'TenMaxCloseBtn'的元素，這是另一個關閉按鈕
-let TenMaxInterstitialCloseBtn = TenMaxInterstitial.querySelector('.TenMaxCloseBtn');
+let TenMaxInterstitialCloseBtn = firstInterstitial.querySelector('.TenMaxCloseBtn');
+let pic1Element = document.querySelector('.pic1');
 
-TenMaxBanner.addEventListener('touchstart', handleTouchStart);
-TenMaxBanner.addEventListener('touchmove', handleTouchMove);
-let scrollTriggered = false;
+// 追蹤動畫狀態的變數
+let animationInProgress = false;
+let animationComplete = false;
 
-
-  // 為插頁式廣告的關閉按鈕添加點擊事件監聽器
-TenMaxInterstitialCloseBtn.addEventListener('click', function(e) {
-  e.preventDefault(); // 阻止默認事件
-  // 調用下推容器函數
-  closePicContainer();
-  setTimeout(function() {
-    TenMaxBannerCloseBtn.style.display = 'block';
-}, 1000);
+// Add click handler for pic1
+pic1Element.addEventListener('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
   
+  // Get the current href from TenMaxBannerBundle
+  let href = window.location.href;
+  let targetUrl;
   
-});
-// 為橫幅廣告的關閉按鈕添加點擊事件監聽器
-TenMaxBannerCloseBtn.addEventListener('click', function(e) {
-  e.preventDefault(); // 阻止默認事件
-  closeContainer(); // 調用關閉容器函數
-  bannerBar.style.display = 'none';
-
-});
-// 觸摸開始邏輯
-let start = null;
-function handleTouchStart(e) {
-  if (TenMaxInterstitial.style.display == 'block') {
-    start = null;
+  let blob = 'tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising';
+  let cdn = 'tenmax-static.cacafly.net/ssp/H5_Creative_Advertising';
+  
+  if (href.indexOf(blob) != -1 || href.indexOf(cdn) != -1) {
+    targetUrl = TenMaxLink;
   } else {
-    start = e.touches[0].clientY;
+    targetUrl = clickUrl + encodeURIComponent(TenMaxLink);
   }
+  
+  // Redirect to the target URL
+  window.open(targetUrl, '_blank');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const banner = document.querySelector('.TenMaxBanner');
+  banner.style.bottom = '0';
+});
+
+TenMaxInterstitialCloseBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  if (!animationInProgress) {
+    closePicContainer();
+  }
+});
+
+TenMaxBannerCloseBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  closeContainer();
+  bannerBar.style.display = 'none';
+});
+
+let isPullUp = false;
+function pullUpContainer() {
+  isPullUp = true;
+  safariHacks();
+  TenMaxInterstitial.offsetHeight;
+  TenMaxTemplate.classList.add('up');
 }
- // 觸摸移動邏輯
-function handleTouchMove(e) {
-  if (!start) {
-    return;
-  }
-  let move = e.touches[0].clientY;
-  let diff = start - move;
-  if (diff > 50) {
-    pullUpContainer();
-    start = null;
-  }
-}
+
+let lastScroll = 0;
+let isPlaying = false;
+
 function showContainer() {
   TenMaxTemplate.classList.add('show');
   setTracker(TenMaxTemplate);
-  TenMaxBanner.style.display = 'block';
- 
-} // 顯示廣告容器
+}
 
-// 設置追蹤器 
-//載入tracker
 function setTracker(TenMaxTemplate) {
   let href = window.location.href;
   let blob = 'tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising';
@@ -94,93 +87,133 @@ function setTracker(TenMaxTemplate) {
   } else {
     TenMaxBannerBundle.setAttribute("href", clickUrl + encodeURIComponent(TenMaxLink));
   }
-  
-}
-// Safari瀏覽器的特殊處理
-function safariHacks() {
-  let windowsVH = window.innerHeight / 100;
-  TenMaxTemplate.style.setProperty('--vh', windowsVH + 'px');
-  window.addEventListener('resize', function() {
-      document.querySelector('#TenMaxTemplate').style.setProperty('--vh', windowsVH + 'px');
-  });
 }
 
-window.addEventListener('resize', function () {
+function safariHacks() {
   setTimeout(function() {
     let windowsVH = window.innerHeight / 100;
+    console.log("Corrected VH after load:", windowsVH + 'px'); 
     TenMaxTemplate.style.setProperty('--vh', windowsVH + 'px');
-  }, 200);
-  safariHacks();
+  }, 300);  
+  
+  window.addEventListener('resize', function () {
+    let windowsVH = window.innerHeight / 100;
+    console.log("VH on resize:", windowsVH + 'px');
+    TenMaxTemplate.style.setProperty('--vh', windowsVH + 'px');
+  });
+  
+  TenMaxInterstitial.classList.add('show');
+}
+
+let resizeTimeout;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(function() {
+    let windowsVH = window.innerHeight / 100;
+    console.log(" delayed resize:", windowsVH + 'px');
+    TenMaxTemplate.style.setProperty('--vh', windowsVH + 'px');
+  }, 300); 
 });
+
 let shakeAdded = false;
 let adElement = document.querySelector('.TenMaxInterstitial');
-let pic2Element = document.querySelector('.pic2');
-let handElement = document.querySelector('.hand')
+let handElement = document.querySelector('.hand');
 
 window.addEventListener('load', function() {
-    setTimeout(function() {
-      if (adElement && !shakeAdded) {
-        adElement.classList.add('shake');
-        shakeAdded = true;
-        bannerBar.style.display = 'block';  
-      }
-    }, 4000)
-  });
+  setTimeout(function() {
+    if (adElement && !shakeAdded) {
+      adElement.classList.add('shake');
+      shakeAdded = true;
+      bannerBar.style.display = 'block';
+      handElement.style.display = 'block';
 
-  
-  function handleScroll() {
-    if (shakeAdded) {
-      if (pic2Element) {
-        pic2Element.style.display = 'block';
-        bannerBar.style.display = 'none';
-      }
-      if (handElement) {
-        handElement.style.display = 'none';
-      }
+      TenMaxBannerCloseBtn.style.display = 'block';
+      TenMaxBannerCloseBtn.style.position = 'relative';
+      // 為 hand 元素添加事件監聽器
+      handElement.addEventListener('touchstart', handleBarTouch);
+      handElement.addEventListener('mousedown', handleBarTouch);
       
-      window.removeEventListener('scroll', handleScroll);
-      
+      // 原有的 bar 事件監聽器
+      bannerBar.addEventListener('touchstart', handleBarTouch);
+      bannerBar.addEventListener('mousedown', handleBarTouch);
     }
+  }, 3500);
+});
+
+function handleBarTouch(e) {
+  e.preventDefault(); // 防止事件冒泡
+  
+  if (!animationInProgress && shakeAdded && pic1Element) {
+    animationInProgress = true;
+    animationComplete = false;
+    
+    firstInterstitial.classList.add('touch');
+    bannerBar.style.display = 'none';
+    TenMaxBannerCloseBtn.style.display = 'none';
+    TenMaxInterstitialCloseBtn.style.display = 'none';
+    pic1Element.addEventListener('animationend', function onAnimationEnd() {
+      animationComplete = true;
+      animationInProgress = false;
+      TenMaxInterstitialCloseBtn.style.display = 'block';
+   
+      pic1Element.removeEventListener('animationend', onAnimationEnd);
+    });
   }
-  window.addEventListener('scroll', handleScroll);
- 
-// 關閉廣告容器
+  
+  if (handElement) {
+    handElement.style.display = 'none';
+  }
+}
+
 function closeContainer() {
   isPullUp = true;
-  TenMaxBanner.style = '';
+  TenMaxBanner.style.display = 'none';
   TenMaxBanner.offsetHeight;
   TenMaxTemplate.classList.remove('play', 'show');
-  TenMaxInterstitial.style.display='none';
-  firstInterstitial.style.display='none';
+  TenMaxInterstitial.style.display = 'none';
 }
-function closePicContainer(){
-   
-    TenMaxInterstitial.classList.add('down');
-    // TenMaxInterstitial.classList.remove('shake');
+
+function closePicContainer() {
+  if (!animationInProgress) {
+    animationInProgress = true;
+
+    TenMaxInterstitialCloseBtn.style.display = 'none';
+    firstInterstitial.classList.add('down');
+    firstInterstitial.classList.remove('touch');
     
-    console.log('移除shake');
+    pic1Element.addEventListener('animationend', function onAnimationEnd() {
+      animationComplete = true;
+      animationInProgress = false;
+      firstInterstitial.classList.remove('down');
+      pic1Element.removeEventListener('animationend', onAnimationEnd);
+    });
     setTimeout(function() {
+      if (animationComplete) {
         bannerBar.style.display = 'block';
-    },1350);
-  
-  
+        TenMaxBannerCloseBtn.style.display = 'block';
+        TenMaxBannerCloseBtn.style.position = 'relative';
+      }
+    }, 700);
+  }
 }
-// 檢查頁面是否已加載完成,並執行初始化
+
 let isLoaded = performance.getEntriesByType('navigation').every((e) => e.loadEventEnd);
-// 初始化函數
-let init = function () {
-bannerBar.style.display = 'none';
+
+let Init = function() {
   TenMaxTemplate.classList.add('play');
   safariHacks();
-  showContainer();
-    setTimeout(function() {
-        firstInterstitial.style.display = 'block';
-       
-  },1500);
+  showContainer(); 
+  bannerBar.style.display = 'none';
+ 
+ 
+  firstInterstitial.classList.add('start');
+  setTimeout(function() {
+    firstInterstitial.classList.remove('start');
+  }, 4000);
+};
 
-};
 if (isLoaded) {
-  init();
+  Init();
 } else {
-  window.onload = init;
-};
+  window.onload = Init;
+}

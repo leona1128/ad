@@ -102,7 +102,7 @@ width: 100%;
     }
 }
 #pullUpImg .firstInterstitial.down .pic1,
-#pullUpImg .firstInterstitial.toch .pic1 {
+#pullUpImg .firstInterstitial.touch .pic1 {
   display: block;
   width: 100%;
   height:calc(var(--vh, 1vh) * 100);
@@ -115,10 +115,10 @@ width: 100%;
   
   /* position: relative; */
 }
-#pullUpImg .firstInterstitial.toch,
-#pullUpImg .firstInterstitial.toch .pic1 {
+#pullUpImg .firstInterstitial.touch,
+#pullUpImg .firstInterstitial.touch .pic1 {
   display: block;
-  animation: touchUp  2s ease-out forwards ; 
+  animation: touchUp  1s ease-out forwards ; 
   transform: translateY(50%);
 
 }
@@ -133,7 +133,7 @@ width: 100%;
 }
 #pullUpImg .firstInterstitial.down,
 #pullUpImg .firstInterstitial.down .pic1 {
-  animation: touchDown  3s ease-out ; 
+  animation: touchDown  1s ease-out ; 
   transform: translateY(0%);
 
   display: block;
@@ -160,35 +160,6 @@ width: 100%;
   background:  url(Img/bar.png) center/contain no-repeat;
 }
 
-/* #pullUpImg .shake .pic1 {
-  animation: slowIn 1.5s ease-in-out forwards;
- 
-}
-#pullUpImg .down .pic1 {
-  
-animation: down 2s ease-in-out forwards;
-}
-#pullUpImg .down .TenMaxCloseBtn {
-display: none;
-}
-
-
-@keyframes slowIn {
-  0% {
-      transform: translateY(100%);
-  }
-  100% {
-      transform: translateY(0%);
-  }
-}
-@keyframes down {
-  0% {
-      transform: translateY(0%);
-  }
-  100% {
-      transform: translateY(150%);
-  } */
-/* } */
 
 #pullUpImg.show {
   transform: translateY(0);  /* 修改這裡確保banner可見 */
@@ -200,18 +171,18 @@ display: none;
 }
 
 #pullUpImg .TenMaxBanner .hand{
-  position: absolute;
+  position: fixed; 
   background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/icon_finger.gif) center/cover no-repeat;
-  top:-35%;
-  left: 35%; 
+  top: -46.7vw;
+  left: 50%; 
   width: 50px;
-  height: 50px ;
+  height: 50px;
   background-color: #4d4d647a;
   border-radius: 50%;
   z-index: 120;
-  transform: translate(50%, 50%);
+  transform: translate(-50%, -50%);
   border: 1px solid #fff;
-  opacity: 0; /* 初始設置為透明 */
+  opacity: 0;
   animation: hand 0s ease-in 0s 1 normal forwards;
   display: none;
 }
@@ -229,7 +200,7 @@ display: none;
   display: block;
   width: 100%;
   height: 46.7vw;
-  background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/pullUp/demo/%E7%BD%AE%E5%BA%95%E4%B8%8A%E6%8B%89-%E7%B4%94%E5%9C%96%2B%E5%8B%95%E7%95%AB%E8%93%8B%E7%89%88/%E8%A1%8C%E5%8B%95%E7%BD%AE%E5%BA%95%E4%B8%8A%E6%8B%89-%E7%B4%94%E5%9C%96-%E6%A9%AB%E5%B9%85.png) center/contain no-repeat;
+  background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/interstitialBanner.png) center/contain no-repeat;
   position: fixed;
   bottom: 0;
   left: 0;
