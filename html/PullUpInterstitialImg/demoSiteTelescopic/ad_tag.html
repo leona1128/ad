@@ -1,0 +1,96 @@
+<script>
+  let parentDiv = window.frameElement.parentNode;//置底
+  let topIns = parentDiv.closest('body > div');
+   (async function (a) {
+     var layoutID = {'id':'data-layout-id="mobile-bottom-image-pd1-customize_with-transition-interstitial_cover"'};
+     function buildStyle() {
+       return new Promise(resolve => {
+         var style = a.createElement('link');
+         style.setAttribute('type', 'text/css');
+         style.setAttribute('rel', 'stylesheet');
+         style.setAttribute('href', '{{FILE_SITETELESCOPIC_CSS}}');
+         style.addEventListener("load", resolve, {once: true});
+         a.head.appendChild(style);
+       });
+     }
+     function buildTemplate() {
+       var TenMaxTemplate = a.createElement('div');
+     TenMaxTemplate.setAttribute('id', 'siteTelescopic');
+ 
+     
+     var TenMaxBar = a.createElement('div');
+     TenMaxBar.setAttribute('class', 'bar');
+     TenMaxTemplate.appendChild(TenMaxBar);
+     
+     var TenMaxBannerBundle = a.createElement('a');
+     TenMaxBannerBundle.setAttribute('class', 'TenMaxBannerBundle');
+     TenMaxBannerBundle.setAttribute('target', '_blank');
+     TenMaxTemplate.appendChild(TenMaxBannerBundle);
+     
+     var TenMaxBanner = a.createElement('div');
+     TenMaxBanner.setAttribute('class', 'TenMaxBanner');
+     TenMaxBannerBundle.appendChild(TenMaxBanner);
+     
+     var button = a.createElement('button');
+     button.setAttribute('class', 'TenMaxCloseBtn');
+     TenMaxBanner.appendChild(button);
+     var TenMaxCloseBtn = a.createElement('img');
+     TenMaxCloseBtn.src = 'https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/bt_close.png';
+     button.appendChild(TenMaxCloseBtn);
+     
+     var TenMaxLogo = a.createElement('div');
+     TenMaxLogo.setAttribute('class', 'TenMaxLogo');
+     TenMaxBanner.appendChild(TenMaxLogo);
+     
+     var hand = a.createElement('div');
+     hand.setAttribute('class', 'hand');
+     TenMaxBanner.appendChild(hand);
+     
+     var TenMaxInterstitial = a.createElement('div');
+     TenMaxInterstitial.setAttribute('class', 'TenMaxInterstitial');
+     TenMaxBannerBundle.appendChild(TenMaxInterstitial);
+     
+     var firstInterstitial = a.createElement('div');
+     firstInterstitial.setAttribute('class', 'firstInterstitial');
+     TenMaxTemplate.appendChild(firstInterstitial);
+     
+     var firstButton = a.createElement('button');
+     firstButton.setAttribute('class', 'TenMaxCloseBtn');
+     firstInterstitial.appendChild(firstButton);
+     
+     var TenMaxFirstCloseBtn = a.createElement('img');
+     TenMaxFirstCloseBtn.src = 'https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/img/bt_close.png';
+     firstButton.appendChild(TenMaxFirstCloseBtn); 
+     
+     var TenMaxBannerBundle2 = a.createElement('a');
+     TenMaxBannerBundle2.setAttribute('class', 'TenMaxBannerBundle2');
+     TenMaxBannerBundle2.setAttribute('target', '_blank');
+     firstInterstitial.appendChild(TenMaxBannerBundle2);
+     
+     var pic1 = a.createElement('div');
+     pic1.setAttribute('class', 'pic1');
+     TenMaxBannerBundle2.appendChild(pic1);
+     
+     var bar = a.createElement('div');
+     bar.setAttribute('class', 'bar');
+     pic1.appendChild(bar);
+     topIns.parentNode.insertBefore(TenMaxTemplate, topIns);
+     }
+     function buildScript() {
+       var script = a.createElement('script');
+       script.setAttribute('id', 'PullUpKnockoutImgJs');
+       script.setAttribute('type', 'module')
+       script.setAttribute('data-click-url', '%%CLICK_URL_UNESC%%');
+       script.setAttribute('data-viewable-url', '%%VIEWABLE_IMPRESSION_URL_UNESC%%');
+       script.setAttribute('data-SSPviewable-url', '%%SSP_VIEWABLE_IMPRESSION_URL_UNESC%%');
+       script.setAttribute('data-ADXviewable-url', '%%ADX_VIEWABLE_IMPRESSION_URL_UNESC%%');
+       script.src = '{{FILE_SITETELESCOPIC_JS}}';
+       script.async = 'async';
+       topIns.parentNode.appendChild(script);
+     }
+     await buildStyle();
+     buildTemplate();
+     buildScript();
+   })(parent.document);
+   topIns.style.display = 'none';
+ </script>

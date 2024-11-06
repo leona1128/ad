@@ -1,0 +1,99 @@
+#rollpageImg * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+#rollpageImg a {
+  display: block;
+}
+
+#rollpageImg {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 400);
+  --vh: 1vh;
+}
+
+#rollpageImg .stickyWindow {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 400);
+  clip-path: inset(0px -50vw);
+  position: sticky;
+  z-index: 1199;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* id selector required? css weight */
+#rollpageImg .TenMaxBannerBundle {
+  /* width: 100%; */
+  height: calc(var(--vh, 1vh) * 100);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#rollpageImg .TenMaxInterstitial img {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  object-fit: cover;
+}
+
+#rollpageImg .TenMaxInterstitial img:not(:first-of-type) {
+  border: 5px solid aliceblue;
+  filter: drop-shadow(5px 5px 5px #222);
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+#rollpageImg .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  z-index: 214;
+}
+
+#rollpageImg .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#rollpageImg .pageNum {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  font-size: 18px;
+  color: white;
+  line-height: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  position: absolute;
+  top: 50px;
+  left: 10%;
+}
+
+#rollpageImg .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/DFP-Test/img/small.png) right center/contain no-repeat;
+  position: absolute;
+  bottom: 30px;
+  right: 0;
+}
+
+#rollpageImg .TenMaxLogo img {
+  width: 30px;
+}

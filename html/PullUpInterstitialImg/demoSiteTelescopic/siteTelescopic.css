@@ -1,0 +1,311 @@
+#siteTelescopic {
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column-reverse;
+    -webkit-flex-direction: column-reverse;
+    width: 100%;
+    transform: translateY(100%);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 10000000;
+    --vh: 1vh;
+  }
+  #siteTelescopic * {
+    padding: 0;
+    margin: 0;
+  }
+  #siteTelescopic a {
+    display: inline-block;
+    text-decoration: none;
+  width: 100%;
+  }
+    /* startTmx */
+    #siteTelescopic > .bar {
+      width: 100%;
+      height: 4vh;
+      position: fixed;  
+      left: 0;  
+      bottom: 45.5vw;
+      background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/bar.png) center/contain no-repeat;
+      z-index: 99;  
+    }
+    #siteTelescopic > .firstInterstitial {
+      width: 100%;
+    height: calc(var(--vh, 1vh) * 100);
+    position: absolute;
+    transform: translateY(-100%);
+    display: none;
+  
+    }
+  
+    #siteTelescopic.show .firstInterstitial.startTmx {
+      display: block;
+      animation: initialSlideOut 4s ease-in-out 2s 1 normal forwards;
+    }
+    
+    @keyframes initialSlideOut {
+      0% {
+        transform: translateY(0%);
+      }
+      20% {
+        transform: translateY(-100%); /* 先下降 */
+      }
+      70% {
+        transform: translateY(-100%); /* 保持下降狀態 */
+      }
+      100% {
+        transform: translateY(0%); /* 最後上升 */
+      }
+    }
+    
+    #siteTelescopic.play .firstInterstitial.startTmx {
+      display: block;
+      transform: translateY(0%); /* 重置位置 */
+      /* animation: slideBackIn  4s ease-in-out 0s 1 normal forwards; */
+      /* slideBackIn  4s ease-in-out 0s 1 normal forwards , */
+    }
+    
+    @keyframes slideBackIn {
+      0% {
+        transform: translateY(100%);
+      }
+      20% {
+        transform: translateY(0%);
+    }
+  
+    70% {
+        transform: translateY(0%);
+    }
+    
+      100%{
+        transform: translateY(100%);
+      }
+    }
+  
+  
+  
+  #siteTelescopic .firstInterstitial.startTmx .pic1 {
+    display: block;
+    width: 100%;
+    height:calc(var(--vh, 1vh) * 100);
+    background: rgba(0, 0, 0, 0.5)  url({{IMG_01}}) center/contain no-repeat;
+    left: 0;
+    bottom: 0;
+    top: 25px;
+    transform: translateY(0%);
+    /* animation: on 2s ease-in-out 3s 1 normal forwards; */
+  }
+  @keyframes on {
+    0% {
+        transform: translateY(-100%);
+      }
+
+    
+      100% {
+        transform: translateY(0%);
+      }
+  }
+  #siteTelescopic .firstInterstitial.down .pic1,
+  #siteTelescopic .firstInterstitial.toch .pic1 {
+    display: block;
+    width: 100%;
+    height:calc(var(--vh, 1vh) * 100);
+    background: rgba(0, 0, 0, 0.5)  url({{IMG_01}}) center/contain no-repeat;
+    left: 0;
+    bottom: 0;
+    top: 25px;
+    transform: translateY(0%);
+  }
+  #siteTelescopic .firstInterstitial.toch,
+  #siteTelescopic .firstInterstitial.toch .pic1 {
+    display: block;
+    animation: touchUp  1s ease-out forwards;
+    /* transform: translateY(%); */
+  }
+  #siteTelescopic .firstInterstitial.toch{
+    display: block;
+    animation: touchUpp  1s ease-out forwards;
+  }
+  @keyframes touchUpp {
+    0% {
+      transform: translateY(0%);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+  @keyframes touchUp {
+    0% {
+      transform: translateY(0%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  }
+  #siteTelescopic .firstInterstitial.down,
+  #siteTelescopic .firstInterstitial.down .pic1 {
+    animation: touchDown  1s ease-out;
+    transform: translateY(-50%);
+    display: block;
+  }
+  
+  @keyframes touchDown {
+    0%, 20% {
+      transform: translateY(-50%);
+    }
+    100% {
+      transform: translateY(0%);
+    }
+  
+  }
+  
+  #siteTelescopic .firstInterstitial .bar{
+    width: 100%;
+    height:10vh;
+    position: fixed;
+    right: 0;
+    top: -6vh;
+    bottom: 100%; 
+    background:  url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/bar.png) center/contain no-repeat;
+  }
+  
+  
+  #siteTelescopic.show {
+    transform: translateY(0);  
+    transition: transform 1s ease-in-out;
+  }
+  #siteTelescopic.shake {
+    transform: translateY(0);
+    transition: transform 1s ease-in-out;
+  }
+  
+  #siteTelescopic .TenMaxBanner .hand{
+    position: fixed; 
+    background: url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/demoSiteTelescopic/Img/icon_finger.gif) center/cover no-repeat;
+    top: -46.7vw;
+    left: 50%; 
+    width: 50px;
+    height: 50px;
+    background-color: #4d4d647a;
+    border-radius: 50%;
+    z-index: 120;
+    transform: translate(-50%, -50%);
+    border: 1px solid #fff;
+    opacity: 0;
+    animation: hand 0s ease-in 0s 1 normal forwards;
+    display: none;
+  }
+  
+  @keyframes hand {
+    0% {
+        opacity: 1;
+    }
+    100%{
+        
+        opacity: 1;
+    }
+  }
+  #siteTelescopic .TenMaxBanner {
+    display: block;
+    width: 100%;
+    height: 46.7vw;
+    background: url({{IMG_02}}) center/contain no-repeat;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+  }
+  
+  #siteTelescopic .TenMaxInterstitial {
+    display: flex;
+  
+    position: relative;
+    width: 100%;
+    margin: auto;
+    bottom: 46.7vw;
+  
+  } 
+  
+  #siteTelescopic.show .TenMaxInterstitial {
+    opacity: 0;
+  
+  }
+  
+  #siteTelescopic .TenMaxInterstitial.shake {
+    opacity: 1;
+  }
+  /* end */
+  #siteTelescopic.play .TenMaxCloseBtn {
+    /* display: none; */
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    top: 15px;
+    position: fixed;
+    left: 0;
+    z-index: 2147483647;
+    transform: translate(50%, 50%);
+  }
+  
+  #siteTelescopic .TenMaxCloseBtn{
+    position: fixed;
+    display: none;
+  }
+  
+  
+  #siteTelescopic .TenMaxCloseBtn img {
+    width: 100%;
+  }
+  
+  #siteTelescopic.show .TenMaxBanner .TenMaxCloseBtn {
+    display: none;
+    left: 20px;
+    transform: translate(-50%, -50%);
+  }
+  
+  #siteTelescopic .TenMaxInterstitial.shake>.TenMaxCloseBtn {
+    display: block;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    top: 0;
+  right: 10px;
+  }
+  
+  
+  @media (max-aspect-ratio: 600/1198) {
+    #siteTelescopic .TenMaxInterstitial {
+      justify-content: center;
+      width: calc(600 / 11.975 * var(--vh));
+    }
+    #siteTelescopic .firstInterstitial {
+        justify-content: center;
+        width: calc(600 / 11.975 * var(--vh));
+      }
+    #siteTelescopic .TenMaxInterstitial.shake>.TenMaxCloseBtn {
+      transform: translate(-50%, 50%);
+    }
+  }
+  @media (min-aspect-ratio: 600/1198) {
+    #siteTelescopic .TenMaxInterstitial.shake>.TenMaxCloseBtn {
+      transform: translate(50%, 50%);
+    }
+  }
+  #siteTelescopic .TenMaxLogo {
+    width: 28px;
+    height: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #ddd;
+    background: url(https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/DFP-Test/img/small.png) right center/contain no-repeat;
+    position: absolute;
+  bottom: 5px;
+    right: 0;
+    z-index: 2147483647;
+  }
+  #siteTelescopic .TenMaxLogo img {
+    width: 30px;
+  }

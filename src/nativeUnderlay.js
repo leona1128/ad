@@ -39,7 +39,6 @@ function installSpace() {
     var ins = adcode.createSoftBanIns()
     container.querySelector('.ad').appendChild(ins);
   }
-
   // hook space display
   adcode.onSpaceCreate(ins, function(space) {
     space.on('display', function(ad) {
