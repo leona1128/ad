@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Touch Event Debug</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .rr{
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            background-color: antiquewhite
+        }
+    </style>
+</head>
+<body>
+
+    <button id="debugButton" style="padding: 10px; position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
+        Touch Debug Button
+    </button>
+    <div class="rr"></div>
+
+    <script>
+        const debugButton = document.getElementById('debugButton');
+
+        // 針對 touchstart 事件作出反應
+        debugButton.addEventListener('touchstart', function(event) {
+            console.log("觸碰");
+          
+        });
+        debugButton.addEventListener('touchmove', function(event) {
+            console.log("滑動");
+          
+        });
+        debugButton.addEventListener('touchend', function(event) {
+            console.log("離開");
+          
+        });
+        debugButton.addEventListener('touchcancel', function(event) {
+            console.log("打斷");
+          
+        });
+        </script>
+</body>
+</html>

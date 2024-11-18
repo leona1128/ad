@@ -1,0 +1,186 @@
+<html>
+
+<head>
+    <title>拖曳物件</title>
+</head>
+<style>
+    .drop-area {
+        border: 1px solid black;
+        width: 300px;
+        height: 300px;
+    }
+
+    .drag {
+        background: rgb(140, 237, 250);
+        border-radius: 50%;
+        height: 60px;
+        width: 60px;
+        border: 1px solid black;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+    }
+
+    .drag-title {
+        background: #e9a2a2;
+    }
+</style>
+
+<body>
+    <h2>拖曳物件測試</h2>
+    <div class="drop-area">
+        <div class="drag">
+            <p class="drag-title">drag</p>
+        </div>
+    </div>
+    <script>
+        let dragDiv = document.querySelector('.drag');
+        let dragTitle = dragDiv.querySelector('.drag-title') || dragDiv;
+        let dropArea = document.querySelector('.drop-area');
+        let area = {
+            left: dropArea.offsetLeft,
+            right: dropArea.offsetLeft + dropArea.offsetWidth - dragDiv.offsetWidth,
+            top: dropArea.offsetTop,
+            bottom: dropArea.offsetTop + dropArea.offsetHeight - dragDiv.offsetHeight,
+        };
+
+        let startX = 0;
+        let startY = 0;
+
+        dragTitle.addEventListener('mousedown', dragStart);
+
+        function dragStart(e) {
+            e.preventDefault();
+            //記錄點擊相對被點擊物件的座標
+            startX = e.clientX - dragDiv.offsetLeft;
+            startY = e.clientY - dragDiv.offsetTop;
+            document.addEventListener('mousemove', move);
+            document.addEventListener('mouseup', stop);
+        }
+
+        function move(e) {
+            //計算出拖曳物件最左上角座標
+            x = e.clientX - startX;
+            y = e.clientY - startY;
+            x = Math.max(Math.min(x, area.right), area.left);
+            y = Math.max(Math.min(y, area.bottom), area.top);
+            dragDiv.style.left = x + 'px';
+            dragDiv.style.top = y + 'px';
+        }
+
+        function stop() {
+            document.removeEventListener('mousemove', move);
+            document.removeEventListener('mouseup', stop)
+        }
+
+    </script>
+</body>
+
+</html>
+
+<script>
+(function () {
+    const container = document.querySelector('#TenMax_sticky iframe');
+    console.log(container); // 確認元素是否正確選取
+
+    if (!container) {
+        console.error("Element #TenMax_sticky not found!");
+        return;
+    }
+
+    let isDragging = false;
+    let currentX = 0;
+    let currentY = 0;
+    let initialX = 0;
+    let initialY = 0;
+    let xOffset = 0;
+    let yOffset = 0;
+
+    // 設置必要的樣式
+    container.style.position = 'absolute';
+    container.style.cursor = 'move';
+    container.style.userSelect = 'none';
+    container.style.zIndex = 99999999;
+
+    // 鼠標事件
+    container.addEventListener('mousedown', dragStart, { passive: false });
+    document.addEventListener('mousemove', drag, { passive: false });
+    document.addEventListener('mouseup', dragEnd, { passive: false });
+
+    // 觸摸事件
+    container.addEventListener('touchstart', dragStart, { passive: false });
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', dragEnd, { passive: false });
+
+    function dragStart(e) {
+        console.log("開始拖曳"); // 確認是否觸發 dragStart
+        if (e.target.id === 'close-btn') return;
+
+        e.preventDefault();
+        if (e.type === "touchstart") {
+            initialX = e.touches[0].clientX - xOffset;
+            initialY = e.touches[0].clientY - yOffset;
+        } else {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+        }
+
+        if (e.target === container || container.contains(e.target)) {
+            isDragging = true;
+            console.log("拖曳狀態"); // 確認是否設置為拖曳狀態
+        }
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+
+        console.log("確認進入拖曳過程"); // 確認進入拖曳過程
+        e.preventDefault();
+
+        if (e.type === "touchmove") {
+            currentX = e.touches[0].clientX - initialX;
+            currentY = e.touches[0].clientY - initialY;
+        } else {
+            currentX = e.clientX - initialX;
+            currentY = e.clientY - initialY;
+        }
+
+        xOffset = currentX;
+        yOffset = currentY;
+        console.log(`currentX: ${currentX}, currentY: ${currentY}`); // 查看當前座標
+        setTranslate(currentX, currentY, container);
+    }
+
+    function dragEnd() {
+        console.log("確認是否進入拖曳結束"); // 確認是否進入 dragEnd
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+    }
+
+    function setTranslate(xPos, yPos, el) {
+        el.style.transform = `translate(${xPos}px, ${yPos}px)`;
+    }
+
+    // 限制範圍
+    window.addEventListener('resize', () => {
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const elementWidth = container.offsetWidth;
+        const elementHeight = container.offsetHeight;
+
+        // 限制拖曳元素的座標在視窗範圍內
+        currentX = Math.min(Math.max(currentX, 0), windowWidth - elementWidth);
+        currentY = Math.min(Math.max(currentY, 0), windowHeight - elementHeight);
+
+        xOffset = currentX;
+        yOffset = currentY;
+        setTranslate(currentX, currentY, container);
+    });
+
+    console.log('結束');
+})();
+
+</script>

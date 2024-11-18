@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .draggable-container {
+            width: 248px;
+            height: 248px;
+            margin: 20px;
+            position: absolute;
+            cursor: move;
+            user-select: none;
+            border: 1px #D0D0D0 solid;
+            background: white;
+            touch-action: none;
+        }
+        
+        .ad-content {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .ad-content * {
+            pointer-events: none;
+        }
+        
+        .ad-image {
+            width: inherit;
+        }
+        
+        .ad-text {
+            position: relative;
+            color: black;
+            text-align: left;
+            padding: 5px;
+            font-family: "黑體","Verdana","微軟正黑體","新細明體","Arial","Geneva","sans-serif","helvetica";
+        }
+        
+        .ad-header {
+            overflow: hidden;
+            margin-bottom: 2px;
+        }
+        
+        .ad-left {
+            width: 70%;
+            float: left;
+        }
+        
+        .sponsored {
+            margin-bottom: 1px;
+            font-size: 12px;
+        }
+        
+        .title {
+            margin-bottom: 1px;
+            font-size: 14px;
+            font-weight: bold;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        
+        .ad-right {
+            width: 30%;
+            float: right;
+        }
+        
+        .learn-more {
+            border: 1px #828282 solid;
+            font-size: 12px;
+            color: #8a8a8a;
+            font-weight: bold;
+            padding: 5px;
+            text-align: center;
+        }
+        
+        .description {
+            margin-bottom: 2px;
+            font-size: 12px;
+            overflow: hidden;
+            display: -webkit-box;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 3;
+            line-height: 20px;
+            -webkit-box-orient: vertical;
+        }
+    </style>
+</head>
+<body>
+    <div class="draggable-container" id="draggable">
+        <div class="ad-content">
+            <a href="{{clickUrl}}" target="_blank">
+                <img src="https://fakeimg.pl/300x200/200" class="ad-image">
+                <div class="ad-text">
+                    <div class="ad-header">
+                        <div class="ad-left">
+                            <div class="sponsored">{{sponsored}}</div>
+                            <div class="title">{{title}}</div>
+                        </div>
+                        <div class="ad-right">
+                            <div class="learn-more">{{瞭解詳情}}</div>
+                        </div>
+                    </div>
+                    <div class="description">{{description}}</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const draggable = document.getElementById('draggable');
+        let isDragging = false;
+        let currentX;
+        let currentY;
+        let initialX;
+        let initialY;
+        let xOffset = 0;
+        let yOffset = 0;
+
+        // 獲取元素尺寸
+        const elementRect = draggable.getBoundingClientRect();
+        const elementWidth = elementRect.width;
+        const elementHeight = elementRect.height;
+
+        function dragStart(e) {
+            e.preventDefault();
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+            isDragging = true;
+        }
+
+        function drag(e) {
+            if (isDragging) {
+                e.preventDefault();
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+
+                // 獲取視窗尺寸
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+
+                // 限制 X 軸範圍
+                currentX = Math.min(Math.max(currentX, 0), windowWidth - elementWidth);
+                // 限制 Y 軸範圍
+                currentY = Math.min(Math.max(currentY, 0), windowHeight - elementHeight);
+
+                xOffset = currentX;
+                yOffset = currentY;
+                setTranslate(currentX, currentY, draggable);
+            }
+        }
+
+        function setTranslate(xPos, yPos, el) {
+            el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+        }
+
+        function dragEnd(e) {
+            initialX = currentX;
+            initialY = currentY;
+            isDragging = false;
+        }
+
+        // 滑鼠事件監聽
+        draggable.addEventListener('mousedown', dragStart);
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('mouseup', dragEnd);
+
+        // 觸摸事件支持
+        draggable.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            initialX = touch.clientX - xOffset;
+            initialY = touch.clientY - yOffset;
+            isDragging = true;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                currentX = touch.clientX - initialX;
+                currentY = touch.clientY - initialY;
+
+                // 獲取視窗尺寸
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+
+                // 限制 X 軸範圍
+                currentX = Math.min(Math.max(currentX, 0), windowWidth - elementWidth);
+                // 限制 Y 軸範圍
+                currentY = Math.min(Math.max(currentY, 0), windowHeight - elementHeight);
+
+                xOffset = currentX;
+                yOffset = currentY;
+                setTranslate(currentX, currentY, draggable);
+            }
+        });
+
+        document.addEventListener('touchend', dragEnd);
+
+        // 監聽視窗大小改變
+        window.addEventListener('resize', () => {
+            // 獲取新的視窗尺寸
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            // 確保元素在視窗改變大小後仍在範圍內
+            currentX = Math.min(Math.max(currentX, 0), windowWidth - elementWidth);
+            currentY = Math.min(Math.max(currentY, 0), windowHeight - elementHeight);
+
+            xOffset = currentX;
+            yOffset = currentY;
+            setTranslate(currentX, currentY, draggable);
+        });
+    </script>
+</body>
+</html>
