@@ -1,11 +1,10 @@
-//刪除註解精簡版
+//增加判斷螢幕寬度改變時要再重新檢查遮罩寬高
 var asset = loader.asset;
 var adcode = loader.adcode;
 var util = loader.util;
 const containerId = 'TenMax_sticky';
-
-
 var container, closeBtn;
+var draggableOverlay; 
 var scrolled$ = util.onScroll$();
 var args = loader.args || {};
 
@@ -24,7 +23,7 @@ var containerInstalled$ = asset.get$(`demo/${containerId}.html`)
 
     container = document.querySelector(`#${containerId}`);
 
-    const draggableOverlay = new DraggableOverlay(container, {
+    draggableOverlay = new DraggableOverlay(container, {
         dragWidth: args.dragWidth || 40,
         minClickableSize: args.minClickableSize || 80,
         overlayColor: args.overlayColor || 'rgba(0, 0, 0, 0.5)',
@@ -36,17 +35,25 @@ var containerInstalled$ = asset.get$(`demo/${containerId}.html`)
 
     if (args.enableDrag !== false) {
         container.style.position = 'fixed';
-        container.style.cursor = 'move';
+        container.style.cursor = 'grab';
         
         container.addEventListener('mousedown', dragStart);
         document.addEventListener('mousemove', drag);
         document.addEventListener('mouseup', dragEnd);
         
         container.addEventListener('touchstart', dragStart);
-        document.addEventListener('touchmove', drag);
-        document.addEventListener('touchend', dragEnd);
+ 
+        container.addEventListener('touchmove', function(e) {
+            if (isDragging) {
+                e.preventDefault();
+                e.stopPropagation();
+                drag(e);
+            }
+        }, { passive: false });
+        container.addEventListener('touchend', dragEnd);
+    
     } else {
-        container.style.cursor = 'default';
+        container.style.cursor = 'grab';
         container.style.position = 'fixed';
     }
 
@@ -69,6 +76,14 @@ var containerInstalled$ = asset.get$(`demo/${containerId}.html`)
     args.rightPosition ? container.style.setProperty("--rightPosition", args.rightPosition) : false;
     args.leftPosition ? container.style.setProperty("--leftPosition", args.leftPosition) : false;
     args.zIndex ? container.style.setProperty("--zIndex", args.zIndex) : false;
+    requestAnimationFrame(() => {
+        draggableOverlay = new DraggableOverlay(container, {
+            dragWidth: args.dragWidth || 40,
+            minClickableSize: args.minClickableSize || 80,
+            overlayColor: args.overlayColor || 'rgba(0, 0, 0, 0.5)',
+            enableDrag: args.enableDrag !== false
+        });
+    });
 });
 
 class DraggableOverlay {
@@ -81,37 +96,57 @@ class DraggableOverlay {
             enableDrag: options.enableDrag,
             ...options
         };
+        this.initializeResizeObserver();
         
-        this.waitForContainerSize();
+       
     }
-
-    waitForContainerSize() {
-        const resizeObserver = new ResizeObserver((entries) => {
-            for (const entry of entries) {
-                const { width, height } = entry.contentRect;
-                if (width > 0 && height > 0) {
-                    this.initialize(width, height);
+    initializeResizeObserver() {
+        this.resizeObserver = new ResizeObserver((entries) => {
+            // 使用 requestAnimationFrame 來確保 DOM 更新完成
+            requestAnimationFrame(() => {
+                for (const entry of entries) {
+                    // 使用 getBoundingClientRect 來獲取實際大小
+                    const rect = this.container.getBoundingClientRect();
+                    if (rect.width > 0 && rect.height > 0) {
+                        // 先移除現有遮罩
+                        this.removeExistingOverlays();
+                        // 使用實際大小初始化
+                        this.initialize(rect.width, rect.height);
+                    }
                 }
-            }
+            });
         });
 
-        resizeObserver.observe(this.container);
-        this.checkContainerSize();
+        // 開始觀察容器
+        this.resizeObserver.observe(this.container);
+        
+        // 初始化檢查
+        const rect = this.container.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+            this.initialize(rect.width, rect.height);
+        }
     }
+
+    removeExistingOverlays() {
+        const overlays = this.container.querySelectorAll('.overlay-handle');
+        overlays.forEach(overlay => overlay.remove());
+    }
+
+    
 
     checkContainerSize() {
         const rect = this.container.getBoundingClientRect();
         const computedStyle = window.getComputedStyle(this.container);
         
         const width = rect.width || 
-                     this.container.offsetWidth || 
-                     parseInt(computedStyle.width) || 
-                     parseInt(this.container.style.width) || 0;
+                    this.container.offsetWidth || 
+                    parseInt(computedStyle.width) || 
+                    parseInt(this.container.style.width) || 0;
                      
         const height = rect.height || 
-                      this.container.offsetHeight || 
-                      parseInt(computedStyle.height) || 
-                      parseInt(this.container.style.height) || 0;
+                    this.container.offsetHeight || 
+                    parseInt(computedStyle.height) || 
+                    parseInt(this.container.style.height) || 0;
 
         if (width > 0 && height > 0) {
             this.initialize(width, height);
@@ -121,26 +156,28 @@ class DraggableOverlay {
     }
 
     initialize(containerWidth, containerHeight) {
-        if (this.options.enableDrag) {
-            const {
-                dragSizeWidth,
-                dragSizeHeight,
-                offsetLeftRight,
-                offsetTopBottom
-            } = this.calculateDragArea(containerWidth, containerHeight);
-            
-            this.createOverlays({
-                dragSizeWidth,
-                dragSizeHeight,
-                offsetLeftRight,
-                offsetTopBottom
-            });
-        } else {
-            this.container.querySelectorAll('.overlay-handle').forEach(el => el.remove());
-            this.container.style.cursor = 'default';
+        if (!this.options.enableDrag) {
+            this.removeExistingOverlays();
+            this.container.style.cursor = 'grab';
             this.container.style.position = 'fixed';
             return;
         }
+
+        const {
+            dragSizeWidth,
+            dragSizeHeight,
+            offsetLeftRight,
+            offsetTopBottom
+        } = this.calculateDragArea(containerWidth, containerHeight);
+        
+        this.createOverlays({
+            dragSizeWidth,
+            dragSizeHeight,
+            offsetLeftRight,
+            offsetTopBottom,
+            containerWidth,
+            containerHeight
+        });
         
         this.setupContainer();
     }
@@ -149,29 +186,23 @@ class DraggableOverlay {
         const { dragWidth, minClickableSize } = this.options;
         let offsetLeftRight = 0;
         let offsetTopBottom = 0;
-        let dragSizeWidth;
-        let dragSizeHeight;
         
+        // 計算有效的最小可點擊區域
         const effectiveMinClickable = Math.min(
             Math.min(containerWidth, containerHeight),
             minClickableSize
         );
 
+        // 確保拖曳區域不會小於有效最小區域
         if (containerWidth - (2 * dragWidth) < effectiveMinClickable) {
-            offsetLeftRight = Math.max(0, dragWidth - (containerWidth - effectiveMinClickable) / 2);
-            dragSizeWidth = containerWidth + (offsetLeftRight * 2);
-        } else {
-            offsetLeftRight = 0;
-            dragSizeWidth = containerWidth;
+            offsetLeftRight = Math.max(0, (effectiveMinClickable - containerWidth + (2 * dragWidth)) / 2);
         }
+        const dragSizeWidth = containerWidth + (2 * offsetLeftRight);
 
         if (containerHeight - (2 * dragWidth) < effectiveMinClickable) {
-            offsetTopBottom = Math.max(0, dragWidth - (containerHeight - effectiveMinClickable) / 2);
-            dragSizeHeight = containerHeight + (offsetTopBottom * 2);
-        } else {
-            offsetTopBottom = 0;
-            dragSizeHeight = containerHeight;
+            offsetTopBottom = Math.max(0, (effectiveMinClickable - containerHeight + (2 * dragWidth)) / 2);
         }
+        const dragSizeHeight = containerHeight + (2 * offsetTopBottom);
 
         return {
             dragSizeWidth,
@@ -180,10 +211,8 @@ class DraggableOverlay {
             offsetTopBottom
         };
     }
-
     createOverlays({ dragSizeWidth, dragSizeHeight, offsetLeftRight, offsetTopBottom }) {
-        this.container.querySelectorAll('.overlay-handle').forEach(el => el.remove());
-
+        this.removeExistingOverlays();
         if (!this.options.enableDrag) {
             return;
         }
@@ -234,7 +263,7 @@ class DraggableOverlay {
             Object.assign(overlay.style, {
                 position: 'absolute',
                 backgroundColor: this.options.overlayColor,
-                cursor: this.options.enableDrag ? 'move' : 'default',
+                cursor: this.options.enableDrag ? 'grab' : 'move',
                 pointerEvents: 'auto',
                 zIndex: 1000,
                 ...style
@@ -245,11 +274,20 @@ class DraggableOverlay {
     }
 
     setupContainer() {
-        Object.assign(this.container.style, {
-            position: 'relative',
-            overflow: 'visible',
-            cursor: this.options.enableDrag ? 'move' : 'default'
-        });
+            if (!this.container) return;
+            
+            Object.assign(this.container.style, {
+                position: this.options.enableDrag ? 'fixed' : 'relative',
+                overflow: 'visible',
+                cursor: this.options.enableDrag ? 'grab' : 'default'
+            });
+        }
+
+destroy() {
+        if (this.resizeObserver) {
+            this.resizeObserver.disconnect();
+        }
+        this.removeExistingOverlays();
     }
 }
 
@@ -258,9 +296,10 @@ function dragStart(e) {
         return;
     }
     
-    if (e.type == "touchstart") {
+    if (e.type === "touchstart") {
         initialX = e.touches[0].clientX - xOffset;
         initialY = e.touches[0].clientY - yOffset;
+      
     } else {
         initialX = e.clientX - xOffset;
         initialY = e.clientY - yOffset;
@@ -277,8 +316,9 @@ function drag(e) {
         return;
     }
    
-   
+
     e.preventDefault();
+    e.stopPropagation();
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
     const containerRect = container.getBoundingClientRect();
@@ -359,11 +399,14 @@ var autoCloseTimeoutId;
 function showContainer() {
     container.classList.remove('conceal');
     container.classList.add('show');
+    closeBtn.style.cursor= 'default';
     closeBtn.classList.remove('conceal');
     if (autoClose) {
         autoCloseTimeoutId = setTimeout(closeContainer, (autoCloseTime * 1000));
     }
-    draggableOverlay.initialize();
+    if (draggableOverlay) {
+        draggableOverlay.initialize();
+    }
 }
 
 function closeContainer() {
@@ -374,7 +417,10 @@ function closeContainer() {
     container.classList.add('conceal');
     xOffset = 0;
     yOffset = 0;
-    draggableOverlay.initialize();
+    if (draggableOverlay) { 
+        draggableOverlay.destroy(); 
+        draggableOverlay = null;
+    }
 }
 
 function checkLastADTime(recordTime) {
@@ -405,8 +451,8 @@ function getCookieByName(name) {
 }
 
 window.addEventListener('resize', function() {
-    if (!isDragging && container) {
-        draggableOverlay.initialize();
+    if (!isDragging && container && draggableOverlay) {
+        
     }
 });
 
