@@ -1,0 +1,195 @@
+#marquee {
+  width: 100%;
+  transform: translateY(100%);
+  position: fixed;
+  bottom: -1px;
+  left: 0;
+  z-index: 2147483647;
+  --vh: 1vh;
+}
+
+#marquee * {
+  padding: 0;
+  margin: 0;
+}
+
+#marquee a {
+  display: block;
+  text-decoration: none;
+}
+
+
+#marquee.show {
+  transform: translateY(0);
+}
+
+#marquee .TenMaxInterstitial {
+  display: none;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  background: rgba(0, 0, 0, 0.5) url(https://tenmaxsgstatic.blob.core.windows.net/ssp/H5_Creative_Advertising/Marquee/marquee-Interstitial.png) center/contain no-repeat;
+  opacity: 0;
+  position: absolute;
+  bottom: 100%;
+  z-index: 1;
+}
+
+#marquee .TenMaxInterstitial.show {
+  display: block;
+  animation: fadeIn 3s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes fadeIn {
+  1% {
+    opacity: 0.5;
+  }
+  5% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.3;
+  }
+}
+
+#marquee .TenMaxBannerBundle {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+  
+}
+
+#marquee .marqueeBackground {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  height: 30px;
+  background: linear-gradient(to left, #00a0b4, #3075be);
+  border-radius: 4px;
+  clip-path: rect(0 0 100% 0);
+  -webkit-clip-path: rect(0 0 100% 0);
+}
+
+#marquee .marqueeContainer {
+  display: flex;
+  width: 92%;
+  font-size: 16px;
+  line-height: 30px;
+  color: #fff;
+  overflow: hidden;
+}
+
+#marquee .marqueeContent {
+  display: inline-block;
+  white-space: nowrap;
+  animation-play-state: paused;
+}
+
+#marquee.show .marqueeBackground {
+  animation: clipLeft 1s linear 1 forwards;
+}
+
+#marquee.show .contentA.go {
+  animation: marquee 15s linear infinite;
+}
+
+#marquee.show .contentB.go {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+#marquee .TenMaxCards {
+  width: 90%;
+  height: 38vw;
+  position: relative;
+}
+
+#marquee .marqueeCard {
+  width: 100%;
+  border-radius: 10px;
+  transform: scale(1) translateX(120%);
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  z-index: -1;
+}
+
+#marquee.show .cardA.show {
+  transform: translateX(0);
+  clip-path: rect(0 0 100% 0);
+  -webkit-clip-path: rect(0 0 100% 0);
+  animation: clipLeft 1s linear 0.3s 1 forwards;
+}
+
+@keyframes clipLeft {
+  0% {
+    clip-path: rect(0 0 100% 0);
+    -webkit-clip-path: rect(0 0 100% 0);
+  }
+  100% {
+    clip-path: rect(0 100% 100% 0);
+    -webkit-clip-path: rect(0 100% 100% 0);
+  }
+}
+
+#marquee.show .marqueeCard.current {
+  transform: scale(1) translateX(0);
+  transition: transform ease-in .75s;
+  z-index: 1;
+}
+
+#marquee.show .marqueeCard.out {
+  transform: scale(0) translateX(0);
+  transition: transform ease-in .75s;
+  z-index: -1;
+}
+
+#marquee .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2147483647;
+  transform: translate(50%, 50%);
+}
+
+#marquee.show .TenMaxCloseBtn {
+  transform: translate(50%, -110%);
+}
+
+#marquee .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#marquee .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  position: fixed;
+  bottom: 5px;
+  right: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/small.png) right center/contain no-repeat;
+  z-index: 4;
+}
+
+#marquee .TenMaxLogo img {
+  width: 30px;
+}

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VAST version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vast.xsd">
+  <!-- 第一支廣告 -->
+  <Ad id="preroll_ad_1" sequence="1">
+    <InLine>
+      <AdSystem>Your Ad System</AdSystem>
+      <AdTitle>片頭廣告 1</AdTitle>
+      <Description>第一支片頭廣告</Description>
+      
+      <Creatives>
+        <Creative id="creative_001">
+          <Linear>
+            <Duration>00:00:15</Duration>
+            
+            <MediaFiles>
+              <MediaFile delivery="progressive" type="video/mp4" width="480" height="270" bitrate="500">
+                <![CDATA[https://r5---sn-un57enel.googlevideo.com/videoplayback?id=2990f14ae5622d9a&itag=160&source=dclk_video_ads&ip=0.0.0.0&ipbits=0&expire=1753362937&sparams=expire,id,ip,ipbits,itag,met,mh,mip,mm,mn,ms,mv,mvi,pl,rms,source&signature=4047B76000AD91072B7957213E8215C7E12F8742.5A4F989336FB52282DCF1CBB3E456CAC4548DE9E&key=cms1&cms_redirect=yes&met=1753341343,&mh=M0&mip=2001:b400:e11c:98af:21f5:1408:8d01:a66b&mm=31&mn=sn-un57enel&ms=au&mt=1753340936&mv=m&mvi=5&pl=44&rms=au,au]]>
+              </MediaFile>
+            </MediaFiles>
+            
+            <TrackingEvents>
+              <Tracking event="start">
+                <![CDATA[https://example.com/tracking/ad1/start]]>
+              </Tracking>
+              <Tracking event="complete">
+                <![CDATA[https://example.com/tracking/ad1/complete]]>
+              </Tracking>
+            </TrackingEvents>
+            
+            <VideoClicks>
+              <ClickThrough>
+                <![CDATA[https://example.com/ad1/click]]>
+              </ClickThrough>
+            </VideoClicks>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+
+  <!-- 第二支廣告 -->
+  <Ad id="preroll_ad_2" sequence="2">
+    <InLine>
+      <AdSystem>Your Ad System</AdSystem>
+      <AdTitle>片頭廣告 2</AdTitle>
+      <Description>第二支片頭廣告</Description>
+      
+      <Creatives>
+        <Creative id="creative_002">
+          <Linear>
+            <Duration>00:00:20</Duration>
+            
+            <MediaFiles>
+              <MediaFile delivery="progressive" type="video/mp4" width="480" height="270" bitrate="500">
+                <![CDATA[https://r3---sn-npoe7nsd.googlevideo.com/videoplayback?id=2990f14ae5622d9a&itag=160&source=dclk_video_ads&ip=0.0.0.0&ipbits=0&expire=1753362744&sparams=expire,id,ip,ipbits,itag,met,mh,mip,mm,mn,ms,mv,mvi,pl,rms,source&signature=17D5ABA8EB3E97E9A882E99A5359CFB4CABD13F4.1827C872EF6E38A32A30187A0D9038BA8AF3763F&key=cms1&met=1753341150,&mh=M0&pl=44&rms=ltu,au&redirect_counter=1&cm2rm=sn-un5k76&rrc=80&fexp=24350590,24350737,24350827,24352568,24352573&req_id=5cc75015c3e3a3ee&cms_redirect=yes&mip=2001:b400:e11c:98af:21f5:1408:8d01:a66b&mm=34&mn=sn-npoe7nsd&ms=ltu&mt=1753340678&mv=m&mvi=3]]>
+              </MediaFile>
+            </MediaFiles>
+            
+            <TrackingEvents>
+              <Tracking event="start">
+                <![CDATA[https://example.com/tracking/ad2/start]]>
+              </Tracking>
+              <Tracking event="complete">
+                <![CDATA[https://example.com/tracking/ad2/complete]]>
+              </Tracking>
+            </TrackingEvents>
+            
+            <VideoClicks>
+              <ClickThrough>
+                <![CDATA[https://example.com/ad2/click]]>
+              </ClickThrough>
+            </VideoClicks>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+
+  <!-- 第三支廣告 -->
+  <Ad id="preroll_ad_3" sequence="3">
+    <InLine>
+      <AdSystem>Your Ad System</AdSystem>
+      <AdTitle>片頭廣告 3</AdTitle>
+      <Description>第三支片頭廣告</Description>
+      
+      <Creatives>
+        <Creative id="creative_003">
+          <Linear>
+            <Duration>00:00:25</Duration>
+            
+            <MediaFiles>
+              <MediaFile delivery="progressive" type="video/mp4" width="480" height="270" bitrate="500">
+                <![CDATA[https://r2---sn-ipoxu-un5ee.googlevideo.com/videoplayback?id=f752f81a45708a21&itag=160&source=dclk_video_ads&ip=0.0.0.0&ipbits=0&expire=1753362968&sparams=expire,id,ip,ipbits,itag,met,mh,mip,mm,mn,ms,mv,mvi,pl,rms,source&signature=736A417A01DE7BD957EFA56284119346E5C8C94F.4B0800249809829EE9FA449D667CA09EDA5E5683&key=cms1&cms_redirect=yes&met=1753341371,&mh=Ge&mip=2001:b400:e11c:98af:21f5:1408:8d01:a66b&mm=31&mn=sn-ipoxu-un5ee&ms=au&mt=1753340936&mv=m&mvi=2&pl=44&rms=au,au]]>
+              </MediaFile>
+            </MediaFiles>
+            
+            <TrackingEvents>
+              <Tracking event="start">
+                <![CDATA[https://example.com/tracking/ad3/start]]>
+              </Tracking>
+              <Tracking event="complete">
+                <![CDATA[https://example.com/tracking/ad3/complete]]>
+              </Tracking>
+            </TrackingEvents>
+            
+            <VideoClicks>
+              <ClickThrough>
+                <![CDATA[https://example.com/ad3/click]]>
+              </ClickThrough>
+            </VideoClicks>
+          </Linear>
+        </Creative>
+      </Creatives>
+    </InLine>
+  </Ad>
+</VAST>

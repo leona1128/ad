@@ -39,6 +39,7 @@ function installSpace() {
     var ins = adcode.createSoftBanIns()
     container.querySelector('.ad').appendChild(ins);
   }
+
   // hook space display
   adcode.onSpaceCreate(ins, function(space) {
     space.on('display', function(ad) {
@@ -102,13 +103,19 @@ function getCookieByName(name) {
 // container state control
 var topCssValue;
 var topCssValueForShutDown;
+let hlBC = document.querySelector('html').getBoundingClientRect();// 抓取html的位置
 function setupContainer(space, ad) {
   // TODO: mark mod type, ad type, subtype on container attribute
   let windowSize = args.windowSize || 50;
   container.style.setProperty("--windowSize", windowSize);
- 
-
+  container.querySelector('.ad').style.left = '5px';
 }
+//增加滾動事件
+window.addEventListener('scroll', () => {
+  hlBC = document.querySelector('html').getBoundingClientRect();
+  container.querySelector('.ad').style.top = `${- hlBC.y}px`;
+  //讓廣告跟著html滾動降下來
+});
 
 var open = false;
 

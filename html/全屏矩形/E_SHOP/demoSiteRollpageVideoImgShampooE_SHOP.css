@@ -1,0 +1,194 @@
+#rollpageVideoImgShampooE_SHOP * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+#rollpageVideoImgShampooE_SHOP a {
+  display: block;
+}
+
+#rollpageVideoImgShampooE_SHOP {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 400);
+  --vh: 1vh;
+}
+
+#rollpageVideoImgShampooE_SHOP .stickyWindow {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 400);
+  clip-path: inset(0px -50vw);
+  position: sticky;
+  z-index: 2147483647;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxViewport {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 320);
+  position: absolute;
+  top: 0;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxBannerBundle {
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxInterstitial {
+  width: 100%;
+  font-size: 0;
+  position: relative;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxInterstitial img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxInterstitial img:not(:first-of-type) {
+  border: 5px solid aliceblue;
+  filter: drop-shadow(1px 1px 5px rgba(0, 0, 0, 0.5));
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  will-change: transform;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxVideo {
+  align-self: flex-end;
+  width: 100%;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxVideo video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  z-index: 214;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#rollpageVideoImgShampooE_SHOP.show .TenMaxBanner .TenMaxCloseBtn {
+  display: block;
+  right: 0;
+  transform: translate(-50%, -150%);
+}
+
+#rollpageVideoImgShampooE_SHOP.up .TenMaxInterstitial .TenMaxCloseBtn {
+  display: block;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  top: 0;
+  right: 0;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxMuteBtn {
+  display: block;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  position: absolute;
+  z-index: 2147483647;
+  left: 3%;
+}
+
+@media screen and (max-width: 375px) {
+  #rollpageVideoImgShampooE_SHOP .TenMaxMuteBtn {
+    bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 376px) {
+  #rollpageVideoImgShampooE_SHOP .TenMaxMuteBtn {
+    bottom: 1%;
+  }
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxMuteBtn img {
+  width: 20px;
+  height: 20px;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxMuteBtn .TenMaxMute {
+  display: none;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxMuteBtn.muted .TenMaxMute {
+  display: block;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxMuteBtn .TenMaxOn {
+  display: block;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxMuteBtn.muted .TenMaxOn {
+  display: none;
+}
+
+#rollpageVideoImgShampooE_SHOP .pageNum {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  font-size: 18px;
+  color: white;
+  line-height: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  position: absolute;
+  top: 30px;
+  left: 5%;
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/DFP-Test/img/small.png) right center/contain no-repeat;
+  position: absolute;
+  right: 0;
+  z-index: 2147483647;
+}
+
+@media screen and (max-width: 375px) {
+  #rollpageVideoImgShampooE_SHOP .TenMaxLogo {
+    bottom: 30px;
+  }
+}
+
+@media screen and (min-width: 376px) {
+  #rollpageVideoImgShampooE_SHOP .TenMaxLogo {
+    bottom: 1%;
+  }
+}
+
+#rollpageVideoImgShampooE_SHOP .TenMaxLogo img {
+  width: 30px;
+}

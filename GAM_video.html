@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>IMA SDK Multiple Video Ads Example</title>
+    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        height: 100Vh;
+        background-color: rgb(215, 245, 246);
+      }
+      .adplayer{
+        padding-top: 150px;
+      }
+
+      #mainContainer {
+        position: relative;
+        width: 640px;
+        height: 360px;
+        background: #000;
+        margin: 0 auto;
+      }
+
+      #content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      #contentElement {
+        width: 100%;
+        height: 100%;
+      }
+
+      #adContainer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      
+      #adContainer_img {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 250px;
+        background: rgba(255, 255, 255, 0.95);
+        display: none;
+        z-index: 9999999;
+        width: 100%;
+        height: 300px;
+      }
+
+      /* 廣告計數器樣式 */
+      #adCounter {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 20;
+        display: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      #adCounter.show {
+        display: block;
+      }
+
+      /* 廣告倒數器樣式 */
+      #adTimer {
+        position: absolute;
+        bottom: 75px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 20;
+        display: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      #adTimer.show {
+        display: block;
+      }
+
+      /* 廣告遮罩層 */
+      #adOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        z-index: 15;
+        display: none;
+        cursor: not-allowed;
+      }
+
+      #adOverlay.show {
+        display: block;
+      }
+
+      .controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .controls.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      .progress-container {
+        width: 100%;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        position: relative;
+      }
+
+      .progress-bar.disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      .progress-filled {
+        height: 100%;
+        background: #007bff;
+        width: 0%;
+        transition: width 0.1s ease;
+      }
+
+      .control-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .play-pause-btn {
+        background: #007bff;
+        border: none;
+        color: white;
+        width: 40px;
+        height: 30px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .play-pause-btn:hover {
+        background: #0056b3;
+      }
+
+      .play-pause-btn.disabled {
+        cursor: not-allowed;
+        background: #6c757d;
+        pointer-events: none;
+      }
+
+      .time-display {
+        color: white;
+        font-size: 14px;
+        min-width: 80px;
+      }
+
+      .volume-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: auto;
+      }
+
+      .volume-btn {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .volume-btn.disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      .volume-slider {
+        width: 60px;
+        height: 4px;
+      }
+
+      .volume-slider.disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      .big-play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #007bff;
+        border: none;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 10;
+      }
+
+      .big-play-btn:hover {
+        background: #0056b3;
+      }
+
+      .big-play-btn.hidden {
+        display: none;
+      }
+
+      .controls.hidden {
+        display: none;
+      }
+
+      /* 控制按鈕樣式 */
+      .locationBtn, .countAdBtn, .refresh {
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      .locationBtn h2, .countAdBtn h2 {
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .preroll, .midroll, .postroll, .countAd, .resetAd , .refresh {
+        background: #28a745;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .refreshBtn {
+        text-align: center;
+      }
+      .refresh:hover {
+        background: #5c7add;
+      }
+      .preroll:hover, .midroll:hover, .postroll:hover, .countAd:hover, .resetAd:hover  {
+        background: #218838;
+      }
+
+      .preroll.active, .midroll.active, .postroll.active, .countAd.active, .resetAd.active , .refresh.active {
+        background: #007bff;
+      }
+
+      .preroll.disabled, .midroll.disabled, .postroll.disabled, .countAd.disabled, .resetAd.disabled {
+        background: #6c757d;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="adplayer">
+      <div id="mainContainer">
+        <div id="content">
+          <div id="adContainer_img"></div>
+          <video id="contentElement" preload="metadata">
+            <source src="https://storage.googleapis.com/gvabox/media/samples/stock.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div id="adContainer"></div>
+        
+        <!-- 廣告計數器 -->
+        <div id="adCounter">1/3</div>
+        
+        <!-- 廣告倒數器 -->
+        <div id="adTimer">廣告 30 秒</div>
+        
+  
+        <div id="adOverlay"></div>
+        
+        <button class="big-play-btn" id="bigPlayBtn">▶</button>
+        
+        <div class="controls" id="controls">
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar">
+              <div class="progress-filled" id="progressFilled"></div>
+            </div>
+          </div>
+          
+          <div class="control-row">
+            <button class="play-pause-btn" id="playPauseBtn">▶</button>
+            <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
+            <div class="volume-container">
+              <button class="volume-btn" id="volumeBtn">🔊</button>
+              <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+            </div>
+          </div>
+        </div>
+       
+      </div>
+      <div class="locationBtn">
+        <h2>廣告位置</h2>
+        <button class="preroll active" id="prerollBtn">片頭</button>
+        <button class="midroll" id="midrollBtn">中間</button>
+        <button class="postroll" id="postrollBtn">片尾</button>
+      </div>
+      <div class="countAdBtn">
+        <h2>廣告數量</h2>
+        <button class="countAd active" id="oneAdBtn">1則</button>
+        <button class="resetAd" id="twoAdBtn">2則</button>
+        <button class="resetAd" id="threeAdBtn">3則</button>
+      </div>
+     <div class="refreshBtn">
+      <button  class="refresh" onClick="window.location.reload()">重新整理頁面  </button>
+
+
+
+     </div>
+    
+
+    </div>
+   
+    <script>
+  // 元素選取器
+let videoContent = document.getElementById('contentElement'); 
+let adContainer = document.getElementById('adContainer');
+let adContainer_img = document.getElementById('adContainer_img');
+let bigPlayBtn = document.getElementById('bigPlayBtn');
+let playPauseBtn = document.getElementById('playPauseBtn');
+let progressBar = document.getElementById('progressBar');
+let progressFilled = document.getElementById('progressFilled');
+let timeDisplay = document.getElementById('timeDisplay');
+let volumeBtn = document.getElementById('volumeBtn');
+let volumeSlider = document.getElementById('volumeSlider');
+let controls = document.getElementById('controls');
+let adCounter = document.getElementById('adCounter');
+let adTimer = document.getElementById('adTimer');
+let adOverlay = document.getElementById('adOverlay');
+
+// 新增：按鈕元素選取器
+let prerollBtn = document.getElementById('prerollBtn');
+let midrollBtn = document.getElementById('midrollBtn');
+let postrollBtn = document.getElementById('postrollBtn');
+let oneAdBtn = document.getElementById('oneAdBtn');
+let twoAdBtn = document.getElementById('twoAdBtn');
+let threeAdBtn = document.getElementById('threeAdBtn');
+
+let adsLoader;
+let adsManager;
+let adDisplayContainer;
+let isAdPlaying = false;
+let isVideoStarted = false;
+
+// 新增：廣告倒數相關變數
+let adDuration = 0;
+let adCurrentTime = 0;
+let adTimerInterval = null;
+let currentAdManager = null;
+let lastDisplayedTime = -1; 
+let adStartTime = 0; 
+// TenMax 廣告狀態追踪
+let tenMaxAdLoaded = false;
+let tenMaxAdVisible = false;
+
+// 多重廣告管理
+let adQueue = [];
+let currentAdIndex = 0;
+let totalAdsRequested = 0;
+let totalAdsLoaded = 0;
+let adsManagers = new Map();
+let adLoadingComplete = false;
+
+// 新增：廣告設定變數
+let currentPosition = 'preroll'; 
+let currentAdCount = 1; // 1, 2, 3
+
+// 新增：廣告時機控制變數
+let midrollTriggered = false;
+let postrollTriggered = false;
+
+// 動態生成廣告 URL 函數
+function getAdTagUrls(position, count) {
+  const baseTime = Date.now();
+  let vposValue;
+  switch(position) {
+    case 'preroll':
+      vposValue = 'preroll';
+      break;
+    case 'midroll':
+      vposValue = 'midroll';
+      break;
+    case 'postroll':
+      vposValue = 'postroll';
+      break;
+    default://前面都不符合就執行預設
+      vposValue = 'preroll'; // 預設值
+  }
+  const urls = [
+    `https://pubads.g.doubleclick.net/gampad/ads?iu=/37275962/videoVastLeona&description_url=http%3A%2F%2Ftenmax.io&tfcd=0&npa=0&sz=400x300%7C1920x1080&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&vpos=${position}&impl=s&correlator=${baseTime}`,
+    `https://pubads.g.doubleclick.net/gampad/ads?iu=/37275962/leona_vastvideo2&description_url=http%3A%2F%2Ftenmax.io&tfcd=0&npa=0&sz=1920x1080&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&vpos=${position}&impl=s&correlator=${baseTime + 1000}`,
+    `https://pubads.g.doubleclick.net/gampad/ads?iu=/37275962/leona_vastvideo3&description_url=http%3A%2F%2Ftenmax.io&tfcd=0&npa=0&sz=400x300%7C1920x1080&gdfp_req=1&unviewed_position_start=1&output=vast&env=vp&vpos=${position}&impl=s&correlator=${baseTime + 2000}`
+
+  ];
+  return urls.slice(0, count);
+}
+
+// 新增：控制播放器功能的函數
+function disablePlayerControls() {
+  controls.classList.add('disabled');
+  progressBar.classList.add('disabled');
+  playPauseBtn.classList.add('disabled');
+  volumeBtn.classList.add('disabled');
+  volumeSlider.classList.add('disabled');
+  adOverlay.classList.add('show');
+  
+  // 禁用位置和數量按鈕
+  document.querySelectorAll('.preroll, .midroll, .postroll, .countAd, .resetAd').forEach(btn => {
+    btn.classList.add('disabled');
+  });
+}
+
+function enablePlayerControls() {
+  controls.classList.remove('disabled');
+  progressBar.classList.remove('disabled');
+  playPauseBtn.classList.remove('disabled');
+  volumeBtn.classList.remove('disabled');
+  volumeSlider.classList.remove('disabled');
+  adOverlay.classList.remove('show');
+  
+  // 啟用位置和數量按鈕
+  document.querySelectorAll('.preroll, .midroll, .postroll, .countAd, .resetAd').forEach(btn => {
+    btn.classList.remove('disabled');
+  });
+}
+
+// 新增：禁用/啟用按鈕功能
+function disableAdButtons() {
+  document.querySelectorAll('.preroll, .midroll, .postroll, .countAd, .resetAd').forEach(btn => {
+    btn.classList.add('disabled');
+  });
+}
+
+function enableAdButtons() {
+  document.querySelectorAll('.preroll, .midroll, .postroll, .countAd, .resetAd').forEach(btn => {
+    btn.classList.remove('disabled');
+  });
+}
+
+// 新增：廣告倒數器功能
+function showAdTimer() {
+  adTimer.classList.add('show');
+}
+
+function hideAdTimer() {
+  adTimer.classList.remove('show');
+  if (adTimerInterval) {
+    clearInterval(adTimerInterval);
+    adTimerInterval = null;
+  }
+  lastDisplayedTime = -1;
+}
+
+function updateAdTimer() {
+  if (!currentAdManager || !isAdPlaying) return;
+  
+  try {
+    let remainingTime;
+    
+    // 嘗試使用 IMA SDK 的 getRemainingTime() 方法
+    if (currentAdManager.getRemainingTime && typeof currentAdManager.getRemainingTime === 'function') {
+      remainingTime = Math.ceil(currentAdManager.getRemainingTime());
+    } else {
+   
+      const elapsedTime = (Date.now() - adStartTime) / 1000;
+      remainingTime = Math.ceil(Math.max(0, adDuration - elapsedTime));
+    }
+    
+
+    if (remainingTime !== lastDisplayedTime) {
+      lastDisplayedTime = remainingTime;
+      
+      if (remainingTime > 0) {
+        adTimer.textContent = `廣告 ${remainingTime} 秒`;
+      } else {
+        adTimer.textContent = '廣告即將結束';
+      }
+    }
+  } catch (e) {
+    console.warn(' 無法取得廣告時間資訊');
+    const elapsedTime = (Date.now() - adStartTime) / 1000;
+    const remainingTime = Math.ceil(Math.max(0, adDuration - elapsedTime));
+    
+    if (remainingTime !== lastDisplayedTime) {
+      lastDisplayedTime = remainingTime;
+      if (remainingTime > 0) {
+        adTimer.textContent = `廣告 ${remainingTime} 秒`;
+      } else {
+        adTimer.textContent = '廣告即將結束';
+      }
+    }
+  }
+}
+
+function startAdTimer() {
+  // 清除現有計時器
+  if (adTimerInterval) {
+    clearInterval(adTimerInterval);
+  }
+  
+  // 記錄廣告開始時間
+  adStartTime = Date.now();
+  lastDisplayedTime = -1;
+  
+  // 立即更新一次
+  updateAdTimer();
+  
+  // 設置每秒更新一次的計時器
+  adTimerInterval = setInterval(() => {
+    updateAdTimer();
+  }, 1000);
+}
+
+// 1. 建立 AdDisplayContainer
+adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, videoContent);
+
+// 2. 初始化 AdsLoader
+adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+
+// 3. 廣告載入成功處理函數
+function onAdsManagerLoaded(adsManagerLoadedEvent) {
+  console.log("成功載入廣告");
+  
+  const context = adsManagerLoadedEvent.getUserRequestContext();
+  const adsRenderingSettings = new google.ima.AdsRenderingSettings();
+  adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+  
+  const manager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
+  
+  adsManagers.set(context.id, manager);
+  totalAdsLoaded++;
+  
+  console.log(` Loaded ad: ${context.id} (${totalAdsLoaded}/${totalAdsRequested})`);
+  
+  setupAdManagerEvents(manager, context.id);
+  checkAdLoadingComplete();
+}
+
+// 4. 廣告錯誤處理函數
+function onAdsManagerError(adsManagerErrorEvent) {
+  const context = adsManagerErrorEvent.getUserRequestContext();
+  console.error(` 沒有廣告素材 ID: ${context.id}`, adsManagerErrorEvent.getError());
+  totalAdsLoaded++;
+  checkAdLoadingComplete();
+}
+
+// 5. 檢查廣告載入是否完成
+function checkAdLoadingComplete() {
+  if (totalAdsLoaded >= totalAdsRequested && !adLoadingComplete) {
+    adLoadingComplete = true;
+    console.log(`成功載入廣告 ${adsManagers.size} ads successfully loaded out of ${totalAdsRequested} requested`);
+    
+    if (adsManagers.size > 0) {
+      prepareAdQueue();
+    } else {
+      console.log("沒有廣告可用");
+      adQueue = [];
+    }
+  }
+}
+
+// 6. 設置廣告管理器事件
+function setupAdManagerEvents(manager, adId) {
+  manager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, (e) => {
+    console.error(` (${adId}):`, e.getError());
+    hideAdTimer();
+    enablePlayerControls();
+    playNextAd();
+  });
+
+  manager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, () => {
+    console.log(`正在播放廣告: ${adId}`);
+    isAdPlaying = true;
+    videoContent.pause();
+    playPauseBtn.textContent = '⏸';
+    disablePlayerControls();
+  });
+
+  manager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, () => {
+    console.log(`廣告結束後繼續播放內容: ${adId}`);
+    isAdPlaying = false;
+    currentAdManager = null;
+    hideAdTimer();
+    enablePlayerControls();
+    playNextAd();
+  });
+
+  manager.addEventListener(google.ima.AdEvent.Type.STARTED, (adEvent) => {
+    console.log(`開始: ${adId}`);
+    currentAdManager = manager;
+    updateAdCounter();
+    showAdCounter();
+    
+    // 取得廣告時長並啟動倒數器
+    try {
+      const ad = adEvent.getAd();
+      adDuration = ad.getDuration() || 30; // 如果無法取得時長，預設30秒
+      console.log(` ${adDuration} seconds`);
+    } catch (e) {
+      console.warn('⚠️ 無法取得廣告時長，使用預設30秒', e);
+      adDuration = 30;
+    }
+    
+    // 啟動倒數器
+    showAdTimer();
+    startAdTimer();
+  });
+
+  manager.addEventListener(google.ima.AdEvent.Type.COMPLETE, (adEvent) => {
+    hideAdTimer();
+  });
+}
+
+// 7. 註冊事件監聽器
+adsLoader.addEventListener(
+  google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+  onAdsManagerLoaded,
+  false
+);
+
+adsLoader.addEventListener(
+  google.ima.AdErrorEvent.Type.AD_ERROR,
+  onAdsManagerError,
+  false
+);
+
+// 8. 載入多個廣告
+function loadMultipleAds() {
+  console.log(` Loading ${currentAdCount} ads for ${currentPosition}...`);
+  
+  // 重置狀態
+  adQueue = [];
+  adsManagers.clear();
+  totalAdsRequested = currentAdCount;
+  totalAdsLoaded = 0;
+  adLoadingComplete = false;
+  currentAdIndex = 0;
+  
+  const adTagUrls = getAdTagUrls(currentPosition, currentAdCount);
+  
+  adTagUrls.forEach((url, index) => {
+    const adsRequest = new google.ima.AdsRequest();
+    adsRequest.adTagUrl = url;
+    adsRequest.linearAdSlotWidth = 640;
+    adsRequest.linearAdSlotHeight = 360;
+    
+    const context = {
+      id: `Ad-${index + 1}`,
+      sequence: index
+    };
+    
+    adsLoader.requestAds(adsRequest, context);
+    console.log(` Requesting ad ${index + 1}: ${context.id}`);
+  });
+}
+
+// 9. 準備廣告播放序列
+function prepareAdQueue() {
+  adQueue = [];
+  adsManagers.forEach((manager, id) => {
+    adQueue.push({ id, manager });
+  });
+  
+  adQueue.sort((a, b) => {
+    const seqA = parseInt(a.id.split('-')[1]);
+    const seqB = parseInt(b.id.split('-')[1]);
+    return seqA - seqB;
+  });
+  
+  console.log(" Ad queue prepared:", adQueue.map(item => item.id));
+}
+
+// 10. 播放下一個廣告
+function playNextAd() {
+  if (currentAdIndex < adQueue.length) {
+    const currentAd = adQueue[currentAdIndex];
+    console.log(` Playing ad ${currentAdIndex + 1}/${adQueue.length}: ${currentAd.id}`);
+    
+    currentAdIndex++;
+    
+    try {
+      currentAd.manager.init(640, 360, google.ima.ViewMode.NORMAL);
+      currentAd.manager.start();
+    } catch (e) {
+      console.warn(`Error playing ${currentAd.id}:`, e);
+      hideAdTimer();
+      enablePlayerControls();
+      playNextAd();
+    }
+  } else {
+    console.log("All ads completed");
+    hideAdCounter();
+    resetAdCounter();
+    hideAdTimer();
+    enablePlayerControls();
+    
+    // 根據廣告位置決定後續動作
+    if (currentPosition === 'midroll') {
+      console.log(' 中間廣告完成，繼續播放影片');
+      videoContent.play(); // 繼續播放影片
+    } else if (currentPosition === 'postroll') {
+      console.log(' 片尾廣告完成，影片結束');
+      playPauseBtn.textContent = '▶';
+      videoContent.play(); // 繼續播放影片
+      // bigPlayBtn.classList.remove('hidden');// 不自動播放影片，因為已經到片尾
+    } else {
+      // preroll 情況
+      console.log('片頭廣告完成，開始播放影片');
+      videoContent.play();
+    }
+  }
+}
+
+// 11. 開始播放序列
+function startPlayback() {
+  videoContent.load();
+  adDisplayContainer.initialize();
+  bigPlayBtn.classList.add('hidden');
+
+  if (!adLoadingComplete) {
+
+    
+    const checkInterval = setInterval(() => {
+      if (adLoadingComplete) {
+        clearInterval(checkInterval);
+        startPlaybackAfterAdsReady();
+      }
+    }, 100);
+    
+    setTimeout(() => {
+      if (!adLoadingComplete) {
+        clearInterval(checkInterval);
+
+        adLoadingComplete = true;
+        adQueue = [];
+        videoContent.play();
+      }
+    }, 5000);
+    
+  } else {
+    startPlaybackAfterAdsReady();
+  }
+}
+
+// 12. 廣告準備完成後開始播放
+function startPlaybackAfterAdsReady() {
+  if (currentPosition === 'preroll' && adQueue.length > 0) {
+   
+    currentAdIndex = 0;
+    playNextAd();
+ 
+  } else {
+  
+    videoContent.play();
+  }
+}
+
+// 內容結束監聽器
+videoContent.addEventListener('ended', () => {
+  if (!isAdPlaying) {
+    adsLoader.contentComplete();
+    playPauseBtn.textContent = '▶';
+    bigPlayBtn.classList.remove('hidden');
+    hideAdCounter();
+    resetAdCounter();
+    hideAdTimer();
+  }
+});
+
+// 廣告計數器功能函數
+function showAdCounter() {
+  adCounter.classList.add('show');
+}
+
+function hideAdCounter() {
+  adCounter.classList.remove('show');
+}
+
+function updateAdCounter() {
+  adCounter.textContent = `${currentAdIndex}/${adQueue.length}`;
+  console.log(`Ad counter updated: ${currentAdIndex}/${adQueue.length}`);
+}
+
+function resetAdCounter() {
+  currentAdIndex = 0;
+}
+
+// 新增：觸發中間廣告函數
+function triggerMidrollAd() {
+  if (adQueue.length > 0) {
+
+    videoContent.pause();
+    currentAdIndex = 0;
+    playNextAd();
+  }
+}
+
+// 新增：觸發片尾廣告函數
+function triggerPostrollAd() {
+  if (adQueue.length > 0) {
+   
+    videoContent.pause();
+    currentAdIndex = 0;
+    playNextAd();
+  }
+}
+
+// 廣告位置按鈕事件處理
+prerollBtn.addEventListener('click', () => {
+  if (isAdPlaying) return; // 廣告播放時禁止切換
+  
+  currentPosition = 'preroll';
+  updateActiveButton('.preroll, .midroll, .postroll', prerollBtn);
+  console.log('設定為片頭廣告');
+  
+  // 重置廣告觸發狀態
+  midrollTriggered = false;
+  postrollTriggered = false;
+  
+  // 片頭廣告立即載入
+  loadMultipleAds();
+});
+
+midrollBtn.addEventListener('click', () => {
+  if (isAdPlaying) return; // 廣告播放時禁止切換
+  
+  currentPosition = 'midroll';
+  updateActiveButton('.preroll, .midroll, .postroll', midrollBtn);
+  console.log('設定為中間廣告');
+  
+  // 重置廣告觸發狀態
+  midrollTriggered = false;
+  postrollTriggered = false;
+  
+  // 中間廣告先載入但不播放，等到時間點再播放
+  loadMultipleAds();
+});
+
+postrollBtn.addEventListener('click', () => {
+  if (isAdPlaying) return; // 廣告播放時禁止切換
+  
+  currentPosition = 'postroll';
+  updateActiveButton('.preroll, .midroll, .postroll', postrollBtn);
+  console.log('設定為片尾廣告');
+  
+  // 重置廣告觸發狀態
+  midrollTriggered = false;
+  postrollTriggered = false;
+  
+  // 片尾廣告先載入但不播放，等到影片結束再播放
+  loadMultipleAds();
+});
+
+// 影片時間監聽器，加入廣告時機判斷
+videoContent.addEventListener('timeupdate', () => {
+  if (isAdPlaying) return;
+  
+  const duration = videoContent.duration;
+  const currentTime = videoContent.currentTime;
+  
+  if (duration) {
+    // 更新進度條
+    const percentage = (currentTime / duration) * 100;
+    progressFilled.style.width = percentage + '%';
+    
+    const currentFormatted = formatTime(currentTime);
+    const durationFormatted = formatTime(duration);
+    timeDisplay.textContent = `${currentFormatted} / ${durationFormatted}`;
+    
+    // 檢查中間廣告時機（影片播放到一半時）
+    if (currentPosition === 'midroll' && !midrollTriggered && currentTime >= duration / 2) {
+      console.log(' 觸發中間廣告播放');
+      midrollTriggered = true;
+      triggerMidrollAd();
+    }
+    
+    // 檢查片尾廣告時機（影片播放到 95% 時觸發）
+    if (currentPosition === 'postroll' && !postrollTriggered && currentTime >= duration * 0.95) {
+      console.log('觸發片尾廣告播放');
+      postrollTriggered = true;
+      triggerPostrollAd();
+    }
+  }
+});
+
+// 廣告數量按鈕事件處理
+oneAdBtn.addEventListener('click', () => {
+  if (isAdPlaying) return; // 廣告播放時禁止切換
+  
+  currentAdCount = 1;
+  updateActiveButton('.countAd, .resetAd', oneAdBtn);
+  console.log('設定為1則廣告');
+  loadMultipleAds();
+});
+
+twoAdBtn.addEventListener('click', () => {
+  if (isAdPlaying) return; // 廣告播放時禁止切換
+  
+  currentAdCount = 2;
+  updateActiveButton('.countAd, .resetAd', twoAdBtn);
+  console.log('設定為2則廣告');
+  loadMultipleAds();
+});
+
+threeAdBtn.addEventListener('click', () => {
+  if (isAdPlaying) return; // 廣告播放時禁止切換
+  
+  currentAdCount = 3;
+  updateActiveButton('.countAd, .resetAd', threeAdBtn);
+  console.log('設定為3則廣告');
+  loadMultipleAds();
+});
+
+// 更新按鈕活動狀態
+function updateActiveButton(selector, activeBtn) {
+  document.querySelectorAll(selector).forEach(btn => btn.classList.remove('active'));
+  activeBtn.classList.add('active');
+}
+
+// TenMax 廣告載入函數
+function loadTenMaxAd() {
+  if (tenMaxAdLoaded) return;
+  
+
+  
+  const insElement = document.createElement('ins');
+  insElement.className = 'rmax';
+  insElement.setAttribute('data-rmax-space-id', '2884693e2a3a4dc0');
+  
+  const scriptElement = document.createElement('script');
+  scriptElement.async = true;
+  scriptElement.src = 'https://tenmax-static.cacafly.net/ssp/adsbytenmax.js';
+  
+  adContainer_img.appendChild(insElement);
+  adContainer_img.appendChild(scriptElement);
+  
+  tenMaxAdLoaded = true;
+  console.log(" TenMax Ad loaded");
+}
+
+// 新增：adContainer 點擊事件處理器
+document.querySelector('#adContainer').addEventListener('click', () => {
+  if (isAdPlaying) {
+    console.log(' 廣告播放中，禁止點擊操作');
+    return;
+  }
+  
+  if (videoContent.paused) {
+    if (tenMaxAdVisible) {
+      hideTenMaxAd();
+    }
+    videoContent.play();
+
+  } else {
+    // 影片播放中時，點擊暫停
+    videoContent.pause();
+
+    
+    // 顯示 TenMax 廣告
+    if (!tenMaxAdLoaded) {
+      loadTenMaxAd();
+      showTenMaxAd();
+    } else if (!tenMaxAdVisible) {
+      showTenMaxAd();
+    }
+  }
+});
+
+// TenMax 廣告關閉
+adContainer_img.addEventListener('click', () => {
+  if (tenMaxAdVisible) {
+    hideTenMaxAd();
+    videoContent.play();
+  }
+});
+
+// 顯示 TenMax 廣告
+function showTenMaxAd() {
+  adContainer_img.style.display = 'block';
+  tenMaxAdVisible = true;
+
+}
+
+// 隱藏 TenMax 廣告
+function hideTenMaxAd() {
+  adContainer_img.style.display = 'none';
+  tenMaxAdVisible = false;
+
+}
+
+// 播放按鈕事件
+bigPlayBtn.addEventListener('click', startPlayback);
+
+// 播放器控制功能
+playPauseBtn.addEventListener('click', () => {
+  if (isAdPlaying) {
+    return; // 廣告播放時禁止控制
+  } else {
+    if (videoContent.paused) {
+      if (tenMaxAdVisible) {
+        hideTenMaxAd();
+      }
+      videoContent.play();
+    } else {
+      videoContent.pause();
+      
+      if (!tenMaxAdLoaded) {
+        loadTenMaxAd();
+        showTenMaxAd();
+      } else if (!tenMaxAdVisible) {
+        showTenMaxAd();
+      }
+    }
+  }
+});
+
+videoContent.addEventListener('play', () => {
+  playPauseBtn.textContent = '⏸';
+  bigPlayBtn.classList.add('hidden');
+  // 影片播放時禁用廣告按鈕
+  disableAdButtons();
+});
+
+videoContent.addEventListener('pause', () => {
+  if (!isAdPlaying) {
+    playPauseBtn.textContent = '▶';
+    // 影片暫停時啟用廣告按鈕
+    disableAdButtons();
+  }
+});
+
+// 進度條功能
+progressBar.addEventListener('click', (e) => {
+  if (isAdPlaying) return; // 廣告播放時禁止拖拉
+  
+  const rect = progressBar.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const width = rect.width;
+  const percentage = clickX / width;
+  const duration = videoContent.duration;
+  
+  if (duration) {
+    videoContent.currentTime = duration * percentage;
+  }
+});
+
+videoContent.addEventListener('loadedmetadata', () => {
+  const duration = videoContent.duration;
+  if (duration) {
+    const durationFormatted = formatTime(duration);
+    timeDisplay.textContent = `00:00 / ${durationFormatted}`;
+  }
+});
+
+// 音量控制
+volumeBtn.addEventListener('click', () => {
+  if (isAdPlaying) return; // 廣告播放時禁止音量控制
+  
+  if (videoContent.muted) {
+    videoContent.muted = false;
+    volumeBtn.textContent = '🔊';
+  } else {
+    videoContent.muted = true;
+    volumeBtn.textContent = '🔇';
+  }
+});
+
+volumeSlider.addEventListener('input', () => {
+  if (isAdPlaying) return; // 廣告播放時禁止音量控制
+  
+  const volume = volumeSlider.value / 100;
+  videoContent.volume = volume;
+  videoContent.muted = false;
+  
+  if (volume === 0) {
+    volumeBtn.textContent = '🔇';
+  } else {
+    volumeBtn.textContent = '🔊';
+  }
+});
+
+// 影片結束時啟用廣告按鈕
+videoContent.addEventListener('ended', () => {
+  if (!isAdPlaying) {
+    enableAdButtons();
+  }
+});
+
+// 工具函數
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// 響應式處理
+window.addEventListener('resize', () => {
+  adsManagers.forEach((manager) => {
+    if (manager) {
+      let width = videoContent.clientWidth;
+      let height = videoContent.clientHeight;
+      manager.resize(width, height, google.ima.ViewMode.NORMAL);
+    }
+  });
+});
+
+// 初始化
+videoContent.volume = 0.5;
+loadMultipleAds(); // 初始載入廣告
+    </script>
+  </body>
+</html>

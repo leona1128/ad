@@ -1,0 +1,233 @@
+#rollpageBanner * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+#rollpageBanner a {
+  display: block;
+}
+
+#rollpageBanner {
+  height: calc(var(--vh, 1vh) * 500);
+  --vh: 1vh;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+
+}
+
+#rollpageBanner .stickyWindow {
+
+  height: calc(var(--vh, 1vh) * 500);
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  clip-path: inset(0px -50vw);
+  position: sticky;
+  z-index: 2147483647;
+  top: 0;
+  left: -10px;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  max-width: 100vw;
+  overflow-x: hidden;
+background-color: #222;
+box-shadow: -20px 0 0 0 rgb(34 34 34), 20px 0 0 0 rgb(34 34 34);
+  /* background-color: #222;
+  box-shadow: -20px 0 0 0 rgb(34 34 34), 20px 0 0 0 rgb(34 34 34);
+  */
+}
+
+/* id selector required? css weight */
+#rollpageBanner .TenMaxBannerBundle {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  position: fixed;
+  background-color: #222;
+  box-shadow: -20px 0 0 0 rgb(34 34 34), 20px 0 0 0 rgb(34 34 34);
+  top: 0;
+  left: 0;
+}
+
+#rollpageBanner .TenMaxInterstitial img {
+  width: 100% !important;
+  height: calc(var(--vh, 1vh) * 100) !important;
+  object-fit: cover;
+  background-color: #222;
+
+}
+
+
+#rollpageBanner .TenMaxInterstitial img:not(:first-of-type) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+
+}
+#rollpageBanner .top{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: 200;
+}
+#rollpageBanner .top img{
+  width: 100%;
+}
+.show.out>.text{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  z-index: 200;
+  animation: fadeOut 1s ease-in 0s 1 normal forwards;
+
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+ 
+  100% {
+    opacity: 0;
+    transform: scale(1);
+
+  }
+}
+
+.show{
+  position: absolute !important;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  z-index: 200;
+}
+.show>.text{
+  animation: fadeIn 1s ease-in 0s 1 normal forwards;
+}
+.show>.text>img{
+  width: 100%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.textImg-1.show>.icon{
+  position: absolute;
+  top: 165px;
+  z-index: 200;
+  left: calc(50% - 10px);
+
+}
+.textImg-3.show{
+  position: fixed !important;
+  height: calc(var(--vh, 1vh)* 100);
+  width: 100%;
+  z-index: 300;
+}
+.textImg-3.show >.banner>img{
+  width: 100%;
+}
+
+.textImg-3.show >.banner{
+position: absolute !important;
+  width: 100%;
+  bottom: -5px;
+  z-index: 300;
+  animation:bannerIn 0.8s ease-in 0s 1 normal forwards;
+}
+@keyframes bannerIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+.show.out >.banner{
+position: absolute !important;
+  width: 100%;
+  z-index: 300;
+  animation:bannerOut 0.5s ease-in 0s 1 normal forwards;
+}
+@keyframes bannerOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100%); /* 確保它完全消失 */
+  }
+}
+#rollpageBanner .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  position: absolute;
+  top: 10%;
+  left: 4%;
+  z-index: 700;
+}
+
+#rollpageBanner .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#rollpageBanner .pageNum {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  font-size: 18px;
+  color: white;
+  line-height: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  position: absolute;
+  top: 10%;
+  left: 4%;
+  z-index: 10;
+  display: none;
+}
+
+
+#rollpageBanner .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/DFP-Test/img/small.png) right center/contain no-repeat;
+  position: absolute;
+  bottom: 15px;
+  right: 0;
+  right: 0;
+  z-index: 700;
+}
+
+#rollpageBanner .TenMaxLogo img {
+  width: 30px;
+}
+
+#rollpageBanner .TenMaxLogo img {
+  width: 30px;
+}

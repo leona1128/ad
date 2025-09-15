@@ -1,145 +1,9 @@
-rmaxloaders._register(document.currentScript,function(loader){
-
-  // @id nativeUnderlay
-  
-  var asset = loader.asset;
-  var adcode = loader.adcode;
-  var util = loader.util;
-  const containerId = 'TenMax_underlay';
-  
-  // interact & container installed -> install space
-  // space displayed -> show
-  var container, closeBtn;
-  var scrolled$ = util.onScroll$();
-  var args = loader.args || {};
-  var toggleOrShutDown;
-  
-  var containerInstalled$ = asset.get$(`demo/${containerId}.html`)
-    .then(function(template) {
-  
-      // TODO: enhance util or asset API
-      var html = template.replace('{{asset.basePath}}', asset.basePath);
-      var space = document.querySelector(`script[data-uuid="${adcode._loader.uuid}"]`);
-      space.insertAdjacentHTML('afterend', html); // append after loader code
-  
-      // save element as variable
-      container = document.querySelector(`script[data-uuid="${adcode._loader.uuid}"] ~ #${containerId}`);
-    });
-  
-  function installSpace() {
-    args.forDevice = args.forDevice || 'PHONE' //  PHONE (default) / TABLET / PERSONAL_COMPUTER
-  
-    let frequency = args.frequency || 60;
-    let enableAdFreqRestriction = args.enableAdFreqRestriction != undefined ? args.enableAdFreqRestriction : false;
-    var overFrequency = checkLastADTime(getCookieByName("lastTime7")) > frequency;
-    // create ins element
-    if (loader.util.isDeviceMatched(args.forDevice) && (!enableAdFreqRestriction || overFrequency)) {
-      var ins = adcode.createIns();
-      // append ins to DOM
-      container.querySelector('.ad').appendChild(ins);
-     
-     
-     //修該樣式區
-    } else if (loader.fallbackMode == 'PASSBACK') {
-      var ins = adcode.createSoftBanIns()
-      container.querySelector('.ad').appendChild(ins);
-     
-    }
-  
-    // hook space display
-    adcode.onSpaceCreate(ins, function(space) {
-      space.on('display', function(ad) {
-        // ad === undefined means no ad
-        if (!ad) {
-          return;
-        } else if (!ad.channel.useContainer) {
-          let contentEle = container.querySelector('.content');
-          let adEle = container.querySelector('.ad');
-          adEle.style.height = 'unset';
-          adEle.style.position = 'unset';
-          contentEle.style.height = 'unset';
-         
-         
-        }
-        initVh();
-        setupContainer(space, ad);
-        container.classList.remove('conceal');
-  
-        try {
-          document.cookie = "lastTime7=" + Date.now() + ";max-age=" + (frequency * 60) + ";path=/;";
-        } catch(e) {
-            console.error(e)
-        }
-      });
-    });
-  
-    // install acdode
-    adcode.install({
-      // cdn: false,
-      // env: 'stage',
-      // dev: true
-    });
-  }
-  
-  function checkLastADTime(recordTime) {
-    var nowTime = Date.now();
-    if (recordTime == undefined) {
-      recordTime = 0;
-    }
-    return (nowTime - recordTime)/1000/60;
-  }
-  
-  function parseCookie() {
-    var cookieObj = {};
-    var cookieAry = document.cookie.split(';');
-    for (let c of cookieAry) {
-      c = c.trim();
-      c = c.split('=');
-      cookieObj[c[0]] = c[1];
-    }
-    return cookieObj;
-  }
-  
-  function getCookieByName(name) {
-    var value = parseCookie()[name];
-    if (value) {
-      value = decodeURIComponent(value);
-    }
-    return value;
-  }
-  
-  // container state control
-  var topCssValue;
-  var topCssValueForShutDown;
-  function setupContainer(space, ad) {
-    // TODO: mark mod type, ad type, subtype on container attribute
-    let windowSize = args.windowSize || 50;
-    container.style.setProperty("--windowSize", windowSize);
-      
-  
-  }
-  
-  var open = false;
-  
-  function initVh() {
-    let windowsVH = window.innerHeight / 100;
-    container.style.setProperty("--vh", windowsVH + "px");
-  }
-  
-  // main flow
-  Promise.all([containerInstalled$])
-    .then(installSpace);
-  
-  });
-
-
-
-  // @id nativeBottom
+// @id nativeTop
 
 var asset = loader.asset;
 var adcode = loader.adcode;
 var util = loader.util;
-const containerId = 'TenMax_fix_bottom';
+const containerId = 'TenMax_fix_top';
 
 // interact & container installed -> install space
 // space displayed -> show
@@ -167,7 +31,7 @@ var containerInstalled$ = asset.get$(`demo/${containerId}.html`)
 
      var closeSpan = document.querySelector('#close');
      var shutDownSpan = document.querySelector('#shutDown');
-     toggleOrShutDown = args.toggleOrShutDown || 'shutDown';
+     toggleOrShutDown = args.toggleOrShutDown || 'toggle';
      if(toggleOrShutDown=='shutDown'){
         closeSpan.style.display='none';
         shutDownSpan.style.display='inline';
@@ -175,13 +39,12 @@ var containerInstalled$ = asset.get$(`demo/${containerId}.html`)
         closeSpan.style.display='inline';
         shutDownSpan.style.display='none';
      }
-
     // change AD background color
     args.backgroundColor ? container.style.setProperty("--backgroundColor", args.backgroundColor) : false;
     args.borderColor ? container.style.setProperty("--borderColor", args.borderColor) : false;
     args.closeBtnColor ? container.style.setProperty("--closeBtnColor", args.closeBtnColor) : false;
-    args.closeBtnBackgroundColor ? container.style.setProperty("--closeBtnBackgroundColor", args.closeBtnBackgroundColor) : false;
     args.closeBtnBorderColor ? container.style.setProperty("--closeBtnBorderColor", args.closeBtnBorderColor) : false;
+    args.closeBtnBackgroundColor ? container.style.setProperty("--closeBtnBackgroundColor", args.closeBtnBackgroundColor) : false;
     args.zIndex ? container.style.setProperty("--zIndex", args.zIndex) : false;
   });
 
@@ -193,16 +56,7 @@ function installSpace() {
 
   let frequency = args.frequency || 60;
   let enableAdFreqRestriction = args.enableAdFreqRestriction != undefined ? args.enableAdFreqRestriction : false;
-  var overFrequency = checkLastADTime(getCookieByName("lastTime3")) > frequency;
-//關閉對方網站gam的按鈕 ost-800
-    const closeButton = document.querySelector('.zi_ad_breaktime_popup_AD_btn');
-    if (closeButton) {
-        closeButton.style.display = 'none';
-    };
-
-
- 
-
+  var overFrequency = checkLastADTime(getCookieByName("lastTime6")) > frequency;
   // create ins element
   if (loader.util.isDeviceMatched(args.forDevice) && (!enableAdFreqRestriction || overFrequency)) {
     var ins = adcode.createIns();
@@ -226,10 +80,11 @@ function installSpace() {
       defaultOpenContainerSetting();
 
       try {
-        document.cookie = "lastTime3=" + Date.now() + ";max-age=" + (frequency * 60) + ";path=/;";
+        document.cookie = "lastTime6=" + Date.now() + ";max-age=" + (frequency * 60) + ";path=/;";
       } catch(e) {
           console.error(e)
       }
+
     });
   });
 
@@ -240,6 +95,34 @@ function installSpace() {
     // dev: true
   });
 }
+
+function checkLastADTime(recordTime) {
+  var nowTime = Date.now();
+  if (recordTime == undefined) {
+    recordTime = 0;
+  }
+  return (nowTime - recordTime)/1000/60;
+}
+
+function parseCookie() {
+  var cookieObj = {};
+  var cookieAry = document.cookie.split(';');
+  for (let c of cookieAry) {
+    c = c.trim();
+    c = c.split('=');
+    cookieObj[c[0]] = c[1];
+  }
+  return cookieObj;
+}
+
+function getCookieByName(name) {
+  var value = parseCookie()[name];
+  if (value) {
+    value = decodeURIComponent(value);
+  }
+  return value;
+}
+
 
 //設定初始化是直接顯示,延遲顯示,下滑多少比例, 滑動多少pixel才顯示
 function defaultOpenContainerSetting(){
@@ -284,12 +167,19 @@ function calculateScrollPixel(event){
  }
 
 // container state control
-var bottomCssValue;
-var bottomCssValueForShutDown;
+var topCssValue;
+var  containerScrollHeight;
+var topCssValueForShutDown;
 function setupContainer(space, ad) {
-  container.style.top = '';
-  container.style.bottom = bottomCssValue = '-' + container.offsetHeight + 'px';
-  container.offsetHeight; // kickoff
+  // TODO: mark mod type, ad type, subtype on container attribute
+  container.style.bottom = '';
+
+   containerScrollHeight = container.scrollHeight;
+  if (ad && ad.channel && ad.channel.height) {
+     containerScrollHeight = ad.channel.height;
+  }
+  container.style.top = topCssValue = '-' +  containerScrollHeight + 'px';
+  container.scrollHeight; // kickoff
   if (ad.channel.subType == 'combo' && ad._element.clientHeight != 100) {
     container.querySelector('.content > .ad ins').style.width = 'calc(100% - 10px)';
   }
@@ -308,34 +198,6 @@ function toggleContainer() {
 let autoCloseTime = args.autoCloseTime || 5;
 let autoClose = args.autoClose || false;
 
-function checkLastADTime(recordTime) {
-  var nowTime = Date.now();
-  if (recordTime == undefined) {
-    recordTime = 0;
-  }
-  return (nowTime - recordTime)/1000/60;
-}
-
-function parseCookie() {
-  var cookieObj = {};
-  var cookieAry = document.cookie.split(';');
-  for (let c of cookieAry) {
-    c = c.trim();
-    c = c.split('=');
-    cookieObj[c[0]] = c[1];
-  }
-  return cookieObj;
-}
-
-function getCookieByName(name) {
-  var value = parseCookie()[name];
-  if (value) {
-    value = decodeURIComponent(value);
-  }
-  return value;
-}
-
-
 function openContainer(defaultSetting) {
   if (open) {
     return;
@@ -343,9 +205,8 @@ function openContainer(defaultSetting) {
   open = true;
   container.classList.remove('conceal');
   container.classList.add('open');
-  container.style.bottom = ''; // set to 0 !important by stylesheet
-  bottomCssValueForShutDown = - (container.offsetHeight + document.querySelector('#close-btn').offsetHeight) + 'px';
-  bottomCssValue = '-' + container.offsetHeight + 'px';
+  container.style.top = ''; // set to 0 !important by stylesheet
+  topCssValueForShutDown = - (container.scrollHeight + document.querySelector('#close-btn').offsetHeight) + 'px';
   if (autoClose && defaultSetting == 'default') {
     autoCloseTimeoutId = setTimeout(toggleOrShutDown =='shutDown' ? shutDownContainer: closeContainer , (autoCloseTime * 1000));
   }
@@ -356,16 +217,15 @@ function closeContainer() {
     return;
   }
   open = false;
-   bottomCssValue = '-' + container.offsetHeight + 'px';
+
    container.classList.remove('open');
-   container.style.bottom = bottomCssValue;
+   container.style.top = topCssValue;
 
 }
 
 function shutDownContainer() {
-    bottomCssValueForShutDown = - (container.offsetHeight + document.querySelector('#close-btn').offsetHeight) + 'px';
     container.classList.remove('open');
-    container.style.bottom = bottomCssValueForShutDown;
+    container.style.top = topCssValueForShutDown;
 
      //取消setTimeout和scroll Event綁定
      if(deferSecondsToShowUpTimeoutId != undefined){
@@ -373,6 +233,7 @@ function shutDownContainer() {
      }
      window.removeEventListener('scroll', calculateScrollPercent);
 }
+
 
 // main flow
 Promise.all([containerInstalled$])

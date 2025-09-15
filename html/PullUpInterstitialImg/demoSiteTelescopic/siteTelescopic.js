@@ -87,6 +87,18 @@ function setTracker(TenMaxTemplate) {
   } else {
     TenMaxBannerBundle.setAttribute("href", clickUrl + encodeURIComponent(TenMaxLink));
   }
+  let viewable = document.createElement("img");
+  viewable.src = viewableUrl;
+  viewable.style.display = "none";
+  let sspViewable = document.createElement("img");
+  sspViewable.src = SSPviewableUrl;
+  sspViewable.style.display = "none";
+  let adxViewable = document.createElement("img");
+  adxViewable.src = ADXviewableUrl;
+  adxViewable.style.display = "none";
+  TenMaxTemplate.appendChild(viewable);
+  TenMaxTemplate.appendChild(sspViewable);
+  TenMaxTemplate.appendChild(adxViewable);
 }
 
 function safariHacks() {
@@ -103,6 +115,7 @@ function safariHacks() {
   });
   
   TenMaxInterstitial.classList.add('show');
+
 }
 
 let resizeTimeout;

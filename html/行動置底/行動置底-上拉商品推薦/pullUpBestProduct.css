@@ -1,0 +1,275 @@
+#pullUpBestProduct {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column-reverse;
+  -webkit-flex-direction: column-reverse;
+  width: 100%;
+  transform: translateY(100%);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483;
+  --vh: 1vh;
+}
+
+#pullUpBestProduct * {
+  padding: 0;
+  margin: 0;
+}
+#pullUpBestProduct img{
+  /* width: auto; */
+  margin: auto;
+  left: auto;
+  right: auto;
+  top: auto;
+  bottom: auto;
+  max-width: 100%;
+
+}
+
+#pullUpBestProduct a {
+  display: block;
+  text-decoration: none;
+}
+
+#pullUpBestProduct.show {
+  transform: translateY(calc(100% - 46.7vw));
+  transition: transform 1s ease-in-out;
+ 
+}
+
+#pullUpBestProduct.up {
+  transform: translateY(0);
+
+}
+
+#pullUpBestProduct .TenMaxBanner {
+  display: block;
+  width: 100%;
+  height: 46.7vw;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/pullUp/demo/pullUpBestProduct-banner.png) center/contain no-repeat;
+  position: relative;
+  bottom: 0;
+
+}
+
+@keyframes down {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(9%);
+  }
+}
+
+#pullUpBestProduct.show .pullUpArrow {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  width: 41px;
+  height: 41px;
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+#pullUpBestProduct .pullUpArrow img {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  bottom: 0px;
+}
+
+#pullUpBestProduct .TenMaxInterstitial {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  height: 100%;
+  /* height: calc(var(--vh, 1vh) * 100); */
+  position: relative;
+  margin: auto;
+}
+
+/* #pullUpBestProduct.show .TenMaxInterstitial {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+} */
+
+#pullUpBestProduct.up .TenMaxInterstitial {
+  opacity: 1;
+}
+.TenMaxProuct {
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  width: 94%;
+  top: 11%;
+  align-items: center;
+  justify-items: center;
+  right: 12px;
+
+}
+
+.TenMaxProuct >img {
+ width:100%;
+  height: 100%;
+  object-fit: cover;
+  filter: drop-shadow(3px 3px 3px rgba(0, 0, 0, 0.5));
+
+}
+
+.animate-product{
+  animation: zoomInOut  7s infinite;
+  animation-timing-function: ease-in-out;
+  width: 155px;
+  height: 159px;
+}
+
+@keyframes zoomInOut {
+  0%, 11% {
+    transform: scale(1);
+  }
+  5% {
+    transform: scale(1.1);
+  }
+  17% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#pullUpBestProduct .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2147483647;
+  /* transform: translate(50%, 50%); */
+}
+
+
+#pullUpBestProduct .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#pullUpBestProduct.show .TenMaxBanner .TenMaxCloseBtn {
+  display: block;
+  /* right: 0;
+  transform: translate(-50%, -150%); */
+  top: -30px;
+  right: 5px;
+}
+
+#pullUpBestProduct .TenMaxInterstitial .TenMaxCloseBtn {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  font-size: 18px;
+  bottom:0;
+  right: 0;
+
+}
+#pullUpBestProduct .TenMaxInterstitial>.TenMaxCloseBtn>img {
+  /* position: absolute;
+  bottom: 251px;
+  right: 0px; */
+  position: relative;
+  left: -17px;
+  transform: translateY(calc(100% - 46.7vw));
+  top: -67px;
+}
+#pullUpBestProduct .TenMaxInterstitial>.TenMaxCloseBtn{
+  display: none;
+}
+#pullUpBestProduct .TenMaxMuteBtn {
+  display: block;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  position: absolute;
+  z-index: 2147483647;
+}
+
+#pullUpBestProduct .TenMaxMuteBtn img {
+  width: 20px;
+  height: 20px;
+}
+
+#pullUpBestProduct .TenMaxMuteBtn .TenMaxMute {
+  display: none;
+}
+
+#pullUpBestProduct .TenMaxMuteBtn.muted .TenMaxMute {
+  display: block;
+}
+
+#pullUpBestProduct .TenMaxMuteBtn .TenMaxOn {
+  display: block;
+}
+
+#pullUpBestProduct .TenMaxMuteBtn.muted .TenMaxOn {
+  display: none;
+}
+@media (max-width: 376px) {
+  #pullUpBestProduct .TenMaxInterstitial>.TenMaxCloseBtn>img  {
+    left: -17px;
+
+  }
+  
+}
+@media (max-aspect-ratio: 600/1198) {
+  #pullUpBestProduct .TenMaxInterstitial {
+    justify-content: center;
+    width: 100vw;
+  }
+  #pullUpBestProduct .TenMaxMuteBtn {
+    top: calc(338 / 1198 * 100% - 3%);
+    right: 6%;
+  }
+  #pullUpBestProduct .TenMaxInterstitial .TenMaxCloseBtn {
+    transform: translate(-50%, 50%);
+  }
+}
+
+@media (min-aspect-ratio: 600/1198) {
+  #pullUpBestProduct .TenMaxInterstitial {
+    width: 100vw;
+  }
+  #pullUpBestProduct .TenMaxMuteBtn {
+    top: calc(338 / 1198 * 100% - 5%);
+    right: 5%;
+  }
+  #pullUpBestProduct.up .TenMaxInterstitial .TenMaxCloseBtn {
+    transform: translate(50%, 50%);
+  }
+}
+
+#pullUpBestProduct .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/DFP-Test/img/small.png) right center/contain no-repeat;
+  position: fixed;
+  top: 40vw;
+  right: 0;
+  z-index: 2147483647;
+}
+
+#pullUpBestProduct .TenMaxLogo img {
+  width: 30px;
+}

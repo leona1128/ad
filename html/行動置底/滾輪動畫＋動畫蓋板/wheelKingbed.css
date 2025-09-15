@@ -1,0 +1,240 @@
+#wheelKingbed {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 2147483647;
+  transform: translateY(100%);
+  --vh: 1;
+}
+
+#wheelKingbed.show {
+  transform: translateY(0);
+  transition: transform 1s;
+}
+
+#wheelKingbed .TenMaxInterstitial {
+  display: block;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/Kingbed/Kingbed-Interstitial.gif) center/contain no-repeat;
+  position: absolute;
+  bottom: 100%;
+  transform: translateY(0);
+}
+
+#wheelKingbed .TenMaxInterstitial.show {
+  animation: slideOut 4s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes slideOut {
+  70% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+#wheelKingbed .TenMaxInterstitial.show .TenMaxPic1 {
+  animation: on 4s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes on {
+  20% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(300%);
+  }
+}
+
+#wheelKingbed .TenMaxBannerBundle {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  bottom: 0;
+  overflow: hidden;
+}
+
+#wheelKingbed img {
+  display: block;
+  width: 100%;
+}
+
+#wheelKingbed .TenMaxBannerBundle :is(#odd, #even) {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+}
+
+#wheelKingbed #odd {
+  animation: slideOdd 15s linear 4s infinite;
+  top: -500%;
+}
+
+@keyframes slideOdd {
+  0% {
+    filter: none;
+    transform: translateY(0%);
+  }
+  12.5% {
+    filter: none;
+    transform: translateY(0%);
+  }
+  12.6% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(0%);
+  }
+  20.73333% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(5/8 * 100%));
+  }
+  20.83333% {
+    filter: none;
+    transform: translateY(calc(5/8 * 100%));
+  }
+  45.83333% {
+    filter: none;
+    transform: translateY(calc(5/8 * 100%));
+  }
+  45.93333% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(5/8 * 100%));
+  }
+  54.06666% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(-2/8 * 100%));
+  }
+  54.16666% {
+    filter: none;
+    transform: translateY(calc(-2/8 * 100%));
+  }
+  79.16666% {
+    filter: none;
+    transform: translateY(calc(-2/8 * 100%));
+  }
+  79.26666% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(-2/8 * 100%));
+  }
+  87.4% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(3/8 * 100%));
+  }
+  87.5% {
+    filter: none;
+    transform: translateY(calc(3/8 * 100%));
+  }
+  100% {
+    filter: none;
+    transform: translateY(calc(3/8 * 100%));
+  }
+}
+
+#wheelKingbed #even {
+  clip-path: inset(0% 33%);
+  animation: slideEven 15s linear 4s infinite;
+  top: 0%;
+}
+
+@keyframes slideEven {
+  0% {
+    filter: none;
+    transform: translateY(0%);
+  }
+  12.5% {
+    filter: none;
+    transform: translateY(0%);
+  }
+  12.6% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(0%);
+  }
+  20.73333% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(-7/10 *100%));
+  }
+  20.83333% {
+    filter: none;
+    transform: translateY(calc(-7/10 *100%));
+  }
+  45.83333% {
+    filter: none;
+    transform: translateY(calc(-7/10 *100%));
+  }
+  45.93333% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(-7/10 *100%));
+  }
+  54.06666% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(-2/10 *100%));
+  }
+  54.16666% {
+    filter: none;
+    transform: translateY(calc(-2/10 *100%));
+  }
+  79.16666% {
+    filter: none;
+    transform: translateY(calc(-2/10 *100%));
+  }
+  79.26666% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(-2/10 *100%));
+  }
+  87.4% {
+    filter: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/Wheel/blur.svg#svgBlur);
+    transform: translateY(calc(-9/10 *100%));
+  }
+  87.5% {
+    filter: none;
+    transform: translateY(calc(-9/10 *100%));
+  }
+  100% {
+    filter: none;
+    transform: translateY(calc(-9/10 *100%));
+  }
+}
+
+#wheelKingbed .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2147483647;
+  transform: translate(50%, 50%);
+}
+
+#wheelKingbed.show .TenMaxCloseBtn {
+  transform: translate(-50%, -110%);
+}
+
+#wheelKingbed .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#wheelKingbed .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  position: fixed;
+  bottom: 5px;
+  right: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/small.png) right center/contain no-repeat;
+}
+
+#wheelKingbed .TenMaxLogo img {
+  width: 30px;
+}

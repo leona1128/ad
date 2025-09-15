@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>IMA SDK Multiple Video Ads Example</title>
+    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+      }
+
+      #mainContainer {
+        position: relative;
+        width: 640px;
+        height: 360px;
+        background: #000;
+        margin: 0 auto;
+      }
+
+      #content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      #contentElement {
+        width: 100%;
+        height: 100%;
+      }
+
+      #adContainer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      
+      #adContainer_img {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 250px;
+        background: rgba(255, 255, 255, 0.95);
+        display: none;
+        z-index: 9999999;
+        width: 100%;
+        height: 300px;
+      }
+
+      /* 廣告計數器樣式 */
+      #adCounter {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        z-index: 20;
+        display: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      #adCounter.show {
+        display: block;
+      }
+
+      .controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .progress-container {
+        width: 100%;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        cursor: pointer;
+        position: relative;
+      }
+
+      .progress-filled {
+        height: 100%;
+        background: #007bff;
+        width: 0%;
+        transition: width 0.1s ease;
+      }
+
+      .control-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .play-pause-btn {
+        background: #007bff;
+        border: none;
+        color: white;
+        width: 40px;
+        height: 30px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .play-pause-btn:hover {
+        background: #0056b3;
+      }
+
+      .time-display {
+        color: white;
+        font-size: 14px;
+        min-width: 80px;
+      }
+
+      .volume-container {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-left: auto;
+      }
+
+      .volume-btn {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 5px;
+      }
+
+      .volume-slider {
+        width: 60px;
+        height: 4px;
+      }
+
+      .big-play-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #007bff;
+        border: none;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 20px;
+        z-index: 10;
+      }
+
+      .big-play-btn:hover {
+        background: #0056b3;
+      }
+
+      .big-play-btn.hidden {
+        display: none;
+      }
+
+      .controls.hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mainContainer">
+        <div id="content">
+          <div id="adContainer_img"></div>
+          <video id="contentElement" preload="metadata">
+            <source src="https://storage.googleapis.com/gvabox/media/samples/stock.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div id="adContainer"></div>
+        
+        <!-- 廣告計數器 -->
+        <div id="adCounter">1/3</div>
+        
+        <button class="big-play-btn" id="bigPlayBtn">▶</button>
+        
+        <div class="controls" id="controls">
+          <div class="progress-container">
+            <div class="progress-bar" id="progressBar">
+              <div class="progress-filled" id="progressFilled"></div>
+            </div>
+          </div>
+          
+          <div class="control-row">
+            <button class="play-pause-btn" id="playPauseBtn">▶</button>
+            <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
+            <div class="volume-container">
+              <button class="volume-btn" id="volumeBtn">🔊</button>
+              <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="50">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script>
+      // 元素選取器
+let videoContent = document.getElementById('contentElement'); 
+let adContainer = document.getElementById('adContainer');
+let adContainer_img = document.getElementById('adContainer_img');
+let bigPlayBtn = document.getElementById('bigPlayBtn');
+let playPauseBtn = document.getElementById('playPauseBtn');
+let progressBar = document.getElementById('progressBar');
+let progressFilled = document.getElementById('progressFilled');
+let timeDisplay = document.getElementById('timeDisplay');
+let volumeBtn = document.getElementById('volumeBtn');
+let volumeSlider = document.getElementById('volumeSlider');
+let controls = document.getElementById('controls');
+let adCounter = document.getElementById('adCounter');
+
+let adsLoader;
+let adsManager;
+let adDisplayContainer;
+let isAdPlaying = false;
+
+// TenMax 廣告狀態追踪
+let tenMaxAdLoaded = false;
+let tenMaxAdVisible = false;
+
+// 多重廣告管理
+let adQueue = [];
+let currentAdIndex = 0; // 當前播放的廣告索引 (播放時遞增)
+let totalAdsRequested = 0;
+let totalAdsLoaded = 0;
+let adsManagers = new Map(); // 儲存多個 AdsManager
+let adLoadingComplete = false; // 新增：追踪廣告載入是否完成
+
+// 三個廣告 URL
+const adTagUrls = [
+  'https://tpc.googlesyndication.com/ima3vpaid?vad_format=linear&correlator=' + Date.now() + '&adtagurl=https%3A%2F%2Fpubads.g.doubleclick.net%2Fgampad%2Fads%3Fiu%3D%2F37275962%2Fleona_vastvideo2%26description_url%3Dhttp%253A%252F%252Ftenmax.io%26tfcd%3D0%26npa%3D0%26sz%3D1920x1080%26gdfp_req%3D1%26unviewed_position_start%3D1%26output%3Dvast%26env%3Dvp%26vpos%3Dpreroll%26vpmute%3D0%26vpa%3Dclick%26type%3Djs%26vad_type%3Dlinear',
+  'https://tpc.googlesyndication.com/ima3vpaid?vad_format=linear&correlator=' + (Date.now() + 1000) + '&adtagurl=https%3A%2F%2Fpubads.g.doubleclick.net%2Fgampad%2Fads%3Fiu%3D%2F37275962%2FvideoVastLeona%26description_url%3Dhttp%253A%252F%252Ftenmax.io%26tfcd%3D0%26npa%3D0%26sz%3D400x300%257C1920x1080%26gdfp_req%3D1%26unviewed_position_start%3D1%26output%3Dvast%26env%3Dvp%26vpos%3Dpreroll%26vpmute%3D0%26vpa%3Dclick%26type%3Djs%26vad_type%3Dlinear',
+  'https://tpc.googlesyndication.com/ima3vpaid?vad_format=linear&correlator=' + (Date.now() + 2000) + '&adtagurl=https%3A%2F%2Fpubads.g.doubleclick.net%2Fgampad%2Fads%3Fiu%3D%2F37275962%2Fleona_vastvideo3%26description_url%3Dhttp%253A%252F%252Ftenmax.io%26tfcd%3D0%26npa%3D0%26sz%3D400x300%257C1920x1080%26gdfp_req%3D1%26unviewed_position_start%3D1%26output%3Dvast%26env%3Dvp%26vpos%3Dpreroll%26vpmute%3D0%26vpa%3Dclick%26type%3Djs%26vad_type%3Dlinear'
+];
+
+// 1. 建立 AdDisplayContainer
+adDisplayContainer = new google.ima.AdDisplayContainer(adContainer, videoContent);
+
+// 2. 初始化 AdsLoader
+adsLoader = new google.ima.AdsLoader(adDisplayContainer);
+
+// 3. 廣告載入成功處理函數
+function onAdsManagerLoaded(adsManagerLoadedEvent) {
+  console.log("✅ AdsManager Loaded");
+  
+  const context = adsManagerLoadedEvent.getUserRequestContext();
+  const adsRenderingSettings = new google.ima.AdsRenderingSettings();
+  adsRenderingSettings.restoreCustomPlaybackStateOnAdBreakComplete = true;
+  
+  const manager = adsManagerLoadedEvent.getAdsManager(videoContent, adsRenderingSettings);
+  
+  // 儲存 AdsManager 到 Map
+  adsManagers.set(context.id, manager);
+  totalAdsLoaded++;
+  
+  console.log(`📊 Loaded ad: ${context.id} (${totalAdsLoaded}/${totalAdsRequested})`);
+  
+  // 設置廣告事件監聽器
+  setupAdManagerEvents(manager, context.id);
+  
+  // 檢查是否所有廣告請求都已處理完成
+  checkAdLoadingComplete();
+}
+
+// 4. 廣告錯誤處理函數
+function onAdsManagerError(adsManagerErrorEvent) {
+  const context = adsManagerErrorEvent.getUserRequestContext();
+  console.error(`❌ Error with AdRequest ID: ${context.id}`, adsManagerErrorEvent.getError());
+  
+  // 增加已處理的廣告計數（即使失敗）
+  totalAdsLoaded++;
+  
+  // 檢查是否所有廣告請求都已處理完成
+  checkAdLoadingComplete();
+}
+
+// 5. 檢查廣告載入是否完成
+function checkAdLoadingComplete() {
+  if (totalAdsLoaded >= totalAdsRequested && !adLoadingComplete) {
+    adLoadingComplete = true;
+    console.log(`🎬 Ad loading completed: ${adsManagers.size} ads successfully loaded out of ${totalAdsRequested} requested`);
+    
+    if (adsManagers.size > 0) {
+      // 有廣告載入成功，準備播放序列
+      prepareAdQueue();
+    } else {
+      // 沒有廣告載入成功，標記為無廣告狀態
+      console.log("⚠️ No ads loaded successfully");
+      adQueue = [];
+    }
+  }
+}
+
+// 6. 設置廣告管理器事件
+function setupAdManagerEvents(manager, adId) {
+  // 廣告錯誤處理
+  manager.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR, (e) => {
+    console.error(`❌ Ad error during playback (${adId}):`, e.getError());
+    playNextAd(); // 播放下一個廣告
+  });
+
+  // 內容暫停 - 廣告開始
+  manager.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, () => {
+    console.log(`⏸️ Content Pauses for Ad: ${adId}`);
+    isAdPlaying = true;
+    videoContent.pause();
+    playPauseBtn.textContent = '⏸';
+  });
+
+  // 內容恢復 - 廣告結束
+  manager.addEventListener(google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED, () => {
+    console.log(`🎬 Content Resumes after Ad: ${adId}`);
+    isAdPlaying = false;
+    
+    // 播放下一個廣告或恢復內容
+    playNextAd();
+  });
+
+  // 廣告開始播放 - 修正計數器更新時機
+  manager.addEventListener(google.ima.AdEvent.Type.STARTED, (adEvent) => {
+    console.log(`▶️ Ad started: ${adId}`);
+    // 在廣告開始時顯示正確的計數器 (currentAdIndex + 1)
+    updateAdCounter();
+    showAdCounter();
+  });
+
+  // 廣告完成
+  manager.addEventListener(google.ima.AdEvent.Type.COMPLETE, (adEvent) => {
+    console.log(`✅ Ad completed: ${adId}`);
+  });
+}
+
+// 7. 註冊事件監聽器
+adsLoader.addEventListener(
+  google.ima.AdsManagerLoadedEvent.Type.ADS_MANAGER_LOADED,
+  onAdsManagerLoaded,
+  false
+);
+
+adsLoader.addEventListener(
+  google.ima.AdErrorEvent.Type.AD_ERROR,
+  onAdsManagerError,
+  false
+);
+
+// 8. 載入多個廣告
+function loadMultipleAds() {
+  console.log("📢 Loading multiple ads...");
+  totalAdsRequested = adTagUrls.length;
+  
+  adTagUrls.forEach((url, index) => {
+    const adsRequest = new google.ima.AdsRequest();
+    adsRequest.adTagUrl = url;
+    adsRequest.linearAdSlotWidth = 640;
+    adsRequest.linearAdSlotHeight = 360;
+    
+    // 設置 context 以識別不同的廣告請求
+    const context = {
+      id: `Ad-${index + 1}`,
+      sequence: index
+    };
+    
+    adsLoader.requestAds(adsRequest, context);
+    console.log(`📤 Requesting ad ${index + 1}: ${context.id}`);
+  });
+}
+
+// 9. 準備廣告播放序列
+function prepareAdQueue() {
+  adQueue = [];
+  adsManagers.forEach((manager, id) => {
+    adQueue.push({ id, manager });
+  });
+  
+  // 依照 sequence 排序
+  adQueue.sort((a, b) => {
+    const seqA = parseInt(a.id.split('-')[1]);
+    const seqB = parseInt(b.id.split('-')[1]);
+    return seqA - seqB;
+  });
+  
+  console.log("📋 Ad queue prepared:", adQueue.map(item => item.id));
+}
+
+// 10. 播放下一個廣告 - 修正計數器邏輯
+function playNextAd() {
+  if (currentAdIndex < adQueue.length) {
+    const currentAd = adQueue[currentAdIndex];
+    console.log(`🎬 Playing ad ${currentAdIndex + 1}/${adQueue.length}: ${currentAd.id}`);
+    
+    try {
+      currentAd.manager.init(640, 360, google.ima.ViewMode.NORMAL);
+      currentAd.manager.start();
+      // 注意：currentAdIndex 在廣告開始播放時遞增，這樣計數器顯示才正確
+      currentAdIndex++;
+    } catch (e) {
+      console.warn(`⚠️ Error playing ${currentAd.id}:`, e);
+      currentAdIndex++;
+      playNextAd(); // 嘗試播放下一個
+    }
+  } else {
+    // 所有廣告播放完成，開始播放內容
+    console.log("🎉 All ads completed, starting content");
+    hideAdCounter();
+    resetAdCounter();
+    videoContent.play();
+  }
+}
+
+// 11. 開始播放序列（修改後的函數）
+function startPlayback() {
+  videoContent.load();
+  adDisplayContainer.initialize();
+  bigPlayBtn.classList.add('hidden');
+
+  // 檢查廣告載入狀態
+  if (!adLoadingComplete) {
+    // 廣告還在載入中，等待載入完成
+    console.log("⏳ Ads still loading, waiting...");
+    
+    // 設置一個檢查間隔，直到廣告載入完成
+    const checkInterval = setInterval(() => {
+      if (adLoadingComplete) {
+        clearInterval(checkInterval);
+        startPlaybackAfterAdsReady();
+      }
+    }, 100);
+    
+    // 設置超時，如果廣告載入時間過長就直接播放內容
+    setTimeout(() => {
+      if (!adLoadingComplete) {
+        clearInterval(checkInterval);
+        console.log("⏰ Ad loading timeout, starting content directly");
+        adLoadingComplete = true;
+        adQueue = [];
+        videoContent.play();
+      }
+    }, 5000); // 5秒超時
+    
+  } else {
+    // 廣告載入已完成
+    startPlaybackAfterAdsReady();
+  }
+}
+
+// 12. 廣告準備完成後開始播放
+function startPlaybackAfterAdsReady() {
+  if (adQueue.length > 0) {
+    console.log("▶️ Starting ad sequence");
+    currentAdIndex = 0; // 重置為0，播放時才遞增
+    playNextAd();
+  } else {
+    console.log("▶️ No ads available, starting content directly");
+    videoContent.play();
+  }
+}
+
+// 內容結束監聽器
+videoContent.addEventListener('ended', () => {
+  if (!isAdPlaying) {
+    adsLoader.contentComplete();
+    playPauseBtn.textContent = '▶';
+    bigPlayBtn.classList.remove('hidden');
+    hideAdCounter();
+    resetAdCounter();
+  }
+});
+
+// 廣告計數器功能函數 - 修正顯示邏輯
+function showAdCounter() {
+  adCounter.classList.add('show');
+}
+
+function hideAdCounter() {
+  adCounter.classList.remove('show');
+}
+
+function updateAdCounter() {
+  // 顯示當前播放的廣告編號 (currentAdIndex 是當前播放的廣告索引)
+  adCounter.textContent = `${currentAdIndex}/${adQueue.length}`;
+  console.log(`📊 Ad counter updated: ${currentAdIndex}/${adQueue.length}`);
+}
+
+function resetAdCounter() {
+  currentAdIndex = 0;
+}
+
+// TenMax 廣告載入函數
+function loadTenMaxAd() {
+  if (tenMaxAdLoaded) return;
+  
+  console.log("📢 Loading TenMax Ad");
+  
+  const insElement = document.createElement('ins');
+  insElement.className = 'rmax';
+  insElement.setAttribute('data-rmax-space-id', '2884693e2a3a4dc0');
+  
+  const scriptElement = document.createElement('script');
+  scriptElement.async = true;
+  scriptElement.src = 'https://tenmax-static.cacafly.net/ssp/adsbytenmax.js';
+  
+  adContainer_img.appendChild(insElement);
+  adContainer_img.appendChild(scriptElement);
+  
+  tenMaxAdLoaded = true;
+  console.log("✅ TenMax Ad loaded");
+}
+
+// TenMax 廣告關閉
+adContainer_img.addEventListener('click', () => {
+  if (tenMaxAdVisible) {
+    hideTenMaxAd();
+    videoContent.play();
+  }
+});
+
+// 顯示 TenMax 廣告
+function showTenMaxAd() {
+  adContainer_img.style.display = 'block';
+  tenMaxAdVisible = true;
+  console.log("👁️ TenMax Ad visible");
+}
+
+// 隱藏 TenMax 廣告
+function hideTenMaxAd() {
+  adContainer_img.style.display = 'none';
+  tenMaxAdVisible = false;
+  console.log("🙈 TenMax Ad hidden");
+}
+
+// 播放按鈕事件
+bigPlayBtn.addEventListener('click', startPlayback);
+
+// 播放器控制功能
+playPauseBtn.addEventListener('click', () => {
+  if (isAdPlaying) {
+  } else {
+    // 內容播放期間的控制
+    if (videoContent.paused) {
+      if (tenMaxAdVisible) {
+        hideTenMaxAd();
+      }
+      videoContent.play();
+    } else {
+      videoContent.pause();
+      
+      if (!tenMaxAdLoaded) {
+        loadTenMaxAd();
+        showTenMaxAd();
+      } else if (!tenMaxAdVisible) {
+        showTenMaxAd();
+      }
+    }
+  }
+});
+
+videoContent.addEventListener('play', () => {
+  playPauseBtn.textContent = '⏸';
+  bigPlayBtn.classList.add('hidden');
+});
+
+videoContent.addEventListener('pause', () => {
+  if (!isAdPlaying) {
+    playPauseBtn.textContent = '▶';
+  }
+});
+
+// 進度條功能
+progressBar.addEventListener('click', (e) => {
+  if (isAdPlaying) return;
+  
+  const rect = progressBar.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const width = rect.width;
+  const percentage = clickX / width;
+  const duration = videoContent.duration;
+  
+  if (duration) {
+    videoContent.currentTime = duration * percentage;
+  }
+});
+
+videoContent.addEventListener('timeupdate', () => {
+  if (isAdPlaying) return;
+  
+  const duration = videoContent.duration;
+  const currentTime = videoContent.currentTime;
+  
+  if (duration) {
+    const percentage = (currentTime / duration) * 100;
+    progressFilled.style.width = percentage + '%';
+    
+    const currentFormatted = formatTime(currentTime);
+    const durationFormatted = formatTime(duration);
+    timeDisplay.textContent = `${currentFormatted} / ${durationFormatted}`;
+  }
+});
+
+videoContent.addEventListener('loadedmetadata', () => {
+  const duration = videoContent.duration;
+  if (duration) {
+    const durationFormatted = formatTime(duration);
+    timeDisplay.textContent = `00:00 / ${durationFormatted}`;
+  }
+});
+
+// 音量控制
+volumeBtn.addEventListener('click', () => {
+  if (videoContent.muted) {
+    videoContent.muted = false;
+    volumeBtn.textContent = '🔊';
+  } else {
+    videoContent.muted = true;
+    volumeBtn.textContent = '🔇';
+  }
+});
+
+volumeSlider.addEventListener('input', () => {
+  const volume = volumeSlider.value / 100;
+  videoContent.volume = volume;
+  videoContent.muted = false;
+  
+  if (volume === 0) {
+    volumeBtn.textContent = '🔇';
+  } else {
+    volumeBtn.textContent = '🔊';
+  }
+});
+
+// 工具函數
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+}
+
+// 響應式處理
+window.addEventListener('resize', () => {
+  adsManagers.forEach((manager) => {
+    if (manager) {
+      let width = videoContent.clientWidth;
+      let height = videoContent.clientHeight;
+      manager.resize(width, height, google.ima.ViewMode.NORMAL);
+    }
+  });
+});
+
+// 初始化
+videoContent.volume = 0.5;
+
+// 載入多個廣告
+loadMultipleAds();
+      
+    </script>
+  </body>
+</html>

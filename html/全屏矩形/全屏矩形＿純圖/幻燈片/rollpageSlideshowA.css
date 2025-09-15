@@ -1,0 +1,121 @@
+#rollpageSlideshow * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+#rollpageSlideshow a {
+  display: block;
+}
+
+#rollpageSlideshow {
+  height: calc(var(--vh, 1vh) * 400);
+  --vh: 1vh;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  width: 100vw;
+
+}
+
+#rollpageSlideshow .stickyWindow {
+
+  height: calc(var(--vh, 1vh) * 400);
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  clip-path: inset(0px -50vw);
+  position: sticky;
+  z-index: 2147483647;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  max-width: 100vw;
+  overflow-x: hidden;
+background-color: #222;
+box-shadow: -20px 0 0 0 rgb(34 34 34), 20px 0 0 0 rgb(34 34 34);
+  /* background-color: #222;
+  box-shadow: -20px 0 0 0 rgb(34 34 34), 20px 0 0 0 rgb(34 34 34);
+  */
+}
+
+/* id selector required? css weight */
+#rollpageSlideshow .TenMaxBannerBundle {
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  position: fixed;
+  background-color: #222;
+  box-shadow: -20px 0 0 0 rgb(34 34 34), 20px 0 0 0 rgb(34 34 34);
+  top: 0;
+  left: 0;
+}
+
+#rollpageSlideshow .TenMaxInterstitial img {
+  width: 100% !important;
+  height: calc(var(--vh, 1vh) * 100) !important;
+  object-fit: cover;
+  background-color: #222;
+  margin-bottom: 20px;
+}
+
+#rollpageSlideshow .TenMaxInterstitial img:not(:first-of-type) {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+
+}
+
+#rollpageSlideshow .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background: none;
+  position: absolute;
+  top: 10%;
+  right: 4%;
+  z-index: 200;
+}
+
+#rollpageSlideshow .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#rollpageSlideshow .pageNum {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  font-size: 18px;
+  color: white;
+  line-height: 30px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  position: absolute;
+  top: 10%;
+  left: 4%;
+  z-index: 10;
+}
+
+#rollpageSlideshow .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/Native-Ad-Test/DFP-Test/img/small.png) right center/contain no-repeat;
+  position: static;
+  bottom: 15px;
+  right: 0;
+  right: 0;
+  z-index: 100;
+}
+
+#rollpageSlideshow .TenMaxLogo img {
+  width: 30px;
+}
