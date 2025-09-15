@@ -1,0 +1,281 @@
+#marqueeInterstitial {
+  width: 100%;
+  /* transform: translateY(100%); */
+  --vh: 1vh;
+}
+
+body.block {
+  overflow: hidden;
+}
+
+#marqueeInterstitial * {
+  padding: 0;
+  margin: 0;
+}
+
+#marqueeInterstitial a {
+  display: block;
+  text-decoration: none;
+}
+
+/* #marqueeInterstitial.show {
+  transform: translateY(0);
+} */
+
+#marqueeInterstitial .TenMaxBannerBundle {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+#marqueeInterstitial .marqueeBackground {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: linear-gradient(to left, #2d70b4, #0198a9);
+  border-radius: 4px;
+  /* clip-path: rect(0 0 100% 0);
+  -webkit-clip-path: rect(0 0 100% 0); */
+}
+
+#marqueeInterstitial .marqueeContainer {
+  display: flex;
+  width: 92%;
+  font-size: 14px;
+  line-height: 26px;
+  color: #fff;
+  overflow: hidden;
+}
+
+#marqueeInterstitial .marqueeContent {
+  display: inline-block;
+  white-space: nowrap;
+  animation-play-state: paused;
+}
+
+/* #marqueeInterstitial.show .marqueeBackground {
+  animation: clipLeft 1s linear 1 forwards;
+} */
+
+#marqueeInterstitial .contentA.go {
+  animation: marquee 15s linear infinite;
+}
+
+#marqueeInterstitial .contentB.go {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#marqueeInterstitial .TenMaxBannerBundle .slide {
+  display: none;
+  width: 50px;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  z-index: 100;
+}
+
+#marqueeInterstitial .TenMaxBannerBundle .slide.show {
+  display: block;
+  animation: slide .5s linear 0.3s 2 forwards;
+}
+
+@keyframes slide {
+  0% {
+    transform: translate(40px, 25px);
+  }
+  50% {
+    transform: translate(0px, 15px);
+  }
+  100% {
+    transform: translate(-40px, 25px);
+  }
+}
+
+#marqueeInterstitial .TenMaxCards {
+  width: 100%;
+  height: 42vw;
+  transform: scale(1);
+  position: relative;
+}
+
+/* #marqueeInterstitial.show .TenMaxCards.show {
+  transform: scale(1);
+  clip-path: rect(0 0 100% 0);
+  -webkit-clip-path: rect(0 0 100% 0);
+  animation: clipLeft 1s linear 0.3s 1 forwards;
+} */
+
+@keyframes clipLeft {
+  0% {
+    clip-path: rect(0 0 100% 0);
+    -webkit-clip-path: rect(0 0 100% 0);
+  }
+  100% {
+    clip-path: rect(0 100% 100% 0);
+    -webkit-clip-path: rect(0 100% 100% 0);
+  }
+}
+
+#marqueeInterstitial .marqueeCard {
+  width: 95%;
+  border-radius: 10px;
+  filter: drop-shadow(2px 2px 3px #222);
+  position: absolute;
+  top: calc(50% - 18vw);
+  left: calc(50% - 47.5%);
+  z-index: 1;
+}
+
+#marqueeInterstitial .marqueeCard.cardA {
+  transform: rotate(2deg);
+}
+
+#marqueeInterstitial .marqueeCard.cardB {
+  transform: rotate(-2deg);
+}
+
+#marqueeInterstitial .marqueeCard.current {
+  animation: TMfadeIn 1s linear 1 forwards;
+}
+
+#marqueeInterstitial .marqueeCard.out {
+  animation: TMfadeOut 1s linear 1 forwards;
+}
+
+#marqueeInterstitial .TenMaxInterstitial {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateX(120%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 2147483646;
+  overflow: hidden;
+}
+
+#marqueeInterstitial .TenMaxInterstitial.show {
+  transform: translateX(0);
+}
+
+#marqueeInterstitial .TenMaxInterstitial .ICard {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(2px 2px 3px #222);
+  position: absolute;
+  top: calc(50% - 60vw);
+  left: 0;
+  z-index: 2;
+}
+
+#marqueeInterstitial .ICard.interstitialA {
+  transform: rotate(4deg);
+} 
+
+#marqueeInterstitial .ICard.interstitialB {
+  transform: rotate(-4deg);
+}
+
+#marqueeInterstitial .ICard.interstitialC {
+  transform: rotate(-2deg);
+}
+
+#marqueeInterstitial .ICard.current {
+  animation: TMfadeIn 1s linear 1 forwards;
+}
+
+@keyframes TMfadeIn {
+  0% {
+    z-index: 3;
+  }
+  50% {
+    transform: rotate(0deg);
+    z-index: 3;
+  }
+  100% {
+    transform: rotate(0deg);
+    z-index: 3;
+  }
+}
+
+#marqueeInterstitial .ICard.out {
+  animation: TMfadeOut 1s linear 1 forwards;
+}
+
+@keyframes TMfadeOut {
+  0% {
+    transform: translateX(0);
+    z-index: 50;
+  }
+  45% {
+    transform: translateX(-120%);
+    z-index: 50;
+  }
+  55% {
+    transform: translateX(-120%);
+    z-index: 1;
+  }
+  100% {
+    transform: translateX(0);
+    z-index: 1;
+  }
+}
+
+#marqueeInterstitial .ICard img {
+  width: 80%;
+}
+
+#marqueeInterstitial .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  transform: translateX(300%);
+  line-height: 0;
+  position: fixed;
+  top: calc(50% - 70vw);
+  right: 5%;
+  z-index: 2147483647;
+}
+
+#marqueeInterstitial .TenMaxCloseBtn.show {
+  transform: translateX(0);
+}
+
+#marqueeInterstitial .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#marqueeInterstitial .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/small.png) right center/contain no-repeat;
+}
+
+#marqueeInterstitial .TenMaxLogo img {
+  width: 30px;
+}

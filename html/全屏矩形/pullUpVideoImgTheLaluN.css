@@ -1,0 +1,238 @@
+#pullUpVideoImgTheLaluI {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column-reverse;
+  -webkit-flex-direction: column-reverse;
+  width: 100%;
+  transform: translateY(100%);
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  --vh: 1vh;
+}
+
+#pullUpVideoImgTheLaluI * {
+  padding: 0;
+  margin: 0;
+}
+
+#pullUpVideoImgTheLaluI a {
+  display: block;
+  text-decoration: none;
+}
+
+#pullUpVideoImgTheLaluI .firstInterstitial {
+  display: block;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/pullUp/TheLalu/TheLalu-Interstitial-N.jpg) center/cover no-repeat;
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  transform: translateY(0);
+}
+
+#pullUpVideoImgTheLaluI.play .firstInterstitial {
+  animation: slideOut 3s ease-in-out 0s 1 normal forwards;
+}
+
+@keyframes slideOut {
+  70% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+#pullUpVideoImgTheLaluI.show {
+  transform: translateY(calc(var(--vh, 1vh) * 100));
+  transition: transform 1s ease-in-out;
+}
+
+#pullUpVideoImgTheLaluI.up {
+  transform: translateY(0);
+  transition: transform 1s ease-in-out;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxBanner {
+  display: block;
+  width: 100%;
+  height: 46.7vw;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/pullUp/TheLalu/TheLalu-Banner-N.jpg) center/contain no-repeat;
+  position: relative;
+}
+
+#pullUpVideoImgTheLaluI.up .TenMaxBanner {
+  display: none;
+}
+
+#pullUpVideoImgTheLaluI.up .TenMaxBannerBundle {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes down {
+  50% {
+    transform: translateY(100%);
+  }
+}
+
+#pullUpVideoImgTheLaluI.show .pullUpArrow {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  width: 40px;
+  height: 25px;
+  background-color: #777;
+  border: 1px solid #777;
+  border-bottom: none;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+}
+
+#pullUpVideoImgTheLaluI .pullUpArrow img {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  bottom: 2px;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxInterstitial {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  height: calc(var(--vh, 1vh) * 100);
+  position: relative;
+  margin: auto;
+}
+
+#pullUpVideoImgTheLaluI.show .TenMaxInterstitial {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+#pullUpVideoImgTheLaluI.up .TenMaxInterstitial {
+  opacity: 1;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  line-height: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2147483647;
+  transform: translate(50%, 50%);
+}
+
+#pullUpVideoImgTheLaluI .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#pullUpVideoImgTheLaluI.show .TenMaxCloseBtn {
+  display: block;
+  right: 0;
+  transform: translate(-50%, -150%);
+}
+
+#pullUpVideoImgTheLaluI.up .TenMaxCloseBtn {
+  display: block;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  top: 0;
+  right: 0;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxMuteBtn {
+  display: none;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  box-shadow: none;
+  position: absolute;
+  z-index: 2147483647;
+}
+
+#pullUpVideoImgTheLaluI.up .TenMaxMuteBtn {
+  display: block;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxMuteBtn img {
+  width: 20px;
+  height: 20px;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxMuteBtn .TenMaxMute {
+  display: none;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxMuteBtn.muted .TenMaxMute {
+  display: block;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxMuteBtn .TenMaxOn {
+  display: block;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxMuteBtn.muted .TenMaxOn {
+  display: none;
+}
+
+@media (max-aspect-ratio: 600/1198) {
+  #pullUpVideoImgTheLaluI .TenMaxInterstitial {
+    justify-content: center;
+    width: 100vw;
+  }
+  #pullUpVideoImgTheLaluI .TenMaxMuteBtn {
+    top: calc(338 / 1198 * 100% - 3%);
+    right: 6%;
+  }
+  #pullUpVideoImgTheLaluI.up .TenMaxCloseBtn {
+    transform: translate(-50%, 50%);
+  }
+}
+
+@media (min-aspect-ratio: 600/1198) {
+  #pullUpVideoImgTheLaluI .TenMaxInterstitial {
+    width: calc(600 / 11.975 * var(--vh));
+  }
+  #pullUpVideoImgTheLaluI .TenMaxMuteBtn {
+    top: calc(338 / 1198 * 100% - 5%);
+    right: 15%;
+  }
+  #pullUpVideoImgTheLaluI.up .TenMaxCloseBtn {
+    transform: translate(-50%, 50%);
+  }
+}
+
+#pullUpVideoImgTheLaluI .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/small.png) right center/contain no-repeat;
+  position: fixed;
+  top: 40vw;
+  right: 0;
+  z-index: 2147483647;
+}
+
+#pullUpVideoImgTheLaluI .TenMaxLogo img {
+  width: 30px;
+}

@@ -1,0 +1,309 @@
+#marqueeInterstitialPHILIPS {
+  width: 100%;
+  transform: translateY(100%);
+  --vh: 1vh;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 2147483647;
+  --vh: 1vh;
+  -webkit-text-size-adjust: 100%;
+}
+
+body.block {
+  overflow: hidden;
+}
+
+#marqueeInterstitialPHILIPS * {
+  padding: 0;
+  margin: 0;
+}
+
+#marqueeInterstitialPHILIPS a {
+  display: block;
+  text-decoration: none;
+}
+
+#marqueeInterstitialPHILIPS.show {
+  transform: translateY(0);
+}
+
+#marqueeInterstitialPHILIPS .TenMaxBannerBundle {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+#marqueeInterstitialPHILIPS .marqueeBackground {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  background: #51280c;
+  border-radius: 4px;
+  transform: translateX(120%);
+  position: relative;
+  z-index: 1;
+}
+
+#marqueeInterstitialPHILIPS .marqueeBackground.show {
+  animation: MarqueeFadeIn 1s linear 1 1s forwards;
+}
+
+@keyframes MarqueeFadeIn {
+  0% {
+    transform: translateX(120%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+#marqueeInterstitialPHILIPS .marqueeContainer {
+  display: flex;
+  width: 92%;
+  font-size: 17px;
+  line-height: 28px;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+#marqueeInterstitialPHILIPS .marqueeContent {
+  display: inline-block;
+  white-space: nowrap;
+  animation-play-state: paused;
+}
+
+#marqueeInterstitialPHILIPS .marqueeContent span {
+  color: #ffffff;
+}
+
+#marqueeInterstitialPHILIPS .contentA.go {
+  animation: marquee 15s linear infinite;
+}
+
+#marqueeInterstitialPHILIPS .contentB.go {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#marqueeInterstitialPHILIPS .TenMaxBannerBundle .slide {
+  display: none;
+  width: 50px;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  z-index: 100;
+}
+
+#marqueeInterstitialPHILIPS .TenMaxBannerBundle .slide.show {
+  display: block;
+  animation: slide .5s linear 0.3s 2 forwards;
+}
+
+@keyframes slide {
+  0% {
+    transform: translate(40px, 25px);
+  }
+  50% {
+    transform: translate(0px, 15px);
+  }
+  100% {
+    transform: translate(-40px, 25px);
+  }
+}
+
+#marqueeInterstitialPHILIPS .TenMaxCards {
+  width: 90%;
+  height: 40vw;
+  transform: scale(1);
+  position: relative;
+  z-index: 1;
+}
+
+#marqueeInterstitialPHILIPS .marqueeCard {
+  width: 95%;
+  border-radius: 10px;
+  filter: drop-shadow(2px 2px 3px #222);
+  transform: translateY(120%);
+  position: absolute;
+  top: calc(50% - 18vw);
+  left: calc(50% - 47.5%);
+}
+
+#marqueeInterstitialPHILIPS.show .cardA.show {
+  transform: translateY(0);
+  transition: transform .5s 1s;
+  z-index: 3;
+}
+#marqueeInterstitialPHILIPS.show .cardB.show {
+  transform: rotate(-2deg) translateY(0);
+  transition: transform .5s .5s;
+  z-index: 2;
+}
+#marqueeInterstitialPHILIPS.show .cardC.show {
+  transform: rotate(2deg) translateY(0);
+  transition: transform .5s;
+  z-index: 1;
+}
+
+#marqueeInterstitialPHILIPS .marqueeCard.current {
+  animation: TMfadeIn 1s linear 1 forwards;
+}
+
+#marqueeInterstitialPHILIPS .marqueeCard.out {
+  animation: TMfadeOut 1s linear 1 forwards;
+}
+
+#marqueeInterstitialPHILIPS .TenMaxInterstitial {
+  display: block;
+  width: 100%;
+  height: calc(var(--vh, 1vh) * 100);
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateY(100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+#marqueeInterstitialPHILIPS .TenMaxInterstitial.show {
+  transform: translateY(0);
+}
+
+#marqueeInterstitialPHILIPS .TenMaxInterstitial .ICard {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(2px 2px 3px #222);
+  position: absolute;
+  bottom: calc(28px + 40vw + 15px);
+  left: 0;
+  z-index: 2;
+}
+
+#marqueeInterstitialPHILIPS .ICard.interstitialA {
+  transform: rotate(4deg);
+} 
+
+#marqueeInterstitialPHILIPS .ICard.interstitialB {
+  transform: rotate(-4deg);
+}
+
+#marqueeInterstitialPHILIPS .ICard.interstitialC {
+  transform: rotate(-2deg);
+}
+
+#marqueeInterstitialPHILIPS .ICard.current {
+  animation: TMfadeIn 1s linear 1 forwards;
+}
+
+@keyframes TMfadeIn {
+  0% {
+    z-index: 3;
+  }
+  50% {
+    transform: rotate(0deg);
+    z-index: 3;
+  }
+  100% {
+    transform: rotate(0deg);
+    z-index: 3;
+  }
+}
+
+#marqueeInterstitialPHILIPS .ICard.out {
+  animation: TMfadeOut 1s linear 1 forwards;
+}
+
+@keyframes TMfadeOut {
+  0% {
+    transform: translateX(0);
+    z-index: 50;
+  }
+  45% {
+    transform: translateX(-120%);
+    z-index: 50;
+  }
+  55% {
+    transform: translateX(-120%);
+    z-index: 1;
+  }
+  100% {
+    transform: translateX(0);
+    z-index: 1;
+  }
+}
+
+#marqueeInterstitialPHILIPS .ICard img {
+  width: 57%;
+}
+
+#marqueeInterstitialPHILIPS .TenMaxCloseBtn {
+  display: none;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  line-height: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2147483647;
+}
+
+#marqueeInterstitialPHILIPS .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#marqueeInterstitialPHILIPS.show .bannerClose.show {
+  display: block;
+  transform: translate(-50%, -150%);
+}
+
+#marqueeInterstitialPHILIPS .interstitialClose.show {
+  display: block;
+}
+
+@media screen and (max-width: 375px) {
+  #marqueeInterstitialPHILIPS .interstitialClose {
+    top: -150%;
+    transform: translateX(-50%);
+  }
+}
+
+@media screen and (min-width: 376px) {
+  #marqueeInterstitialPHILIPS .interstitialClose {
+    top: -200%;
+    transform: translateX(-50%);
+  }
+}
+
+#marqueeInterstitialPHILIPS .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/small.png) right center/contain no-repeat;
+  z-index: 2147483647;
+}
+
+#marqueeInterstitialPHILIPS .TenMaxLogo img {
+  width: 30px;
+}

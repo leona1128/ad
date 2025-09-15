@@ -1,0 +1,285 @@
+#marqueeInterstitialTea {
+  width: 100%;
+  /* transform: translateY(100%); */
+  --vh: 1vh;
+}
+
+body.block {
+  overflow: hidden;
+}
+
+#marqueeInterstitialTea * {
+  padding: 0;
+  margin: 0;
+}
+
+#marqueeInterstitialTea a {
+  display: block;
+  text-decoration: none;
+}
+
+/* #marqueeInterstitialTea.show {
+  transform: translateY(0);
+} */
+
+#marqueeInterstitialTea .TenMaxBannerBundle {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+#marqueeInterstitialTea .marqueeBackground {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: #51280c;
+  border-radius: 4px;
+  /* clip-path: rect(0 0 100% 0);
+  -webkit-clip-path: rect(0 0 100% 0); */
+}
+
+#marqueeInterstitialTea .marqueeContainer {
+  display: flex;
+  width: 92%;
+  font-size: 14px;
+  line-height: 26px;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+#marqueeInterstitialTea .marqueeContent {
+  display: inline-block;
+  white-space: nowrap;
+  animation-play-state: paused;
+}
+
+#marqueeInterstitialTea .marqueeContent span {
+  color: #ffffff;
+}
+
+/* #marqueeInterstitialTea.show .marqueeBackground {
+  animation: clipLeft 1s linear 1 forwards;
+} */
+
+#marqueeInterstitialTea .contentA.go {
+  animation: marquee 15s linear infinite;
+}
+
+#marqueeInterstitialTea .contentB.go {
+  animation: marquee 15s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+#marqueeInterstitialTea .TenMaxBannerBundle .slide {
+  display: none;
+  width: 50px;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  z-index: 100;
+}
+
+#marqueeInterstitialTea .TenMaxBannerBundle .slide.show {
+  display: block;
+  animation: slide .5s linear 0.3s 2 forwards;
+}
+
+@keyframes slide {
+  0% {
+    transform: translate(40px, 25px);
+  }
+  50% {
+    transform: translate(0px, 15px);
+  }
+  100% {
+    transform: translate(-40px, 25px);
+  }
+}
+
+#marqueeInterstitialTea .TenMaxCards {
+  width: 100%;
+  height: 42vw;
+  transform: scale(1);
+  position: relative;
+}
+
+/* #marqueeInterstitialTea.show .TenMaxCards.show {
+  transform: scale(1);
+  clip-path: rect(0 0 100% 0);
+  -webkit-clip-path: rect(0 0 100% 0);
+  animation: clipLeft 1s linear 0.3s 1 forwards;
+} */
+
+@keyframes clipLeft {
+  0% {
+    clip-path: rect(0 0 100% 0);
+    -webkit-clip-path: rect(0 0 100% 0);
+  }
+  100% {
+    clip-path: rect(0 100% 100% 0);
+    -webkit-clip-path: rect(0 100% 100% 0);
+  }
+}
+
+#marqueeInterstitialTea .marqueeCard {
+  width: 95%;
+  border-radius: 10px;
+  filter: drop-shadow(2px 2px 3px #222);
+  position: absolute;
+  top: calc(50% - 18vw);
+  left: calc(50% - 47.5%);
+  z-index: 1;
+}
+
+#marqueeInterstitialTea .marqueeCard.cardA {
+  transform: rotate(2deg);
+}
+
+#marqueeInterstitialTea .marqueeCard.cardB {
+  transform: rotate(-2deg);
+}
+
+#marqueeInterstitialTea .marqueeCard.current {
+  animation: TMfadeIn 1s linear 1 forwards;
+}
+
+#marqueeInterstitialTea .marqueeCard.out {
+  animation: TMfadeOut 1s linear 1 forwards;
+}
+
+#marqueeInterstitialTea .TenMaxInterstitial {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: translateX(120%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100000;
+  overflow: hidden;
+}
+
+#marqueeInterstitialTea .TenMaxInterstitial.show {
+  transform: translateX(0);
+}
+
+#marqueeInterstitialTea .TenMaxInterstitial .ICard {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  filter: drop-shadow(2px 2px 3px #222);
+  position: absolute;
+  top: calc(50% - 60vw);
+  left: 0;
+  z-index: 2;
+}
+
+#marqueeInterstitialTea .ICard.interstitialA {
+  transform: rotate(4deg);
+} 
+
+#marqueeInterstitialTea .ICard.interstitialB {
+  transform: rotate(-4deg);
+}
+
+#marqueeInterstitialTea .ICard.interstitialC {
+  transform: rotate(-2deg);
+}
+
+#marqueeInterstitialTea .ICard.current {
+  animation: TMfadeIn 1s linear 1 forwards;
+}
+
+@keyframes TMfadeIn {
+  0% {
+    z-index: 3;
+  }
+  50% {
+    transform: rotate(0deg);
+    z-index: 3;
+  }
+  100% {
+    transform: rotate(0deg);
+    z-index: 3;
+  }
+}
+
+#marqueeInterstitialTea .ICard.out {
+  animation: TMfadeOut 1s linear 1 forwards;
+}
+
+@keyframes TMfadeOut {
+  0% {
+    transform: translateX(0);
+    z-index: 50;
+  }
+  45% {
+    transform: translateX(-120%);
+    z-index: 50;
+  }
+  55% {
+    transform: translateX(-120%);
+    z-index: 1;
+  }
+  100% {
+    transform: translateX(0);
+    z-index: 1;
+  }
+}
+
+#marqueeInterstitialTea .ICard img {
+  width: 80%;
+}
+
+#marqueeInterstitialTea .TenMaxCloseBtn {
+  display: block;
+  width: 25px;
+  height: 25px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0);
+  box-shadow: none;
+  transform: translateX(300%);
+  line-height: 0;
+  position: fixed;
+  top: calc(50% - 70vw);
+  right: 5%;
+  z-index: 2147483647;
+}
+
+#marqueeInterstitialTea .TenMaxCloseBtn.show {
+  transform: translateX(0);
+}
+
+#marqueeInterstitialTea .TenMaxCloseBtn img {
+  width: 100%;
+}
+
+#marqueeInterstitialTea .TenMaxLogo {
+  width: 28px;
+  height: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: #ddd;
+  background: url(https://tenmax-static.cacafly.net/ssp/H5_Creative_Advertising/img/small.png) right center/contain no-repeat;
+}
+
+#marqueeInterstitialTea .TenMaxLogo img {
+  width: 30px;
+}
